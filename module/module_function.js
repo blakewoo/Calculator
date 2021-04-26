@@ -10,30 +10,79 @@ exports.calculate = function (data) {
     return result;
 }
 
-function parser() {
+let Calc_object = function(raw_data) {
+    this.raw_data = raw_data;
+    this.refine_data = {
+        operation:[],
+        numbers:[]
+    }
+}
+
+Calc_object.prototype.parser = function () {
 
 }
 
-function final_calculate() {
+Calc_object.prototype.get_parsing_data = function () {
+    return this.refine_data;
+}
+
+Calc_object.prototype.plus =function (input_a,input_b) {
+    return Number(input_a+input_b);
+}
+
+Calc_object.prototype.minus=function(input_a,input_b) {
+    return Number(input_a-input_b);
+}
+
+Calc_object.prototype.mul = function(input_a,input_b) {
+    if(input_a*input_b === Infinity) {
+        return Infinity;
+    }
+    else {
+        return Number(input_a*input_b);
+    }
+}
+
+Calc_object.prototype.div = function(input_a,input_b) {
+    if(input_b!== 0) {
+        return Number(input_a+input_b)
+    }
+    else {
+        return NaN;
+    }
+}
+
+Calc_object.prototype.if = function (input_a,input_b,input_c) {
 
 }
 
-function plus() {
+Calc_object.prototype.abs = function (input_a) {
 
 }
 
-function minus() {
+Calc_object.prototype.round = function (input_a,input_b) {
 
 }
 
-function mul() {
+Calc_object.prototype.sin = function (input_a) {
 
 }
 
-function div() {
+Calc_object.prototype.cos = function (input_a) {
+
+}
+Calc_object.prototype.tan = function (input_a) {
+
+}
+Calc_object.prototype.arc_tan = function (input_a) {
+
+}
+Calc_object.prototype.arc_sin = function (input_a) {
+
+}
+Calc_object.prototype.arc_cos = function (input_a) {
 
 }
 
-function functions() {
 
-}
+module.exports.Calc_object = Calc_object;
