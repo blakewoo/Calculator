@@ -19,7 +19,9 @@ let Calc_object = function(raw_data) {
 }
 
 Calc_object.prototype.parser = function () {
+    let raw_data = this.raw_data;
 
+    let split_data = raw_data.split()
 }
 
 Calc_object.prototype.get_parsing_data = function () {
