@@ -169,23 +169,38 @@ Calc_object.prototype.root = function (input_a) {
 
 // 삼각함수의 경우 각도 입력
 Calc_object.prototype.sin = function (input_a) {
-
+    return Math.sin(radianToDegree(input_a));
 }
 
 Calc_object.prototype.cos = function (input_a) {
-
+    return Math.cos(radianToDegree(input_a));
 }
 Calc_object.prototype.tan = function (input_a) {
-
+    return Math.tan(radianToDegree(input_a));
 }
 Calc_object.prototype.atan = function (input_a) {
-
+    if(input_a<-1 || input_a>1) {
+        return NaN;
+    }
+    else {
+        return Math.atan(input_a)
+    }
 }
 Calc_object.prototype.asin = function (input_a) {
-
+    if(input_a<-1 || input_a>1) {
+        return NaN;
+    }
+    else {
+        return Math.asin(input_a)
+    }
 }
 Calc_object.prototype.acos = function (input_a) {
-
+    if(input_a<-1 || input_a>1) {
+        return NaN;
+    }
+    else {
+        return Math.acos(input_a)
+    }
 }
 
 
@@ -213,6 +228,11 @@ function isNumber (input_a) {
     else {
         return !isNaN(input_a)
     }
+}
+
+function radianToDegree(input_a) {
+    const pi = Math.PI;
+    return input_a*(180/pi);
 }
 
 module.exports.Calc_object = Calc_object;
