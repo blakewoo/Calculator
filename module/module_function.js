@@ -124,17 +124,50 @@ Calc_object.prototype.div = function(input_a,input_b) {
 }
 
 Calc_object.prototype.if = function (input_a,input_b,input_c) {
+    // 정규식으로 적절한 값 예외처리, 적절하지 않으면 NaN 반환
 
+    if(input_a) {
+        return input_b;
+    }
+    else {
+        return input_c;
+    }
 }
 
 Calc_object.prototype.abs = function (input_a) {
-
+    // 인자로 0 혹은 무한, 숫자 아닌것 걸러내기
+    if(isNumber(input_a)) {
+        input_a = isMinMax(input_a)
+        if(isFinite(input_a)) {
+            if(input_a<0) {
+                return -input_a;
+            }
+            else {
+                return input_a;
+            }
+        }
+        else if(input_a<0){
+            return -Infinity;
+        }
+        else {
+            return Infinity;
+        }
+    }
+    else {
+        return NaN;
+    }
 }
 
 Calc_object.prototype.round = function (input_a,input_b) {
-
+    // 0이나 무한, 숫자 아닌 것 걸러내기
+    return input_a.toFixed(input_b);
 }
 
+Calc_object.prototype.root = function (input_a) {
+    return Math.sqrt(input_a);
+}
+
+// 삼각함수의 경우 각도 입력
 Calc_object.prototype.sin = function (input_a) {
 
 }
@@ -155,9 +188,7 @@ Calc_object.prototype.acos = function (input_a) {
 
 }
 
-Calc_object.prototype.root = function (input_a) {
 
-}
 
 function isMinMax(input_a) {
     if(input_a<Number('1e-20') && input_a>0) {
