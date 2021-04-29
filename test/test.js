@@ -19,17 +19,17 @@ describe('Paser Test', function () {
 
 });
 
-describe('One op Functions Test', function () {
+describe.only('One op Functions Test', function () {
 
     let test = new target.Calc_object();
     let test_case_input = [
-        '2','3','4','5','6','7'
+        0,0.0000000000000000000000000000001,-0.0000000000000000000000000000001,100000000000000000000000000000000,-100000000000000000000000000000000,237,-23.1,157.1
     ]
     let test_case_output_abs = [
-        '2','3','4','5','6','7'
+        0,0,0,Infinity,Infinity,237,23.1,157.1
     ];
     let test_case_output_root = [
-        '2','3','4','5','6','7'
+        0,0,0,NaN,NaN,15.394804318340652,NaN,12.533953885346794
     ];
     let test_case_output_sin = [
         '2','3','4','5','6','7'
@@ -51,13 +51,13 @@ describe('One op Functions Test', function () {
     ];
 
     for(let i=0;i<test_case_input.length;i++) {
-        it('abs '+i, function () {
-            assert.strictEqual(test.abs(test_case_input[i]), test_case_output[i]);
+        it.only('abs '+i, function () {
+            assert.strictEqual(test.abs(test_case_input[i]), test_case_output_abs[i]);
         });
     }
     for(let i=0;i<test_case_input.length;i++) {
-        it('root '+i, function () {
-            assert.strictEqual(test.root(test_case_input[i]), test_case_output[i]);
+        it.only('root '+i, function () {
+            assert.strictEqual(test.root(test_case_input[i]), test_case_output_root[i]);
         });
     }
     for(let i=0;i<test_case_input.length;i++) {

@@ -146,9 +146,6 @@ Calc_object.prototype.abs = function (input_a) {
                 return input_a;
             }
         }
-        else if(input_a<0){
-            return -Infinity;
-        }
         else {
             return Infinity;
         }
