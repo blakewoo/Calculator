@@ -161,42 +161,91 @@ Calc_object.prototype.round = function (input_a,input_b) {
 }
 
 Calc_object.prototype.root = function (input_a) {
-    return Math.sqrt(input_a);
+    if(isNumber(input_a)) {
+        if(input_a<0) {
+            return NaN;
+        }
+        else {
+            input_a = isMinMax(input_a)
+            if(input_a === 0) {
+                return 0
+            }
+            else {
+                return Math.sqrt(input_a);
+            }
+        }
+    }
+    else{
+        return NaN;
+    }
 }
-
 // 삼각함수의 경우 각도 입력
 Calc_object.prototype.sin = function (input_a) {
-    return Math.sin(radianToDegree(input_a));
+    if(isNumber(input_a)) {
+        input_a = isMinMax(input_a);
+        return Math.sin(radianToDegree(input_a));
+    }
+    else {
+        return NaN;
+    }
+
 }
 
 Calc_object.prototype.cos = function (input_a) {
-    return Math.cos(radianToDegree(input_a));
-}
-Calc_object.prototype.tan = function (input_a) {
-    return Math.tan(radianToDegree(input_a));
-}
-Calc_object.prototype.atan = function (input_a) {
-    if(input_a<-1 || input_a>1) {
-        return NaN;
+    if(isNumber(input_a)) {
+        input_a=isMinMax(input_a)
+        return Math.cos(radianToDegree(input_a));
     }
     else {
-        return Math.atan(input_a)
+        return NaN;
+    }
+}
+Calc_object.prototype.tan = function (input_a) {
+    if(isNumber(input_a)) {
+        input_a=isMinMax(input_a)
+        return Math.tan(radianToDegree(input_a));
+    }
+    else {
+        return NaN;
+    }
+}
+// 탄젠트 역함수 - 무한, 0, 음수 예외처리 필수
+Calc_object.prototype.atan = function (input_a) {
+    if(isNumber(input_a)) {
+        if(input_a<-1 || input_a>1) {
+            return NaN;
+        }
+        else {
+            return Math.atan(input_a)
+        }
+    }
+    else {
+        return NaN;
     }
 }
 Calc_object.prototype.asin = function (input_a) {
-    if(input_a<-1 || input_a>1) {
-        return NaN;
+    if(isNumber(input_a)) {
+        if (input_a < -1 || input_a > 1) {
+            return NaN;
+        } else {
+            return Math.asin(input_a)
+        }
     }
     else {
-        return Math.asin(input_a)
+        return NaN;
     }
 }
 Calc_object.prototype.acos = function (input_a) {
-    if(input_a<-1 || input_a>1) {
-        return NaN;
+    if(isNumber(input_a)) {
+        if(input_a<-1 || input_a>1) {
+            return NaN;
+        }
+        else {
+            return Math.acos(input_a)
+        }
     }
     else {
-        return Math.acos(input_a)
+        return NaN;
     }
 }
 

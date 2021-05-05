@@ -23,16 +23,16 @@ describe.only('One op Functions Test', function () {
 
     let test = new target.Calc_object();
     let test_case_input = [
-        0,0.0000000000000000000000000000001,-0.0000000000000000000000000000001,100000000000000000000000000000000,-100000000000000000000000000000000,237,-23.1,157.1
+        0,0.0000000000000000000000000000001,-0.0000000000000000000000000000001,100000000000000000000000000000000,-100000000000000000000000000000000,237,-23.1,157.1,30,45,90
     ]
     let test_case_output_abs = [
-        0,0,0,Infinity,Infinity,237,23.1,157.1
+        0,0,0,Infinity,Infinity,237,23.1,157.1,30,45,90
     ];
     let test_case_output_root = [
-        0,0,0,NaN,NaN,15.394804318340652,NaN,12.533953885346794
+        0,0,NaN,Infinity,NaN,15.394804318340652,NaN,12.533953885346794,5.477225575051661,6.708203932499369,9.486832980505138
     ];
     let test_case_output_sin = [
-        '2','3','4','5','6','7'
+        0,0,0,Infinity,-Infinity,-0.838670567,-0.39233711,0.389123950,0.5,0.707106781,1
     ];
     let test_case_output_cos = [
         '2','3','4','5','6','7'
@@ -61,8 +61,8 @@ describe.only('One op Functions Test', function () {
         });
     }
     for(let i=0;i<test_case_input.length;i++) {
-        it('sin '+i, function () {
-            assert.strictEqual(test.sin(test_case_input[i]), test_case_output[i]);
+        it.only('sin '+i, function () {
+            assert.strictEqual(test.sin(test_case_input[i]), test_case_output_sin[i]);
         });
     }
     for(let i=0;i<test_case_input.length;i++) {
