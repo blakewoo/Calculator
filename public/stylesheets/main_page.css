@@ -6,5 +6,58 @@
   top: calc(50% - 250px);
   width: 500px;
   height: 500px;
-  background: aquamarine;
+  background: url("/images/calc_back2.jpg");
+}
+
+.text_calc_button{
+  width: 70px;
+  height: 30px;
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 5.0px );
+  -webkit-backdrop-filter: blur( 5.0px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+.text_calc_button:hover{
+  background: rgba( 255, 255, 255, 0.5 );
+  cursor: pointer;
+}
+
+.calc_button{
+  width: 70px;
+  height: 30px;
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 5.0px );
+  -webkit-backdrop-filter: blur( 5.0px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+.calc_button:hover{
+  background: rgba( 255, 255, 255, 0.5 );
+  cursor: pointer;
+}
+
+.text_box{
+  display: block;
+  width: 250px;
+  height: 30px;
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 5.0px );
+  -webkit-backdrop-filter: blur( 5.0px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  outline: none;
+}
+.text_box:hover{
+  background: rgba( 255, 255, 255, 0.5 );
+  cursor: pointer;
+}
+
+.button_div{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
