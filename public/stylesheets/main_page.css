@@ -6,7 +6,8 @@
   top: calc(50% - 250px);
   width: 500px;
   height: 500px;
-  background: url("/images/calc_back2.jpg");
+  background: linear-gradient(45deg , grey, black, white );
+  /*background: url("/images/calc_back2.jpg");*/
 }
 
 .text_calc_button{
