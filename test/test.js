@@ -35,7 +35,7 @@ describe.only('One op Functions Test', function () {
         0,0,0,Infinity,-Infinity,-0.838670567,-0.39233711,0.389123950,0.5,0.707106781,1
     ];
     let test_case_output_cos = [
-        '2','3','4','5','6','7'
+        0,0,0,Infinity,-Infinity,-0.838670567,-0.39233711,0.389123950,0.5,0.707106781,1
     ];
     let test_case_output_tan = [
         '2','3','4','5','6','7'

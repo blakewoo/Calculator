@@ -179,6 +179,7 @@ Calc_object.prototype.root = function (input_a) {
         return NaN;
     }
 }
+
 // 삼각함수의 경우 각도 입력
 Calc_object.prototype.sin = function (input_a) {
     if(isNumber(input_a)) {
@@ -200,6 +201,7 @@ Calc_object.prototype.cos = function (input_a) {
         return NaN;
     }
 }
+
 Calc_object.prototype.tan = function (input_a) {
     if(isNumber(input_a)) {
         input_a=isMinMax(input_a)
@@ -209,6 +211,7 @@ Calc_object.prototype.tan = function (input_a) {
         return NaN;
     }
 }
+
 // 탄젠트 역함수 - 무한, 0, 음수 예외처리 필수
 Calc_object.prototype.atan = function (input_a) {
     if(isNumber(input_a)) {
@@ -223,6 +226,7 @@ Calc_object.prototype.atan = function (input_a) {
         return NaN;
     }
 }
+
 Calc_object.prototype.asin = function (input_a) {
     if(isNumber(input_a)) {
         if (input_a < -1 || input_a > 1) {
@@ -235,6 +239,7 @@ Calc_object.prototype.asin = function (input_a) {
         return NaN;
     }
 }
+
 Calc_object.prototype.acos = function (input_a) {
     if(isNumber(input_a)) {
         if(input_a<-1 || input_a>1) {
@@ -248,8 +253,6 @@ Calc_object.prototype.acos = function (input_a) {
         return NaN;
     }
 }
-
-
 
 function isMinMax(input_a) {
     if(input_a<Number('1e-20') && input_a>0) {
