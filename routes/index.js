@@ -8,10 +8,14 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/calculate',function (req,res,next) {
-
+  res.send(g_module.calculate(req.body.data));
 });
 
 router.delete('/deleteResult',function (req,res,next) {
+
+});
+
+router.put('/updateResult',function (req,res,next) {
 
 });
 
