@@ -11,4 +11,8 @@ router.post('/calculate',function (req,res,next) {
 
 });
 
+router.delete('/deleteResult',function (req,res,next) {
+
+});
+
 module.exports = router;
