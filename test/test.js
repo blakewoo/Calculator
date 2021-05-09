@@ -41,13 +41,13 @@ describe.only('One op Functions Test', function () {
         1,1,1,Infinity,-Infinity,-0.838670567,-0.39233711,0.389123950,0.5,0.707106781,1
     ];
     let test_case_output_asin = [
-        '2','3','4','5','6','7'
+        1,1,1,Infinity,-Infinity,-0.838670567,-0.39233711,0.389123950,0.5,0.707106781,1
     ];
     let test_case_output_acos = [
-        '2','3','4','5','6','7'
+
     ];
     let test_case_output_atan = [
-        '2','3','4','5','6','7'
+
     ];
 
     for(let i=0;i<test_case_input.length;i++) {
