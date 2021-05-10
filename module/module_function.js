@@ -259,7 +259,8 @@ Calc_object.prototype.root = function (input_a) {
 Calc_object.prototype.sin = function (input_a) {
     if(isNumber(input_a)) {
         input_a = isMinMax(input_a);
-        return Math.sin(radianToDegree(input_a));
+        console.log(degreeToRadian(input_a))
+        return Math.sin(degreeToRadian(input_a));
     }
     else {
         return NaN;
@@ -275,7 +276,7 @@ Calc_object.prototype.sin = function (input_a) {
 Calc_object.prototype.cos = function (input_a) {
     if(isNumber(input_a)) {
         input_a=isMinMax(input_a)
-        return Math.cos(radianToDegree(input_a));
+        return Math.cos(degreeToRadian(input_a));
     }
     else {
         return NaN;
@@ -289,8 +290,15 @@ Calc_object.prototype.cos = function (input_a) {
  */
 Calc_object.prototype.tan = function (input_a) {
     if(isNumber(input_a)) {
-        input_a=isMinMax(input_a)
-        return Math.tan(radianToDegree(input_a));
+        if(input_a>=90) {
+            return Infinity;
+        }
+        else if(input_a<=-90) {
+            return -Infinity;
+        }
+        else {
+            return Math.tan(degreeToRadian(input_a));
+        }
     }
     else {
         return NaN;
@@ -389,13 +397,13 @@ function isNumber (input_a) {
 }
 
 /**
- * 라디안을 도로 변환
+ * 도를 라디안으로 변환
  * @param input_a : 피연산자
  * @returns {number} : 반환값
  */
-function radianToDegree(input_a) {
+function degreeToRadian(input_a) {
     const pi = Math.PI;
-    return input_a*(180/pi);
+    return input_a*(pi/180);
 }
 
 module.exports.Calc_object = Calc_object;
