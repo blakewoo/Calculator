@@ -173,6 +173,8 @@ Calc_object.prototype.div = function(input_a,input_b) {
  */
 Calc_object.prototype.if = function (input_a,input_b,input_c) {
     // 정규식으로 적절한 값 예외처리, 적절하지 않으면 NaN 반환
+    let regex = /[1-9.]/g;
+    input_a.split(regex)
 
     if(input_a) {
         return input_b;
@@ -259,7 +261,6 @@ Calc_object.prototype.root = function (input_a) {
 Calc_object.prototype.sin = function (input_a) {
     if(isNumber(input_a)) {
         input_a = isMinMax(input_a);
-        console.log(degreeToRadian(input_a))
         return Math.sin(degreeToRadian(input_a));
     }
     else {
@@ -297,6 +298,7 @@ Calc_object.prototype.tan = function (input_a) {
             return -Infinity;
         }
         else {
+            input_a = isMinMax(input_a)
             return Math.tan(degreeToRadian(input_a));
         }
     }
@@ -311,13 +313,9 @@ Calc_object.prototype.tan = function (input_a) {
  * @returns {number} : 반환값
  */
 Calc_object.prototype.atan = function (input_a) {
-    if(isNumber(input_a)) {
-        if(input_a<-1 || input_a>1) {
-            return NaN;
-        }
-        else {
-            return Math.atan(input_a)
-        }
+    if(isNumber(input_a)){
+        input_a = isMinMax(input_a)
+        return radianToDegree(Math.atan(input_a))
     }
     else {
         return NaN;
@@ -334,7 +332,8 @@ Calc_object.prototype.asin = function (input_a) {
         if (input_a < -1 || input_a > 1) {
             return NaN;
         } else {
-            return Math.asin(input_a)
+            input_a = isMinMax(input_a)
+            return radianToDegree(Math.asin(input_a));
         }
     }
     else {
@@ -353,7 +352,9 @@ Calc_object.prototype.acos = function (input_a) {
             return NaN;
         }
         else {
-            return Math.acos(input_a)
+            input_a = isMinMax(input_a)
+            console.log(input_a)
+            return radianToDegree(Math.acos(input_a))
         }
     }
     else {
@@ -367,16 +368,16 @@ Calc_object.prototype.acos = function (input_a) {
  * @returns {number} : 반환값
  */
 function isMinMax(input_a) {
-    if(input_a<Number('1e-20') && input_a>0) {
+    if(input_a<Number('1e-15') && input_a>0) {
         input_a =0;
     }
-    else if(input_a>-Number('1e-20') && input_a<0) {
+    else if(input_a>-Number('1e-15') && input_a<0) {
         input_a =0;
     }
-    else if(input_a>Number('1e+21')) {
+    else if(input_a>Number('1e+15')) {
         input_a = Infinity;
     }
-    else if(input_a<-Number('1e+21')) {
+    else if(input_a<-Number('1e+15')) {
         input_a = -Infinity;
     }
     return input_a;
@@ -404,6 +405,16 @@ function isNumber (input_a) {
 function degreeToRadian(input_a) {
     const pi = Math.PI;
     return input_a*(pi/180);
+}
+
+/**
+ * 라디안을 도로 변환
+ * @param input_a : 피연산자
+ * @returns {number} : 반환값
+ */
+function radianToDegree(input_a) {
+    const pi = Math.PI;
+    return input_a*(180/pi);
 }
 
 module.exports.Calc_object = Calc_object;

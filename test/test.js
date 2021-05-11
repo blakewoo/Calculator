@@ -44,53 +44,53 @@ describe.only('One op Functions Test', function () {
         0,0,0,Infinity,-Infinity,Infinity,-0.42653614613915547,Infinity,0.57735026918962576450,0.9999999999999999,Infinity
     ];
     let test_case_output_asin = [
-        1,1,1,Infinity,-Infinity,-0.838670567,-0.39233711,0.389123950,0.5,0.707106781,1
+        0,0,0,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN
     ];
     let test_case_output_acos = [
-
+        90,90,90,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN
     ];
     let test_case_output_atan = [
-
+        0,0,0,90,-90,89.7582470907319,-87.52121089142167,89.6352959535598, 88.09084756700362,88.72696997994329,89.36340642403653
     ];
 
     for(let i=0;i<test_case_input.length;i++) {
-        it.only('abs '+i, function () {
+        it('abs '+i, function () {
             assert.strictEqual(test.abs(test_case_input[i]), test_case_output_abs[i]);
         });
     }
     for(let i=0;i<test_case_input.length;i++) {
-        it.only('root '+i, function () {
+        it('root '+i, function () {
             assert.strictEqual(test.root(test_case_input[i]), test_case_output_root[i]);
         });
     }
     for(let i=0;i<test_case_input.length;i++) {
-        it.only('sin '+i, function () {
+        it('sin '+i, function () {
             assert.strictEqual(test.sin(test_case_input[i]), test_case_output_sin[i]);
         });
     }
     for(let i=0;i<test_case_input.length;i++) {
-        it.only('cos '+i, function () {
+        it('cos '+i, function () {
             assert.strictEqual(test.cos(test_case_input[i]), test_case_output_cos[i]);
         });
     }
     for(let i=0;i<test_case_input.length;i++) {
-        it.only('tan '+i, function () {
+        it('tan '+i, function () {
             assert.strictEqual(test.tan(test_case_input[i]), test_case_output_tan[i]);
         });
     }
     for(let i=0;i<test_case_input.length;i++) {
         it('asin '+i, function () {
-            assert.strictEqual(test.asin(test_case_input[i]), test_case_output[i]);
+            assert.strictEqual(test.asin(test_case_input[i]), test_case_output_asin[i]);
         });
     }
     for(let i=0;i<test_case_input.length;i++) {
         it('acos '+i, function () {
-            assert.strictEqual(test.acos(test_case_input[i]), test_case_output[i]);
+            assert.strictEqual(test.acos(test_case_input[i]), test_case_output_acos[i]);
         });
     }
     for(let i=0;i<test_case_input.length;i++) {
         it('atan '+i, function () {
-            assert.strictEqual(test.atan(test_case_input[i]), test_case_output[i]);
+            assert.strictEqual(test.atan(test_case_input[i]), test_case_output_atan[i]);
         });
     }
 
@@ -158,16 +158,22 @@ describe.only('Two op Functions Test', function () {
 
 describe('Three op Functions Test', function () {
     let test = new target.Calc_object();
-    let test_case_input = [
+    let test_case_input1 = [
+        '2','3','4','5','6','7'
+    ]
+    let test_case_input2 = [
+        '2','3','4','5','6','7'
+    ]
+    let test_case_input3 = [
         '2','3','4','5','6','7'
     ]
     let test_case_output = [
         '2','3','4','5','6','7'
     ];
 
-    for(let i=0;i<test_case_input.length;i++) {
+    for(let i=0;i<test_case_input1.length;i++) {
         it('sin '+i, function () {
-            assert.strictEqual(test.if(test_case_input[i]), test_case_output[i]);
+            assert.strictEqual(test.if(test_case_input1[i],test_case_input2[i],test_case_input3[i]), test_case_output[i]);
         });
     }
 
