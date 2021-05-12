@@ -19,7 +19,7 @@ describe('Paser Test', function () {
 
 });
 
-describe.only('One op Functions Test', function () {
+describe('One op Functions Test', function () {
 
     let test = new target.Calc_object();
     let test_case_input = [
@@ -96,7 +96,7 @@ describe.only('One op Functions Test', function () {
 
 });
 
-describe.only('Two op Functions Test', function () {
+describe('Two op Functions Test', function () {
 
     let test = new target.Calc_object();
 
@@ -156,23 +156,23 @@ describe.only('Two op Functions Test', function () {
 
 });
 
-describe('Three op Functions Test', function () {
+describe.only('Three op Functions Test', function () {
     let test = new target.Calc_object();
     let test_case_input1 = [
-        '2','3','4','5','6','7'
+        '1<1','3>2','4=4','2<5','1>6','7','2=223'
     ]
     let test_case_input2 = [
-        '2','3','4','5','6','7'
+        2,3,4,5,6,7
     ]
     let test_case_input3 = [
-        '2','3','4','5','6','7'
+        4,3,4,5,6,7
     ]
     let test_case_output = [
-        '2','3','4','5','6','7'
+        2,3,4,5,6,NaN
     ];
 
     for(let i=0;i<test_case_input1.length;i++) {
-        it('sin '+i, function () {
+        it('if '+i, function () {
             assert.strictEqual(test.if(test_case_input1[i],test_case_input2[i],test_case_input3[i]), test_case_output[i]);
         });
     }

@@ -173,9 +173,11 @@ Calc_object.prototype.div = function(input_a,input_b) {
  */
 Calc_object.prototype.if = function (input_a,input_b,input_c) {
     // 정규식으로 적절한 값 예외처리, 적절하지 않으면 NaN 반환
-    let regex = /[1-9.]/g;
-    input_a.split(regex)
-
+    let temp_arr = input_a.split(/[^0-9.]/)
+    if(!isNumber(temp_arr[0]) || !isNumber(temp_arr[1]))
+    {
+        return NaN;
+    }
     if(input_a) {
         return input_b;
     }
