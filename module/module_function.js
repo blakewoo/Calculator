@@ -174,15 +174,63 @@ Calc_object.prototype.div = function(input_a,input_b) {
 Calc_object.prototype.if = function (input_a,input_b,input_c) {
     // 정규식으로 적절한 값 예외처리, 적절하지 않으면 NaN 반환
     let temp_arr = input_a.split(/[^0-9.]/)
+    let temp_op = input_a.split(/[0-9.]/)
     if(!isNumber(temp_arr[0]) || !isNumber(temp_arr[1]))
     {
         return NaN;
     }
-    if(input_a) {
-        return input_b;
+
+    let op_code = temp_op[1]
+    if(op_code === "<") {
+        if(temp_arr[0]<temp_arr[1]) {
+            return input_b;
+        }
+        else {
+            return input_c;
+        }
+    }
+    else if(op_code === ">") {
+        if(temp_arr[0]>temp_arr[1]) {
+            return input_b;
+        }
+        else {
+            return input_c;
+        }
+    }
+    else if(op_code === "<=") {
+        if(temp_arr[0]<=temp_arr[1]) {
+            return input_b;
+        }
+        else {
+            return input_c;
+        }
+    }
+    else if(op_code === ">=") {
+        if(temp_arr[0]>=temp_arr[1]) {
+            return input_b;
+        }
+        else {
+            return input_c;
+        }
+    }
+    else if(op_code === "=") {
+        if(temp_arr[0]===temp_arr[1]) {
+            return input_b;
+        }
+        else {
+            return input_c;
+        }
+    }
+    else if(op_code === "!=") {
+        if(temp_arr[0]!==temp_arr[1]) {
+            return input_b;
+        }
+        else {
+            return input_c;
+        }
     }
     else {
-        return input_c;
+        return NaN;
     }
 }
 
