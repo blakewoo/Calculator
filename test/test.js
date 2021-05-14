@@ -168,8 +168,9 @@ describe.only('Three op Functions Test', function () {
         2,2,2,2,2,2,2,2
     ]
     let test_case_output = [
-        2,1,1,2,2,NaN,2,NaN
+        2,1,1,2,2,NaN,1,2
     ];
+
 
     for(let i=0;i<test_case_input1.length;i++) {
         it('if '+i, function () {

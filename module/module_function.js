@@ -174,31 +174,28 @@ Calc_object.prototype.div = function(input_a,input_b) {
 Calc_object.prototype.if = function (input_a,input_b,input_c) {
     // 정규식으로 적절한 값 예외처리, 적절하지 않으면 NaN 반환
     let temp_arr = input_a.split(/[^0-9.]/)
+    let result_op = [];
+    let result_arr = [];
     let temp_op = input_a.split(/[0-9.]/)
-    if(!isNumber(temp_arr[0]) || !isNumber(temp_arr[1]))
+
+    temp_arr.forEach(function (obj) {if(obj!=="") {result_arr.push(obj)}})
+    temp_op.forEach(function (obj) {if(obj!=="") {result_op.push(obj)}})
+
+    let op_code = result_op[0]
+    let result_arr_a = result_arr[0]
+    let result_arr_b = result_arr[1]
+
+    if(!isNumber(result_arr_a))
     {
         return NaN;
     }
 
-    let op_code = temp_op[1]
-    if(op_code === "<") {
-        if(temp_arr[0]<temp_arr[1]) {
-            return input_b;
-        }
-        else {
-            return input_c;
-        }
+    if(!isNumber(result_arr_b)) {
+        return NaN;
     }
-    else if(op_code === ">") {
-        if(temp_arr[0]>temp_arr[1]) {
-            return input_b;
-        }
-        else {
-            return input_c;
-        }
-    }
-    else if(op_code === "<=") {
-        if(temp_arr[0]<=temp_arr[1]) {
+
+    if(op_code === "<=") {
+        if(result_arr_a<=result_arr_b) {
             return input_b;
         }
         else {
@@ -206,7 +203,23 @@ Calc_object.prototype.if = function (input_a,input_b,input_c) {
         }
     }
     else if(op_code === ">=") {
-        if(temp_arr[0]>=temp_arr[1]) {
+        if(result_arr_a>=result_arr_b) {
+            return input_b;
+        }
+        else {
+            return input_c;
+        }
+    }
+    else if(op_code === "<") {
+        if(result_arr_a<result_arr_b) {
+            return input_b;
+        }
+        else {
+            return input_c;
+        }
+    }
+    else if(op_code === ">") {
+        if(result_arr_a>result_arr_b) {
             return input_b;
         }
         else {
@@ -214,7 +227,7 @@ Calc_object.prototype.if = function (input_a,input_b,input_c) {
         }
     }
     else if(op_code === "=") {
-        if(temp_arr[0]===temp_arr[1]) {
+        if(result_arr_a===result_arr_b) {
             return input_b;
         }
         else {
@@ -222,7 +235,7 @@ Calc_object.prototype.if = function (input_a,input_b,input_c) {
         }
     }
     else if(op_code === "!=") {
-        if(temp_arr[0]!==temp_arr[1]) {
+        if(result_arr_a!==result_arr_b) {
             return input_b;
         }
         else {
