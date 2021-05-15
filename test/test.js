@@ -158,6 +158,11 @@ describe('Two op Functions Test', function () {
             assert.strictEqual(test.div(test_case_input1[i], test_case_input2[i]), test_case_output_div[i]);
         });
     }
+    for(let i=0;i<test_case_input1.length;i++) {
+        it('div ' + i, function () {
+            assert.strictEqual(test.round(test_case_input1[i], test_case_input2[i]), test_case_output_round[i]);
+        });
+    }
 
 });
 
