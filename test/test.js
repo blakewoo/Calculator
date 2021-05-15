@@ -134,7 +134,7 @@ describe('Two op Functions Test', function () {
     ];
 
     let test_case_output_round = [
-
+        Infinity,NaN,NaN,NaN,Infinity,NaN,NaN,NaN
     ]
 
 
