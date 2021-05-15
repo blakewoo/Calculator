@@ -33,7 +33,15 @@ let Calc_object = function(raw_data) {
 Calc_object.prototype.parser = function () {
     let raw_data = this.raw_data;
 
-    let split_data = raw_data.split()
+    // 피 연산자와 연산자를 분리한다
+    // 소수와 음수 구분을 잘 할 것
+    // ex) --1, 1+2+-1
+    let split_number_data = raw_data.split()
+    let split_non_number_data = raw_data.split();
+
+    // 피연산자 배열과 연산자 배열의 유효성을 체크함
+
+    // 실질 데이터를 넣음
 }
 
 /**
