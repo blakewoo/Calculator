@@ -288,11 +288,16 @@ Calc_object.prototype.abs = function (input_a) {
  * @returns {number|string|*|string} : 반환값
  */
 Calc_object.prototype.round = function (input_a,input_b) {
-    // 0이나 무한, 숫자 아닌 것 걸러내기
-    // input_b에 자연수만 있는지 체크하기
 
     if(isNumber(input_a) && isNumber(input_b)) {
-        return input_a.toFixed(input_b);
+        input_a = isMinMax(input_a)
+        if (isInteger(input_b)) {
+            input_b = isMinMax(input_b)
+            return input_a.toFixed(input_b);
+        }
+        else{
+            return NaN;
+        }
     }
     else {
         return NaN;
@@ -486,6 +491,15 @@ function degreeToRadian(input_a) {
 function radianToDegree(input_a) {
     const pi = Math.PI;
     return input_a*(180/pi);
+}
+
+/**
+ * 해당 값이 정수인지 체크하는 함수
+ * @param number
+ * @returns {boolean}
+ */
+function isInteger(number)  {
+    return number % 1 === 0;
 }
 
 module.exports.Calc_object = Calc_object;
