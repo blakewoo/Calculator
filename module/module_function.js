@@ -34,10 +34,12 @@ Calc_object.prototype.parser = function () {
     let raw_data = this.raw_data;
 
     // 피 연산자와 연산자를 분리한다
+
+
     // 소수와 음수 구분을 잘 할 것
     // ex) --1, 1+2+-1
-    let split_number_data = raw_data.split()
-    let split_non_number_data = raw_data.split();
+    let split_number_data = raw_data.split(/[1-9.]/)
+    let split_non_number_data = raw_data.split(/[\]\[\+\/\*\-]/);
 
     // 피연산자 배열과 연산자 배열의 유효성을 체크함
 
@@ -52,6 +54,13 @@ Calc_object.prototype.get_parsed_data = function () {
     return this.refine_data;
 }
 
+Calc_object.prototype.get_operation_data = function () {
+    return this.refine_data.operation;
+}
+
+Calc_object.prototype.get_numbers_data = function () {
+    return this.refine_data.numbers;
+}
 
 /**
  * 더하기 함수 : 숫자 아닌것, 최소 최대 예외처리 되어잇음

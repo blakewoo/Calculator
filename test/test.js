@@ -2,18 +2,25 @@ let target = require('../module/module_function')
 const assert = require('assert');
 
 
-describe('Paser Test', function () {
+describe.only('Paser Test', function () {
 
     let test_case_input = [
-        '2','3','4','5','6','7'
+        '2+1'
     ]
-    let test_case_output = [
-        '2','3','4','5','6','7'
+    let test_case_operation_output = [
+        [2,1]
     ];
 
-    for(let i=0;i<6;i++) {
+    let test_case_numbers_output = [
+        ["+"]
+    ];
+
+    for(let i=0;i<test_case_input.length;i++) {
         it('Good for you'+i, function () {
-            assert.strictEqual(target.calculate(test_case_input[i]), test_case_output[i]);
+            let test = new target.Calc_object(test_case_input[i]);
+            test.parser()
+            assert.strictEqual(test.get_operation_data, test_case_operation_output[i]);
+            assert.strictEqual(test.get_numbers_data, test_case_numbers_output[i]);
         });
     }
 
@@ -167,7 +174,7 @@ describe('Two op Functions Test', function () {
 
 });
 
-describe.only('Three op Functions Test', function () {
+describe('Three op Functions Test', function () {
     let test = new target.Calc_object();
     let test_case_input1 = [
         '1<1','3>2','4<=4','2>=5','1=6','7','2!=223','1<1'
