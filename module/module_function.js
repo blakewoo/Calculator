@@ -38,12 +38,18 @@ Calc_object.prototype.parser = function () {
 
     // 소수와 음수 구분을 잘 할 것
     // ex) --1, 1+2+-1
-    let split_number_data = raw_data.split(/[1-9.]/)
-    let split_non_number_data = raw_data.split(/[\]\[\+\/\*\-]/);
+    let split_number_data = raw_data.split(/[\]\[\+\/\*\-]/);
+    let split_non_number_data = raw_data.split(/[1-9.]/)
+    let real_numbers = [];
+    let real_operations=[];
+    split_number_data.forEach(function (obj) {if(obj!=="") {real_numbers.push(obj)}})
+    split_non_number_data.forEach(function (obj) {if(obj!=="") {real_operations.push(obj)}})
 
     // 피연산자 배열과 연산자 배열의 유효성을 체크함
 
     // 실질 데이터를 넣음
+    this.refine_data.operation = real_operations;
+    this.refine_data.numbers =real_numbers;
 }
 
 /**
@@ -55,11 +61,13 @@ Calc_object.prototype.get_parsed_data = function () {
 }
 
 Calc_object.prototype.get_operation_data = function () {
-    return this.refine_data.operation;
+    let result =this.refine_data.operation;
+    return result;
 }
 
 Calc_object.prototype.get_numbers_data = function () {
-    return this.refine_data.numbers;
+    let result = this.refine_data.numbers;
+    return result;
 }
 
 /**
