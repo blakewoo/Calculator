@@ -25,6 +25,29 @@ let Calc_object = function(raw_data) {
         operation:[],
         numbers:[]
     }
+    this.postfix_array = [];
+}
+
+/**
+ * 전체 연산 호출 함수
+ */
+Calc_object.prototype.total_calculation = function () {
+
+}
+
+/**
+ * 후위 연산식으로 변경한 식을 계산하는 함수
+ * 스택을 이용해서 연산함
+ */
+Calc_object.prototype.calculating = function () {
+
+}
+
+/**
+ * 분해된 데이터를 후위 연산식으로 변경하는 함수
+ */
+Calc_object.prototype.postfix = function () {
+
 }
 
 /**
@@ -35,21 +58,15 @@ Calc_object.prototype.parser = function () {
 
     // 피 연산자와 연산자를 분리한다
 
-
     // 소수와 음수 구분을 잘 할 것
     // ex) --1, 1+2+-1
-    let split_number_data = raw_data.split(/[\]\[\+\/\*\-]/);
-    let split_non_number_data = raw_data.split(/[1-9.]/)
-    let real_numbers = [];
-    let real_operations=[];
-    split_number_data.forEach(function (obj) {if(obj!=="") {real_numbers.push(obj)}})
-    split_non_number_data.forEach(function (obj) {if(obj!=="") {real_operations.push(obj)}})
+    for(let current_index=0;current_index<raw_data.length;current_index++) {
+
+    }
 
     // 피연산자 배열과 연산자 배열의 유효성을 체크함
 
     // 실질 데이터를 넣음
-    this.refine_data.operation = real_operations;
-    this.refine_data.numbers =real_numbers;
 }
 
 /**

@@ -7,27 +7,16 @@ describe.only('Paser Test', function () {
     let test_case_input = [
         '2+1',"1+3+4+2-11*3/4"
     ]
-    let test_case_operation_output = [
-        ["+"],["+","+","+","-","*","/"]
-    ];
-
-    let test_case_numbers_output = [
-        ["2","1"],["1","3","4","2","11","3","4"]
+    let test_case_output = [
     ];
 
     for(let i=0;i<test_case_input.length;i++) {
         it('operation : '+i, function () {
             let test = new target.Calc_object(test_case_input[i]);
             test.parser()
-            assert.deepStrictEqual(test.get_operation_data(), test_case_operation_output[i]);
+            assert.deepStrictEqual(test.get_operation_data(), test_case_output[i]);
 
         });
-        it('numbers : '+i, function () {
-            let test = new target.Calc_object(test_case_input[i]);
-            test.parser()
-            assert.deepStrictEqual(test.get_numbers_data(), test_case_numbers_output[i]);
-        });
-
     }
 
 });
