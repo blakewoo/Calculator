@@ -21,10 +21,8 @@ exports.calculate = function (data) {
  */
 let Calc_object = function(raw_data) {
     this.raw_data = raw_data;
-    this.refine_data = {
-        operation:[],
-        numbers:[]
-    }
+    this.parsed_data = [];
+    this.parsed_type = [];
     this.postfix_array = [];
 }
 
@@ -46,7 +44,7 @@ Calc_object.prototype.calculating = function () {
 /**
  * 분해된 데이터를 후위 연산식으로 변경하는 함수
  */
-Calc_object.prototype.postfix = function () {
+Calc_object.prototype.trans_postfix = function () {
 
 }
 
@@ -57,35 +55,29 @@ Calc_object.prototype.parser = function () {
     let raw_data = this.raw_data;
 
     // 피 연산자와 연산자를 분리한다
-
     // 소수와 음수 구분을 잘 할 것
     // ex) --1, 1+2+-1
+    // 피연산자 배열과 연산자 배열의 유효성을 체크함
+    // 실질 데이터를 넣음
     for(let current_index=0;current_index<raw_data.length;current_index++) {
-
+        // 앞 글자씩만 체크해서 체크하는 별도의 함수 제작할것
+        // 현재 index를 받아서 제일 뒷 문자열까지 체크 한 뒤 연산자인지, 피연산자인지부터 피연산자면 그 값까지 반환하는 함수를 만들어야함.
+        if(raw_data[current_index] >= "1" && raw_data[current_index] <= "0") {
+            
+        }
     }
 
-    // 피연산자 배열과 연산자 배열의 유효성을 체크함
 
-    // 실질 데이터를 넣음
 }
 
 /**
  * 파싱된 데이터를 불러오고 싶을때 쓰는 함수
- * @returns {*|{numbers: [], operation: []}}
+ * @returns {[]}
  */
 Calc_object.prototype.get_parsed_data = function () {
-    return this.refine_data;
+    return this.parsed_data;
 }
 
-Calc_object.prototype.get_operation_data = function () {
-    let result =this.refine_data.operation;
-    return result;
-}
-
-Calc_object.prototype.get_numbers_data = function () {
-    let result = this.refine_data.numbers;
-    return result;
-}
 
 /**
  * 더하기 함수 : 숫자 아닌것, 최소 최대 예외처리 되어잇음
