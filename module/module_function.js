@@ -49,6 +49,40 @@ Calc_object.prototype.trans_postfix = function () {
 }
 
 /**
+ * 입력 값을 확인 한 뒤 숫자인지 아닌지 확인해서 확인한 인덱스를 반환하는 함수
+ */
+function tracing_number (arr,start) {
+    let return_index = 0;
+
+
+
+    return return_index;
+}
+
+
+/**
+ * 입력 값을 확인 한 뒤 연산자인지 아닌지 확인해서 확인한 인덱스를 반환하는 함수
+ */
+function tracing_operation (arr,start) {
+    let return_index = 0;
+
+
+
+    return return_index;
+}
+
+/**
+ * 입력 값을 확인 한 뒤 함수인지 아닌지 확인해서 확인한 인덱스를 반환하는 함수
+ */
+function tracing_fucntion (arr,start) {
+    let return_index = 0;
+
+
+
+    return return_index;
+}
+
+/**
  * 입력 받은 데이터를 분해해서 연산자와 피연산자로 분리, 수식 에러까지 검출
  */
 Calc_object.prototype.parser = function () {
@@ -62,8 +96,39 @@ Calc_object.prototype.parser = function () {
     for(let current_index=0;current_index<raw_data.length;current_index++) {
         // 앞 글자씩만 체크해서 체크하는 별도의 함수 제작할것
         // 현재 index를 받아서 제일 뒷 문자열까지 체크 한 뒤 연산자인지, 피연산자인지부터 피연산자면 그 값까지 반환하는 함수를 만들어야함.
-        if(raw_data[current_index] >= "1" && raw_data[current_index] <= "0") {
-            
+
+        switch (raw_data[current_index]) {
+            case "1" :
+            case "2" :
+            case "3" :
+            case "4" :
+            case "5" :
+            case "6" :
+            case "7" :
+            case "8" :
+            case "9" :
+            case "0" :
+                // 숫자
+                tracing_number(raw_data,current_index)
+                continue;
+            case "+" :
+            case "/" :
+            case "*" :
+            case "-" :
+            case "(" :
+                // 연산자
+                tracing_operation(raw_data,current_index)
+                continue;
+            case "a" :
+            case "s" :
+            case "c" :
+            case "t" :
+            case "i" :
+                // 함수
+                tracing_fucntion(raw_data,current_index)
+                continue;
+            default:
+                break;
         }
     }
 
