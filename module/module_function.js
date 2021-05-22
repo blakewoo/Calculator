@@ -83,11 +83,40 @@ function tracing_fucntion (arr,start) {
 }
 
 /**
+ * 함수에 적절하게 괄호가 들어가 있는지 확인 하는 함수
+ * bracket_flag : 1-소괄호, 2-중괄호, 3-대괄호
+ */
+function tracing_bracket (arr,start,bracket_flag) {
+    // 소괄호
+    if(bracket_flag===1) {
+
+    }
+    // 중괄호
+    else if(bracket_flag===2) {
+
+    }
+    // 대괄호
+    else {
+
+    }
+}
+
+/**
+ * 2,3개 인자 함수에 적절히 쉼표가 들어가 있는지 확인 하는 함수
+ * comma_flag : 1-1개, 2-2개
+ */
+function tracing_comma (arr,start,comma_flag) {
+
+}
+
+/**
  * 입력 받은 데이터를 분해해서 연산자와 피연산자로 분리, 수식 에러까지 검출
+ * 입력값 : 없음
+ * 반환값 : value-제대로 계산시 숫자, index-에러일때 위치 , error- 에러 일때 true 아니면 false
  */
 Calc_object.prototype.parser = function () {
     let raw_data = this.raw_data;
-
+    let function_result = null;
     // 피 연산자와 연산자를 분리한다
     // 소수와 음수 구분을 잘 할 것
     // ex) --1, 1+2+-1
@@ -109,7 +138,7 @@ Calc_object.prototype.parser = function () {
             case "9" :
             case "0" :
                 // 숫자
-                tracing_number(raw_data,current_index)
+                function_result = tracing_number(raw_data,current_index)
                 continue;
             case "+" :
             case "/" :
@@ -117,15 +146,16 @@ Calc_object.prototype.parser = function () {
             case "-" :
             case "(" :
                 // 연산자
-                tracing_operation(raw_data,current_index)
+                function_result = tracing_operation(raw_data,current_index)
                 continue;
             case "a" :
             case "s" :
             case "c" :
             case "t" :
+            case "r" :
             case "i" :
                 // 함수
-                tracing_fucntion(raw_data,current_index)
+                function_result = tracing_fucntion(raw_data,current_index)
                 continue;
             default:
                 break;

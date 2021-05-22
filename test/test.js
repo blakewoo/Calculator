@@ -208,3 +208,19 @@ describe('Calculator Test', function () {
     }
 
 });
+
+describe('Subfunction test', function () {
+    let test_case_input = [
+        '2','3','4','5','6','7'
+    ]
+    let test_case_output = [
+        '2','3','4','5','6','7'
+    ];
+
+    for(let i=0;i<6;i++) {
+        it('subfunction'+i, function () {
+
+        });
+    }
+
+});
