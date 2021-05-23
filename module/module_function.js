@@ -37,14 +37,13 @@ Calc_object.prototype.total_calculation = function () {
  * 후위 연산식으로 변경한 식을 계산하는 함수
  * 스택을 이용해서 연산함
  */
-Calc_object.prototype.calculating = function () {
-
+function calculating () {
 }
 
 /**
  * 분해된 데이터를 후위 연산식으로 변경하는 함수
  */
-Calc_object.prototype.trans_postfix = function () {
+function trans_postfix (arr,start) {
 
 }
 
@@ -76,7 +75,62 @@ function tracing_operation (arr,start) {
  */
 function tracing_fucntion (arr,start) {
     let return_index = 0;
+    switch (arr[start]) {
+        // abs, asin, acos, atan
+        case "a" :
+            if(arr[start+1]==="") {
 
+            }
+            else {
+
+            }
+            break;
+        // sin
+        case "s" :
+            if(arr[start+1]==="") {
+
+            }
+            else {
+
+            }
+            break;
+        // cos
+        case "c" :
+            if(arr[start+1]==="") {
+
+            }
+            else {
+
+            }
+            break;
+        //tan
+        case "t" :
+            if(arr[start+1]==="") {
+
+            }
+            else {
+
+            }
+            break;
+        //round, root
+        case "r" :
+            if(arr[start+1]==="o") {
+
+            }
+            else {
+
+            }
+            break;
+        //if
+        case "i" :
+            if(arr[start+1]==="f") {
+
+            }
+            else {
+
+            }
+            break;
+    }
 
 
     return return_index;
@@ -87,17 +141,39 @@ function tracing_fucntion (arr,start) {
  * bracket_flag : 1-소괄호, 2-중괄호, 3-대괄호
  */
 function tracing_bracket (arr,start,bracket_flag) {
+    let remain_number = 1;
     // 소괄호
     if(bracket_flag===1) {
-
+        if(arr[start]==="(") {
+            for(let i=start;i<arr.length;i++) {
+                if(arr[i] === "(") remain_number++;
+                if(arr[i] === ")") remain_number--;
+                if(remain_number === 0) return true;
+            }
+        }
+        return false;
     }
     // 중괄호
     else if(bracket_flag===2) {
-
+        if(arr[start]==="{") {
+            for(let i=start;i<arr.length;i++) {
+                if(arr[i] === "{") remain_number++;
+                if(arr[i] === "}") remain_number--;
+                if(remain_number === 0) return true;
+            }
+        }
+        return false;
     }
     // 대괄호
     else {
-
+        if(arr[start]==="[") {
+            for(let i=start;i<arr.length;i++) {
+                if(arr[i] === "[") remain_number++;
+                if(arr[i] === "]") remain_number--;
+                if(remain_number === 0) return true;
+            }
+        }
+        return false;
     }
 }
 
