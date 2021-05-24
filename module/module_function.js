@@ -78,17 +78,26 @@ function tracing_fucntion (arr,start) {
     switch (arr[start]) {
         // abs, asin, acos, atan
         case "a" :
-            if(arr[start+1]==="") {
-
+            if(arr[start+1]==="b"&& arr[start+2]==="s") {
+                tracing_bracket(arr,start+3,3)
             }
-            else {
+            else if(arr[start+1]==="s"&& arr[start+2]==="i"&& arr[start+3]==="n"){
+                tracing_bracket(arr,start+4,3)
+            }
+            else if(arr[start+1]==="c"&& arr[start+2]==="o"&& arr[start+3]==="s"){
+                tracing_bracket(arr,start+4,3)
+            }
+            else if(arr[start+1]==="t"&& arr[start+2]==="a"&& arr[start+3]==="n"){
+                tracing_bracket(arr,start+4,3)
+            }
+            else{
 
             }
             break;
         // sin
         case "s" :
-            if(arr[start+1]==="") {
-
+            if(arr[start+1]==="i"&& arr[start+2]==="n") {
+                tracing_bracket(arr,start+3,3)
             }
             else {
 
@@ -96,8 +105,8 @@ function tracing_fucntion (arr,start) {
             break;
         // cos
         case "c" :
-            if(arr[start+1]==="") {
-
+            if(arr[start+1]==="o"&& arr[start+2]==="s") {
+                tracing_bracket(arr,start+3,3)
             }
             else {
 
@@ -105,8 +114,8 @@ function tracing_fucntion (arr,start) {
             break;
         //tan
         case "t" :
-            if(arr[start+1]==="") {
-
+            if(arr[start+1]==="a"&& arr[start+2]==="n") {
+                tracing_bracket(arr,start+3,3)
             }
             else {
 
@@ -114,8 +123,11 @@ function tracing_fucntion (arr,start) {
             break;
         //round, root
         case "r" :
-            if(arr[start+1]==="o") {
-
+            if(arr[start+1]==="o" && arr[start+2]==="u" && arr[start+3]==="n" && arr[start+4]==="d" ) {
+                tracing_bracket(arr,start+5,3)
+            }
+            else if (arr[start+1]==="o" && arr[start+2]==="o" && arr[start+3]==="t") {
+                tracing_bracket(arr,start+4,3)
             }
             else {
 
@@ -124,7 +136,7 @@ function tracing_fucntion (arr,start) {
         //if
         case "i" :
             if(arr[start+1]==="f") {
-
+                tracing_bracket(arr,start+2,3)
             }
             else {
 
