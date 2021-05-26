@@ -51,11 +51,41 @@ function trans_postfix (arr,start) {
  * 입력 값을 확인 한 뒤 숫자인지 아닌지 확인해서 확인한 인덱스를 반환하는 함수
  */
 function tracing_number (arr,start,parsed_data,parsed_type) {
-    let return_index = 0;
+    let temp_number = [];
+    let check_dot = 1;
+    let number_flag = false;
 
+    for(let i=start;i<arr.length;i++) {
+        if(Number(arr[i])>=0 && Number(arr[i])<=9) {
+            temp_number.push(arr[i]);
+            number_flag = true;
+        }
+        else if(i===start && arr[i]==="." && check_dot===1) {
+            // 에러임
+            return false
+        }
+        else if(arr[i]==="." && check_dot===1) {
+            temp_number.push(arr[i]);
+            number_flag = false;
+            // 이 값은 소수 단위로 넘어감
+        }
+        else if(arr[i]==="." && check_dot===0) {
+            return false
+            //에러 처리
+        }
+        else {
+            if( number_flag ===false) {
+                return false
+                // 에러처리
+            }
+            else {
+                parsed_data.push(Number(temp_number))
+                return i;
+                // 완료 값 반환
+            }
+        }
+    }
 
-
-    return return_index;
 }
 
 
@@ -86,7 +116,7 @@ function tracing_operation (arr,start,parsed_data,parsed_type) {
 /**
  * 입력 값을 확인 한 뒤 함수인지 아닌지 확인해서 확인한 인덱스를 반환하는 함수
  */
-function tracing_fucntion (arr,start,,parsed_data,parsed_type) {
+function tracing_fucntion (arr,start,parsed_data,parsed_type) {
     let return_index = 0;
     switch (arr[start]) {
         // abs, asin, acos, atan
