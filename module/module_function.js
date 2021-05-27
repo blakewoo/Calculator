@@ -159,6 +159,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         case "t" :
             if(arr[start+1]==="a"&& arr[start+2]==="n") {
                 tracing_bracket(arr,start+3,3)
+
             }
             else {
 
@@ -168,6 +169,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         case "r" :
             if(arr[start+1]==="o" && arr[start+2]==="u" && arr[start+3]==="n" && arr[start+4]==="d" ) {
                 tracing_bracket(arr,start+5,3)
+
             }
             else if (arr[start+1]==="o" && arr[start+2]==="o" && arr[start+3]==="t") {
                 tracing_bracket(arr,start+4,3)
@@ -185,6 +187,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
 
             }
             break;
+
     }
 
 
@@ -237,7 +240,31 @@ function tracing_bracket (arr,start,bracket_flag) {
  * comma_flag : 1-1개, 2-2개
  */
 function tracing_comma (arr,start,comma_flag) {
+    let comma_num = comma_flag;
+    for(let i=start;i<arr.length;i++) {
+        if(arr[i]===",") {
+            --comma_num;
+        }
+        else if(arr[i]==="," && comma_num===-1) {
+            return false;
+        }
+    }
+}
 
+/**
+ * 내부 인자 체크하는 함수
+ *
+ */
+function tracing_inner_text (arr,start,comma_flag) {
+    let comma_num = comma_flag;
+    for(let i=start;i<arr.length;i++) {
+        if(arr[i]===",") {
+            --comma_num;
+        }
+        else if(arr[i]==="," && comma_num===-1) {
+            return false;
+        }
+    }
 }
 
 /**
