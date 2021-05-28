@@ -115,6 +115,7 @@ function tracing_operation (arr,start,parsed_data,parsed_type) {
 
 /**
  * 입력 값을 확인 한 뒤 함수인지 아닌지 확인해서 확인한 인덱스를 반환하는 함수
+ * 적절하지 못한 값일때 false 처리함
  */
 function tracing_fucntion (arr,start,parsed_data,parsed_type) {
     let return_index = 0;
@@ -134,7 +135,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                 tracing_bracket(arr,start+4,3)
             }
             else{
-
+                return false
             }
             break;
         // sin
@@ -299,6 +300,12 @@ Calc_object.prototype.parser = function () {
             case "0" :
                 // 숫자
                 function_result = tracing_number(raw_data,current_index,parsed_data,parsed_type)
+                if(function_result) {
+                    current_index = function_result;
+                }
+                else {
+                    return {error:true,error_index:current_index};
+                }
                 continue;
             case "+" :
             case "/" :
@@ -307,6 +314,12 @@ Calc_object.prototype.parser = function () {
             case "(" :
                 // 연산자
                 function_result = tracing_operation(raw_data,current_index,parsed_data,parsed_type)
+                if(function_result) {
+                    current_index = function_result;
+                }
+                else {
+                    return {error:true,error_index:current_index};
+                }
                 continue;
             case "a" :
             case "s" :
@@ -316,9 +329,24 @@ Calc_object.prototype.parser = function () {
             case "i" :
                 // 함수
                 function_result = tracing_fucntion(raw_data,current_index,parsed_data,parsed_type)
+                if(function_result) {
+                    current_index = function_result;
+                }
+                else {
+                    return {error:true,error_index:current_index};
+                }
+                continue;
+            case "(" :
+            case ")" :
+            case "[" :
+            case "]" :
+            case "{" :
+            case "}" :
+            case "." :
+            case "," :
                 continue;
             default:
-                break;
+                return {error:true,error_index:current_index};
         }
     }
 
