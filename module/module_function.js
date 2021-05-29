@@ -1,3 +1,33 @@
+/** 에러 코드 정의
+ *  숫자
+ *  N-1 : 연산 가능한 범위를 넘어섬
+ *  N-2 : 소수점의 개수가 적절하지 못함 EX) 1.1.1
+ *  N-3 : 숫자가 아닙니다.
+ *  연산자
+ *  O-1 : 연속될 수 없는 연산자가 연속되어 나타났습니다.
+ *  함수
+ *  F-1 : 인식 할 수 없는 함수입니다.
+ *  F-2 : 함수의 인자 형태가 적절하지 않습니다.
+ *  F-3 : 함수의 인자 개수가 적절하지 않습니다.
+ *  F-4 : 괄호의 개수가 맞지 않습니다.
+ *  F-5 : 괄호의 형태가 맞지 않습니다.
+ *  그밖에
+ *  E-1 : 네트워크 연결에 문제가 있습니다.
+ *  E-2 : 적합하지 못한 요청입니다.
+ */
+
+
+/**
+ *  파싱 타입
+ *  Number
+ *  Operation
+ *  function
+ *  small_left_bracket
+ *  small_right_bracket
+ *  big_left_bracket
+ *  big_right_bracket
+ */
+
 /**
  * 실제 연산을 위한 전체 함수
  * @param data
@@ -38,6 +68,7 @@ Calc_object.prototype.total_calculation = function () {
  * 스택을 이용해서 연산함
  */
 function calculating () {
+
 }
 
 /**
@@ -80,6 +111,7 @@ function tracing_number (arr,start,parsed_data,parsed_type) {
             }
             else {
                 parsed_data.push(Number(temp_number))
+                parsed_type.push("Number")
                 return i;
                 // 완료 값 반환
             }
@@ -96,6 +128,7 @@ function tracing_operation (arr,start,parsed_data,parsed_type) {
     let return_index = 0;
     if(arr[start] === "+") {
         parsed_data.push("+")
+
     }
     else if(arr[start] === "-") {
         parsed_data.push("+")
@@ -123,16 +156,36 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         // abs, asin, acos, atan
         case "a" :
             if(arr[start+1]==="b"&& arr[start+2]==="s") {
-                tracing_bracket(arr,start+3,3)
+                if(tracing_bracket(arr,start+3,3)) {
+
+                }
+                else {
+                    return {error:true,error_code:"F-4",error_index:start};
+                }
             }
             else if(arr[start+1]==="s"&& arr[start+2]==="i"&& arr[start+3]==="n"){
-                tracing_bracket(arr,start+4,3)
+                if(tracing_bracket(arr,start+4,3)){
+                    tracing_comma();
+                }
+                else {
+                    return {error:true,error_code:"F-4",error_index:start};
+                }
             }
             else if(arr[start+1]==="c"&& arr[start+2]==="o"&& arr[start+3]==="s"){
-                tracing_bracket(arr,start+4,3)
+                if(tracing_bracket(arr,start+4,3)){
+                    tracing_comma();
+                }
+                else {
+                    return {error:true,error_code:"F-4",error_index:start};
+                }
             }
             else if(arr[start+1]==="t"&& arr[start+2]==="a"&& arr[start+3]==="n"){
-                tracing_bracket(arr,start+4,3)
+                if(tracing_bracket(arr,start+4,3)){
+                    tracing_comma();
+                }
+                else {
+                    return {error:true,error_code:"F-4",error_index:start};
+                }
             }
             else{
                 return false
@@ -141,7 +194,12 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         // sin
         case "s" :
             if(arr[start+1]==="i"&& arr[start+2]==="n") {
-                tracing_bracket(arr,start+3,3)
+                if(tracing_bracket(arr,start+3,3)){
+                    tracing_comma();
+                }
+                else {
+                    return {error:true,error_code:"F-4",error_index:start};
+                }
             }
             else {
 
@@ -150,7 +208,12 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         // cos
         case "c" :
             if(arr[start+1]==="o"&& arr[start+2]==="s") {
-                tracing_bracket(arr,start+3,3)
+                if(tracing_bracket(arr,start+3,3)){
+                    tracing_comma();
+                }
+                else {
+                    return {error:true,error_code:"F-4",error_index:start};
+                }
             }
             else {
 
@@ -159,7 +222,12 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         //tan
         case "t" :
             if(arr[start+1]==="a"&& arr[start+2]==="n") {
-                tracing_bracket(arr,start+3,3)
+                if(tracing_bracket(arr,start+3,3)){
+                    tracing_comma();
+                }
+                else {
+                    return {error:true,error_code:"F-4",error_index:start};
+                }
 
             }
             else {
@@ -169,11 +237,21 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         //round, root
         case "r" :
             if(arr[start+1]==="o" && arr[start+2]==="u" && arr[start+3]==="n" && arr[start+4]==="d" ) {
-                tracing_bracket(arr,start+5,3)
+                if(tracing_bracket(arr,start+5,3)){
+                    tracing_comma();
+                }
+                else {
+                    return {error:true,error_code:"F-4",error_index:start};
+                }
 
             }
             else if (arr[start+1]==="o" && arr[start+2]==="o" && arr[start+3]==="t") {
-                tracing_bracket(arr,start+4,3)
+                if(tracing_bracket(arr,start+4,3)){
+                    tracing_comma();
+                }
+                else {
+                    return {error:true,error_code:"F-4",error_index:start};
+                }
             }
             else {
 
@@ -182,7 +260,12 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         //if
         case "i" :
             if(arr[start+1]==="f") {
-                tracing_bracket(arr,start+2,3)
+                if(tracing_bracket(arr,start+2,3)){
+                    tracing_comma();
+                }
+                else {
+                    return {error:true,error_code:"F-4",error_index:start};
+                }
             }
             else {
 
