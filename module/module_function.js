@@ -149,6 +149,7 @@ function tracing_operation (arr,start,parsed_data,parsed_type) {
 /**
  * 입력 값을 확인 한 뒤 함수인지 아닌지 확인해서 확인한 인덱스를 반환하는 함수
  * 적절하지 못한 값일때 false 처리함
+ * arr의 길이를 넘는 위치를 체크하려고 한다면 에러 처리
  */
 function tracing_fucntion (arr,start,parsed_data,parsed_type) {
     let return_index = 0;
@@ -165,7 +166,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
             }
             else if(arr[start+1]==="s"&& arr[start+2]==="i"&& arr[start+3]==="n"){
                 if(tracing_bracket(arr,start+4,3)){
-                    tracing_comma();
+
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -173,7 +174,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
             }
             else if(arr[start+1]==="c"&& arr[start+2]==="o"&& arr[start+3]==="s"){
                 if(tracing_bracket(arr,start+4,3)){
-                    tracing_comma();
+
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -181,7 +182,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
             }
             else if(arr[start+1]==="t"&& arr[start+2]==="a"&& arr[start+3]==="n"){
                 if(tracing_bracket(arr,start+4,3)){
-                    tracing_comma();
+
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -195,7 +196,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         case "s" :
             if(arr[start+1]==="i"&& arr[start+2]==="n") {
                 if(tracing_bracket(arr,start+3,3)){
-                    tracing_comma();
+
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -209,7 +210,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         case "c" :
             if(arr[start+1]==="o"&& arr[start+2]==="s") {
                 if(tracing_bracket(arr,start+3,3)){
-                    tracing_comma();
+
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -223,7 +224,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         case "t" :
             if(arr[start+1]==="a"&& arr[start+2]==="n") {
                 if(tracing_bracket(arr,start+3,3)){
-                    tracing_comma();
+
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -238,7 +239,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         case "r" :
             if(arr[start+1]==="o" && arr[start+2]==="u" && arr[start+3]==="n" && arr[start+4]==="d" ) {
                 if(tracing_bracket(arr,start+5,3)){
-                    tracing_comma();
+                    tracing_comma(arr,start+7,1);
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -247,7 +248,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
             }
             else if (arr[start+1]==="o" && arr[start+2]==="o" && arr[start+3]==="t") {
                 if(tracing_bracket(arr,start+4,3)){
-                    tracing_comma();
+
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -261,7 +262,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         case "i" :
             if(arr[start+1]==="f") {
                 if(tracing_bracket(arr,start+2,3)){
-                    tracing_comma();
+                    tracing_comma(arr,start+4,2);
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -341,6 +342,9 @@ function tracing_comma (arr,start,comma_flag) {
  */
 function tracing_inner_text (arr,start,comma_flag) {
     let comma_num = comma_flag;
+    if(arr[start]===",") {
+        return false;
+    }
     for(let i=start;i<arr.length;i++) {
         if(arr[i]===",") {
             --comma_num;
@@ -385,6 +389,7 @@ Calc_object.prototype.parser = function () {
                 function_result = tracing_number(raw_data,current_index,parsed_data,parsed_type)
                 if(function_result) {
                     current_index = function_result;
+                    isCanNumber = true;
                 }
                 else {
                     return {error:true,error_index:current_index};
