@@ -11,6 +11,8 @@
  *  F-3 : 함수의 인자 개수가 적절하지 않습니다.
  *  F-4 : 괄호의 개수가 맞지 않습니다.
  *  F-5 : 괄호의 형태가 맞지 않습니다.
+ *  함수 에러 코드 :
+ *  sin, cos, tan, asin, acos, atan, root, round, if
  *  그밖에
  *  E-1 : 네트워크 연결에 문제가 있습니다.
  *  E-2 : 적합하지 못한 요청입니다.
@@ -128,16 +130,15 @@ function tracing_operation (arr,start,parsed_data,parsed_type) {
     let return_index = 0;
     if(arr[start] === "+") {
         parsed_data.push("+")
-
     }
     else if(arr[start] === "-") {
-        parsed_data.push("+")
+        parsed_data.push("-")
     }
     else if(arr[start] === "*") {
-        parsed_data.push("+")
+        parsed_data.push("*")
     }
     else if(arr[start] === "/") {
-        parsed_data.push("+")
+        parsed_data.push("/")
     }
     else {
 
@@ -239,7 +240,12 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         case "r" :
             if(arr[start+1]==="o" && arr[start+2]==="u" && arr[start+3]==="n" && arr[start+4]==="d" ) {
                 if(tracing_bracket(arr,start+5,3)){
-                    tracing_comma(arr,start+7,1);
+                    if(tracing_comma(arr,start+7,1)) {
+
+                    }
+                    else {
+                        return {error:true,error_code:"F-3",error_index:start};
+                    }
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -262,7 +268,12 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         case "i" :
             if(arr[start+1]==="f") {
                 if(tracing_bracket(arr,start+2,3)){
-                    tracing_comma(arr,start+4,2);
+                    if(tracing_comma(arr,start+4,2)) {
+
+                    }
+                    else {
+                        return {error:true,error_code:"F-3",error_index:start};
+                    }
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -322,17 +333,32 @@ function tracing_bracket (arr,start,bracket_flag) {
 
 /**
  * 2,3개 인자 함수에 적절히 쉼표가 들어가 있는지 확인 하는 함수
+ * 괄호도 체크할 것
  * comma_flag : 1-1개, 2-2개
  */
 function tracing_comma (arr,start,comma_flag) {
     let comma_num = comma_flag;
+    let bracket = 0;
     for(let i=start;i<arr.length;i++) {
-        if(arr[i]===",") {
+        if(arr[i] === "["){
+            bracket ++;
+        }
+        if(arr[i] === "]") {
+            bracket--;
+        }
+        if(arr[i]==="," && bracket === 0) {
             --comma_num;
         }
         else if(arr[i]==="," && comma_num===-1) {
             return false;
         }
+    }
+
+    if(comma_num !== 0) {
+        return false;
+    }
+    else {
+        return true;
     }
 }
 
@@ -389,7 +415,6 @@ Calc_object.prototype.parser = function () {
                 function_result = tracing_number(raw_data,current_index,parsed_data,parsed_type)
                 if(function_result) {
                     current_index = function_result;
-                    isCanNumber = true;
                 }
                 else {
                     return {error:true,error_index:current_index};
@@ -399,7 +424,6 @@ Calc_object.prototype.parser = function () {
             case "/" :
             case "*" :
             case "-" :
-            case "(" :
                 // 연산자
                 function_result = tracing_operation(raw_data,current_index,parsed_data,parsed_type)
                 if(function_result) {
@@ -425,11 +449,19 @@ Calc_object.prototype.parser = function () {
                 }
                 continue;
             case "(" :
+                if(tracing_bracket(raw_data,current_index,1)) {
+                    parsed_data.push("(");
+                    parsed_type.push("small_left_bracket");
+                    continue;
+                }
+                else {
+                    return {error:true,error_index:current_index};
+                }
             case ")" :
+                // 닫는 소괄호 검출 함수 있어야함.
+                continue;
             case "[" :
             case "]" :
-            case "{" :
-            case "}" :
             case "." :
             case "," :
                 continue;
