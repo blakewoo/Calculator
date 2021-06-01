@@ -119,6 +119,16 @@ function tracing_number (arr,start,parsed_data,parsed_type) {
             }
         }
     }
+    if( number_flag ===false) {
+        return false
+        // 에러처리
+    }
+    else {
+        parsed_data.push(Number(temp_number))
+        parsed_type.push("Number")
+        return arr.length;
+        // 완료 값 반환
+    }
 
 }
 
@@ -127,24 +137,24 @@ function tracing_number (arr,start,parsed_data,parsed_type) {
  * 입력 값을 확인 한 뒤 연산자인지 아닌지 확인해서 확인한 인덱스를 반환하는 함수
  */
 function tracing_operation (arr,start,parsed_data,parsed_type) {
-    let return_index = 0;
     if(arr[start] === "+") {
         parsed_data.push("+")
+        parsed_type.push("Operation")
     }
     else if(arr[start] === "-") {
         parsed_data.push("-")
+        parsed_type.push("Operation")
     }
     else if(arr[start] === "*") {
         parsed_data.push("*")
+        parsed_type.push("Operation")
     }
     else if(arr[start] === "/") {
         parsed_data.push("/")
-    }
-    else {
-
+        parsed_type.push("Operation")
     }
 
-    return return_index;
+    return start;
 }
 
 /**
@@ -159,7 +169,8 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         case "a" :
             if(arr[start+1]==="b"&& arr[start+2]==="s") {
                 if(tracing_bracket(arr,start+3,3)) {
-
+                    parsed_data.push("abs");
+                    parsed_type.push("function");
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -167,7 +178,8 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
             }
             else if(arr[start+1]==="s"&& arr[start+2]==="i"&& arr[start+3]==="n"){
                 if(tracing_bracket(arr,start+4,3)){
-
+                    parsed_data.push("asin");
+                    parsed_type.push("function");
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -175,7 +187,8 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
             }
             else if(arr[start+1]==="c"&& arr[start+2]==="o"&& arr[start+3]==="s"){
                 if(tracing_bracket(arr,start+4,3)){
-
+                    parsed_data.push("acos");
+                    parsed_type.push("function");
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -183,7 +196,8 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
             }
             else if(arr[start+1]==="t"&& arr[start+2]==="a"&& arr[start+3]==="n"){
                 if(tracing_bracket(arr,start+4,3)){
-
+                    parsed_data.push("atan");
+                    parsed_type.push("function");
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -197,7 +211,8 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         case "s" :
             if(arr[start+1]==="i"&& arr[start+2]==="n") {
                 if(tracing_bracket(arr,start+3,3)){
-
+                    parsed_data.push("sin");
+                    parsed_type.push("function");
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -211,7 +226,8 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         case "c" :
             if(arr[start+1]==="o"&& arr[start+2]==="s") {
                 if(tracing_bracket(arr,start+3,3)){
-
+                    parsed_data.push("cos");
+                    parsed_type.push("function");
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -225,7 +241,8 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         case "t" :
             if(arr[start+1]==="a"&& arr[start+2]==="n") {
                 if(tracing_bracket(arr,start+3,3)){
-
+                    parsed_data.push("tan");
+                    parsed_type.push("function");
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -241,7 +258,8 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
             if(arr[start+1]==="o" && arr[start+2]==="u" && arr[start+3]==="n" && arr[start+4]==="d" ) {
                 if(tracing_bracket(arr,start+5,3)){
                     if(tracing_comma(arr,start+7,1)) {
-
+                        parsed_data.push("round");
+                        parsed_type.push("function");
                     }
                     else {
                         return {error:true,error_code:"F-3",error_index:start};
@@ -254,7 +272,8 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
             }
             else if (arr[start+1]==="o" && arr[start+2]==="o" && arr[start+3]==="t") {
                 if(tracing_bracket(arr,start+4,3)){
-
+                    parsed_data.push("root");
+                    parsed_type.push("function");
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -269,7 +288,8 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
             if(arr[start+1]==="f") {
                 if(tracing_bracket(arr,start+2,3)){
                     if(tracing_comma(arr,start+4,2)) {
-
+                        parsed_data.push("if");
+                        parsed_type.push("function");
                     }
                     else {
                         return {error:true,error_code:"F-3",error_index:start};
@@ -414,7 +434,7 @@ Calc_object.prototype.parser = function () {
                 // 숫자
                 function_result = tracing_number(raw_data,current_index,parsed_data,parsed_type)
                 if(function_result) {
-                    current_index = function_result;
+                    current_index = function_result-1;
                 }
                 else {
                     return {error:true,error_index:current_index};
@@ -442,7 +462,7 @@ Calc_object.prototype.parser = function () {
                 // 함수
                 function_result = tracing_fucntion(raw_data,current_index,parsed_data,parsed_type)
                 if(function_result) {
-                    current_index = function_result;
+                    current_index = function_result-1;
                 }
                 else {
                     return {error:true,error_index:current_index};
