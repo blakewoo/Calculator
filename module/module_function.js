@@ -87,7 +87,6 @@ function tracing_number (arr,start,parsed_data,parsed_type) {
     let temp_number = [];
     let check_dot = 1;
     let number_flag = false;
-
     for(let i=start;i<arr.length;i++) {
         if(Number(arr[i])>=0 && Number(arr[i])<=9) {
             temp_number.push(arr[i]);
@@ -153,6 +152,30 @@ function tracing_operation (arr,start,parsed_data,parsed_type) {
         parsed_data.push("/")
         parsed_type.push("Operation")
     }
+    else if(arr[start] === "<" && arr[start+1] === "=") {
+        parsed_data.push("<=")
+        parsed_type.push("Operation")
+    }
+    else if(arr[start] === ">" && arr[start+1] === "=") {
+        parsed_data.push(">=")
+        parsed_type.push("Operation")
+    }
+    else if(arr[start] === "<") {
+        parsed_data.push("<")
+        parsed_type.push("Operation")
+    }
+    else if(arr[start] === ">") {
+        parsed_data.push(">")
+        parsed_type.push("Operation")
+    }
+    else if(arr[start] === "!"&& arr[start+1] === "=") {
+        parsed_data.push("!=")
+        parsed_type.push("Operation")
+    }
+    else if(arr[start] === "=") {
+        parsed_data.push("=")
+        parsed_type.push("Operation")
+    }
 
     return start;
 }
@@ -171,6 +194,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                 if(tracing_bracket(arr,start+3,3)) {
                     parsed_data.push("abs");
                     parsed_type.push("function");
+                    return {error:false,index:start+4};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -180,6 +204,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                 if(tracing_bracket(arr,start+4,3)){
                     parsed_data.push("asin");
                     parsed_type.push("function");
+                    return {error:false,index:start+5};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -189,6 +214,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                 if(tracing_bracket(arr,start+4,3)){
                     parsed_data.push("acos");
                     parsed_type.push("function");
+                    return {error:false,index:start+5};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -198,6 +224,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                 if(tracing_bracket(arr,start+4,3)){
                     parsed_data.push("atan");
                     parsed_type.push("function");
+                    return {error:false,index:start+5};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -213,6 +240,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                 if(tracing_bracket(arr,start+3,3)){
                     parsed_data.push("sin");
                     parsed_type.push("function");
+                    return {error:false,index:start+4};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -228,6 +256,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                 if(tracing_bracket(arr,start+3,3)){
                     parsed_data.push("cos");
                     parsed_type.push("function");
+                    return {error:false,index:start+4};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -243,6 +272,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                 if(tracing_bracket(arr,start+3,3)){
                     parsed_data.push("tan");
                     parsed_type.push("function");
+                    return {error:false,index:start+4};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -260,6 +290,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                     if(tracing_comma(arr,start+7,1)) {
                         parsed_data.push("round");
                         parsed_type.push("function");
+                        return {error:false,index:start+8};
                     }
                     else {
                         return {error:true,error_code:"F-3",error_index:start};
@@ -274,6 +305,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                 if(tracing_bracket(arr,start+4,3)){
                     parsed_data.push("root");
                     parsed_type.push("function");
+                    return {error:false,index:start+5};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -290,6 +322,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                     if(tracing_comma(arr,start+4,2)) {
                         parsed_data.push("if");
                         parsed_type.push("function");
+                        return {error:false,index:start+2};
                     }
                     else {
                         return {error:true,error_code:"F-3",error_index:start};
@@ -319,7 +352,7 @@ function tracing_bracket (arr,start,bracket_flag) {
     // 소괄호
     if(bracket_flag===1) {
         if(arr[start]==="(") {
-            for(let i=start;i<arr.length;i++) {
+            for(let i=start+1;i<arr.length;i++) {
                 if(arr[i] === "(") remain_number++;
                 if(arr[i] === ")") remain_number--;
                 if(remain_number === 0) return true;
@@ -330,7 +363,7 @@ function tracing_bracket (arr,start,bracket_flag) {
     // 중괄호
     else if(bracket_flag===2) {
         if(arr[start]==="{") {
-            for(let i=start;i<arr.length;i++) {
+            for(let i=start+1;i<arr.length;i++) {
                 if(arr[i] === "{") remain_number++;
                 if(arr[i] === "}") remain_number--;
                 if(remain_number === 0) return true;
@@ -341,7 +374,7 @@ function tracing_bracket (arr,start,bracket_flag) {
     // 대괄호
     else {
         if(arr[start]==="[") {
-            for(let i=start;i<arr.length;i++) {
+            for(let i=start+1;i<arr.length;i++) {
                 if(arr[i] === "[") remain_number++;
                 if(arr[i] === "]") remain_number--;
                 if(remain_number === 0) return true;
@@ -444,6 +477,10 @@ Calc_object.prototype.parser = function () {
             case "/" :
             case "*" :
             case "-" :
+            case ">" :
+            case "<" :
+            case "!" :
+            case "=" :
                 // 연산자
                 function_result = tracing_operation(raw_data,current_index,parsed_data,parsed_type)
                 if(function_result) {
@@ -461,11 +498,11 @@ Calc_object.prototype.parser = function () {
             case "i" :
                 // 함수
                 function_result = tracing_fucntion(raw_data,current_index,parsed_data,parsed_type)
-                if(function_result) {
-                    current_index = function_result-1;
+                if(function_result.error) {
+                    return {error:true,error_index:current_index};
                 }
                 else {
-                    return {error:true,error_index:current_index};
+                    current_index = function_result.index;
                 }
                 continue;
             case "(" :
@@ -479,6 +516,8 @@ Calc_object.prototype.parser = function () {
                 }
             case ")" :
                 // 닫는 소괄호 검출 함수 있어야함.
+                parsed_data.push(")");
+                parsed_type.push("small_right_bracket");
                 continue;
             case "[" :
             case "]" :
@@ -878,7 +917,6 @@ Calc_object.prototype.acos = function (input_a) {
         }
         else {
             input_a = isMinMax(input_a)
-            console.log(input_a)
             return radianToDegree(Math.acos(input_a))
         }
     }

@@ -5,10 +5,10 @@ const assert = require('assert');
 describe.only('Paser Test', function () {
 
     let test_case_input = [
-        '2+1'
+        '2+1','3-1+2*3','1+(2+3)','if[1>3,3,2]'
     ]
     let test_case_output = [
-        [2,'+',1]
+        [2,'+',1],[3,'-',1,'+',2,'*',3],[1,'+','(',2,'+',3,')'],['if',1,'>',3,3,2]
     ];
 
     for(let i=0;i<test_case_input.length;i++) {
