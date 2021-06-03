@@ -194,7 +194,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                 if(tracing_bracket(arr,start+3,3)) {
                     parsed_data.push("abs");
                     parsed_type.push("function");
-                    return {error:false,index:start+4};
+                    return {error:false,index:start+3};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -204,7 +204,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                 if(tracing_bracket(arr,start+4,3)){
                     parsed_data.push("asin");
                     parsed_type.push("function");
-                    return {error:false,index:start+5};
+                    return {error:false,index:start+4};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -214,7 +214,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                 if(tracing_bracket(arr,start+4,3)){
                     parsed_data.push("acos");
                     parsed_type.push("function");
-                    return {error:false,index:start+5};
+                    return {error:false,index:start+4};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -224,7 +224,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                 if(tracing_bracket(arr,start+4,3)){
                     parsed_data.push("atan");
                     parsed_type.push("function");
-                    return {error:false,index:start+5};
+                    return {error:false,index:start+4};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -240,7 +240,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                 if(tracing_bracket(arr,start+3,3)){
                     parsed_data.push("sin");
                     parsed_type.push("function");
-                    return {error:false,index:start+4};
+                    return {error:false,index:start+3};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -256,7 +256,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                 if(tracing_bracket(arr,start+3,3)){
                     parsed_data.push("cos");
                     parsed_type.push("function");
-                    return {error:false,index:start+4};
+                    return {error:false,index:start+3};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -272,7 +272,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                 if(tracing_bracket(arr,start+3,3)){
                     parsed_data.push("tan");
                     parsed_type.push("function");
-                    return {error:false,index:start+4};
+                    return {error:false,index:start+3};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -287,10 +287,10 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         case "r" :
             if(arr[start+1]==="o" && arr[start+2]==="u" && arr[start+3]==="n" && arr[start+4]==="d" ) {
                 if(tracing_bracket(arr,start+5,3)){
-                    if(tracing_comma(arr,start+7,1)) {
+                    if(tracing_comma(arr,start+5,1)) {
                         parsed_data.push("round");
                         parsed_type.push("function");
-                        return {error:false,index:start+8};
+                        return {error:false,index:start+5};
                     }
                     else {
                         return {error:true,error_code:"F-3",error_index:start};
@@ -305,7 +305,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
                 if(tracing_bracket(arr,start+4,3)){
                     parsed_data.push("root");
                     parsed_type.push("function");
-                    return {error:false,index:start+5};
+                    return {error:false,index:start+4};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -319,7 +319,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
         case "i" :
             if(arr[start+1]==="f") {
                 if(tracing_bracket(arr,start+2,3)){
-                    if(tracing_comma(arr,start+4,2)) {
+                    if(tracing_comma(arr,start+2,2)) {
                         parsed_data.push("if");
                         parsed_type.push("function");
                         return {error:false,index:start+2};
@@ -393,17 +393,17 @@ function tracing_comma (arr,start,comma_flag) {
     let comma_num = comma_flag;
     let bracket = 0;
     for(let i=start;i<arr.length;i++) {
+        if(comma_num===0 && bracket ===0) {
+            return true;
+        }
         if(arr[i] === "["){
             bracket ++;
         }
         if(arr[i] === "]") {
             bracket--;
         }
-        if(arr[i]==="," && bracket === 0) {
+        if(arr[i]==="," && bracket === 1) {
             --comma_num;
-        }
-        else if(arr[i]==="," && comma_num===-1) {
-            return false;
         }
     }
 
