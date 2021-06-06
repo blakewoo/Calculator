@@ -84,12 +84,12 @@ function trans_postfix (arr,start) {
  * 입력 값을 확인 한 뒤 숫자인지 아닌지 확인해서 확인한 인덱스를 반환하는 함수
  */
 function tracing_number (arr,start,parsed_data,parsed_type) {
-    let temp_number = [];
+    let temp_number = "";
     let check_dot = 1;
     let number_flag = false;
     for(let i=start;i<arr.length;i++) {
         if(Number(arr[i])>=0 && Number(arr[i])<=9) {
-            temp_number.push(arr[i]);
+            temp_number += arr[i];
             number_flag = true;
         }
         else if(i===start && arr[i]==="." && check_dot===1) {
@@ -97,7 +97,7 @@ function tracing_number (arr,start,parsed_data,parsed_type) {
             return false
         }
         else if(arr[i]==="." && check_dot===1) {
-            temp_number.push(arr[i]);
+            temp_number += arr[i];
             number_flag = false;
             // 이 값은 소수 단위로 넘어감
         }
