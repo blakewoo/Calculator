@@ -77,6 +77,13 @@ function calculating () {
  * 분해된 데이터를 후위 연산식으로 변경하는 함수
  */
 function trans_postfix (arr,start) {
+    let transArray = this.postfix_array;
+    let parsed_data = this.parsed_data;
+    let parsed_type = this.parsed_type;
+
+    for(let i=0;i<parsed_data.length;i++) {
+
+    }
 
 }
 
@@ -155,10 +162,12 @@ function tracing_operation (arr,start,parsed_data,parsed_type) {
     else if(arr[start] === "<" && arr[start+1] === "=") {
         parsed_data.push("<=")
         parsed_type.push("Operation")
+        return start+1;
     }
     else if(arr[start] === ">" && arr[start+1] === "=") {
         parsed_data.push(">=")
         parsed_type.push("Operation")
+        return start+1;
     }
     else if(arr[start] === "<") {
         parsed_data.push("<")
@@ -171,6 +180,7 @@ function tracing_operation (arr,start,parsed_data,parsed_type) {
     else if(arr[start] === "!"&& arr[start+1] === "=") {
         parsed_data.push("!=")
         parsed_type.push("Operation")
+        return start+1;
     }
     else if(arr[start] === "=") {
         parsed_data.push("=")
