@@ -56,6 +56,7 @@ let Calc_object = function(raw_data) {
     this.parsed_data = [];
     this.parsed_type = [];
     this.postfix_array = [];
+    this.parsed_index = [];
 }
 
 /**
@@ -63,6 +64,13 @@ let Calc_object = function(raw_data) {
  */
 Calc_object.prototype.total_calculation = function () {
 
+}
+
+/**
+ * postfix 변환된거 출력하는 함수
+ */
+Calc_object.prototype.postfix_trans = function () {
+    trans_postfix ();
 }
 
 /**
@@ -76,13 +84,31 @@ function calculating () {
 /**
  * 분해된 데이터를 후위 연산식으로 변경하는 함수
  */
-function trans_postfix (arr,start) {
+function trans_postfix () {
     let transArray = this.postfix_array;
     let parsed_data = this.parsed_data;
     let parsed_type = this.parsed_type;
+    let stack = [];
 
     for(let i=0;i<parsed_data.length;i++) {
+        if(parsed_type==="Number") {
 
+        }
+        else if(parsed_type==="Operation") {
+
+        }
+        else if(parsed_type==="function") {
+
+        }
+        else if(parsed_type==="small_left_bracket") {
+
+        }
+        else if(parsed_type==="small_right_bracket") {
+
+        }
+        else {
+            return;
+        }
     }
 
 }
@@ -90,7 +116,7 @@ function trans_postfix (arr,start) {
 /**
  * 입력 값을 확인 한 뒤 숫자인지 아닌지 확인해서 확인한 인덱스를 반환하는 함수
  */
-function tracing_number (arr,start,parsed_data,parsed_type) {
+function tracing_number (arr,start,parsed_data,parsed_type,parsed_index) {
     let temp_number = "";
     let check_dot = 1;
     let number_flag = false;
@@ -120,6 +146,7 @@ function tracing_number (arr,start,parsed_data,parsed_type) {
             else {
                 parsed_data.push(Number(temp_number))
                 parsed_type.push("Number")
+                parsed_index.push(start)
                 return i;
                 // 완료 값 반환
             }
@@ -132,6 +159,7 @@ function tracing_number (arr,start,parsed_data,parsed_type) {
     else {
         parsed_data.push(Number(temp_number))
         parsed_type.push("Number")
+        parsed_index.push(start)
         return arr.length;
         // 완료 값 반환
     }
@@ -142,7 +170,7 @@ function tracing_number (arr,start,parsed_data,parsed_type) {
 /**
  * 입력 값을 확인 한 뒤 연산자인지 아닌지 확인해서 확인한 인덱스를 반환하는 함수
  */
-function tracing_operation (arr,start,parsed_data,parsed_type) {
+function tracing_operation (arr,start,parsed_data,parsed_type,parsed_index) {
     if(arr[start] === "+") {
         parsed_data.push("+")
         parsed_type.push("Operation")
@@ -162,11 +190,13 @@ function tracing_operation (arr,start,parsed_data,parsed_type) {
     else if(arr[start] === "<" && arr[start+1] === "=") {
         parsed_data.push("<=")
         parsed_type.push("Operation")
+        parsed_index.push(start)
         return start+1;
     }
     else if(arr[start] === ">" && arr[start+1] === "=") {
         parsed_data.push(">=")
         parsed_type.push("Operation")
+        parsed_index.push(start)
         return start+1;
     }
     else if(arr[start] === "<") {
@@ -180,13 +210,14 @@ function tracing_operation (arr,start,parsed_data,parsed_type) {
     else if(arr[start] === "!"&& arr[start+1] === "=") {
         parsed_data.push("!=")
         parsed_type.push("Operation")
+        parsed_index.push(start)
         return start+1;
     }
     else if(arr[start] === "=") {
         parsed_data.push("=")
         parsed_type.push("Operation")
     }
-
+    parsed_index.push(start)
     return start;
 }
 
@@ -195,7 +226,7 @@ function tracing_operation (arr,start,parsed_data,parsed_type) {
  * 적절하지 못한 값일때 false 처리함
  * arr의 길이를 넘는 위치를 체크하려고 한다면 에러 처리
  */
-function tracing_fucntion (arr,start,parsed_data,parsed_type) {
+function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
     let return_index = 0;
     switch (arr[start]) {
         // abs, asin, acos, atan
@@ -346,7 +377,8 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type) {
 
             }
             break;
-
+        default:
+            parsed_index.push(start);
     }
 
 
@@ -453,6 +485,7 @@ Calc_object.prototype.parser = function () {
     let raw_data = this.raw_data;
     let parsed_data = this.parsed_data;
     let parsed_type = this.parsed_type;
+    let parsed_index = this.parsed_index;
     let function_result = null;
     // 피 연산자와 연산자를 분리한다
     // 소수와 음수 구분을 잘 할 것
@@ -475,7 +508,7 @@ Calc_object.prototype.parser = function () {
             case "9" :
             case "0" :
                 // 숫자
-                function_result = tracing_number(raw_data,current_index,parsed_data,parsed_type)
+                function_result = tracing_number(raw_data,current_index,parsed_data,parsed_type,parsed_index)
                 if(function_result) {
                     current_index = function_result-1;
                 }
@@ -492,7 +525,7 @@ Calc_object.prototype.parser = function () {
             case "!" :
             case "=" :
                 // 연산자
-                function_result = tracing_operation(raw_data,current_index,parsed_data,parsed_type)
+                function_result = tracing_operation(raw_data,current_index,parsed_data,parsed_type,parsed_index)
                 if(function_result) {
                     current_index = function_result;
                 }
@@ -507,7 +540,7 @@ Calc_object.prototype.parser = function () {
             case "r" :
             case "i" :
                 // 함수
-                function_result = tracing_fucntion(raw_data,current_index,parsed_data,parsed_type)
+                function_result = tracing_fucntion(raw_data,current_index,parsed_data,parsed_type,parsed_index)
                 if(function_result.error) {
                     return {error:true,error_index:current_index};
                 }
@@ -519,6 +552,7 @@ Calc_object.prototype.parser = function () {
                 if(tracing_bracket(raw_data,current_index,1)) {
                     parsed_data.push("(");
                     parsed_type.push("small_left_bracket");
+                    parsed_index.push(current_index)
                     continue;
                 }
                 else {
@@ -528,6 +562,7 @@ Calc_object.prototype.parser = function () {
                 // 닫는 소괄호 검출 함수 있어야함.
                 parsed_data.push(")");
                 parsed_type.push("small_right_bracket");
+                parsed_index.push(current_index)
                 continue;
             case "[" :
             case "]" :
@@ -548,6 +583,14 @@ Calc_object.prototype.parser = function () {
  */
 Calc_object.prototype.get_parsed_data = function () {
     return this.parsed_data;
+}
+
+/**
+ * 파싱된 데이터를 불러오고 싶을때 쓰는 함수
+ * @returns {[]}
+ */
+Calc_object.prototype.get_parsed_type = function () {
+    return this.parsed_type;
 }
 
 

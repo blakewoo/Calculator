@@ -1,8 +1,26 @@
 let target = require('../module/module_function')
 const assert = require('assert');
 
+describe.only('Post_fix', function () {
+    let test_case_input = [
+        '2+1'
+    ]
+    let test_case_output = [
+        [2,'+',1]
+    ];
 
-describe.only('Paser Test', function () {
+    for(let i=0;i<test_case_input.length;i++) {
+        it('Post_fix Number : '+i, function () {
+            let test = new target.Calc_object(test_case_input[i]);
+            test.parser()
+            assert.deepStrictEqual(test.postfix_trans(), test_case_output[i]);
+        });
+    }
+
+});
+
+
+describe('Paser Test', function () {
 
     let test_case_input = [
         '2+1','3-1+2*3','1+(2+3)','if[1>3,3,2]','round[1,2]','root[2]','abs[1]','if[2>3,1,2]+3*2-1/round[3,2]','19+3/3','abs[3]+2', "1+22222222+2323+if[1>2,3,4]/2-42","if[2<=3,2,1]+42*abs[3]"
@@ -10,13 +28,25 @@ describe.only('Paser Test', function () {
     let test_case_output = [
         [2,'+',1],[3,'-',1,'+',2,'*',3],[1,'+','(',2,'+',3,')'],['if',1,'>',3,3,2],['round',1,2],['root',2],['abs',1],['if',2,'>',3,1,2,'+',3,'*',2,'-',1,'/','round',3,2],[19,'+',3,'/',3],['abs',3,'+',2],[1,'+',22222222,'+',2323,'+','if',1,'>',2,3,4,'/',2,'-',42],['if',2,'<=',3,2,1,'+',42,'*','abs',3]
     ];
+    let test_case_parsed_output = [
+        ['Number','Operation','Number'],['Number','Operation','Number','Operation','Number','Operation','Number']
+        ,['Number','Operation','small_left_bracket','Number','Operation','Number','small_right_bracket']
+    ];
 
     for(let i=0;i<test_case_input.length;i++) {
         it('operation : '+i, function () {
             let test = new target.Calc_object(test_case_input[i]);
             test.parser()
-            console.log(test.get_parsed_data())
             assert.deepStrictEqual(test.get_parsed_data(), test_case_output[i]);
+
+        });
+    }
+
+    for(let i=0;i<3;i++) {
+        it('parsed_operation : '+i, function () {
+            let test = new target.Calc_object(test_case_input[i]);
+            test.parser()
+            assert.deepStrictEqual(test.get_parsed_type(), test_case_parsed_output[i]);
 
         });
     }
@@ -162,12 +192,12 @@ describe('Two op Functions Test', function () {
             assert.strictEqual(test.div(test_case_input1[i], test_case_input2[i]), test_case_output_div[i]);
         });
     }
-    //test
-    for(let i=0;i<test_case_input1.length;i++) {
-        it('div ' + i, function () {
-            assert.strictEqual(test.round(test_case_input1[i], test_case_input2[i]), test_case_output_round[i]);
-        });
-    }
+    // //test
+    // for(let i=0;i<test_case_input1.length;i++) {
+    //     it('round ' + i, function () {
+    //         assert.strictEqual(test.round(test_case_input1[i], test_case_input2[i]), test_case_output_round[i]);
+    //     });
+    // }
 
 });
 
