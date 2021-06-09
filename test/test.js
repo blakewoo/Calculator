@@ -1,7 +1,7 @@
 let target = require('../module/module_function')
 const assert = require('assert');
 
-describe.only('Post_fix', function () {
+describe('Post_fix', function () {
     let test_case_input = [
         '2+1'
     ]
@@ -14,6 +14,26 @@ describe.only('Post_fix', function () {
             let test = new target.Calc_object(test_case_input[i]);
             test.parser()
             assert.deepStrictEqual(test.postfix_trans(), test_case_output[i]);
+        });
+    }
+
+});
+
+describe.only('Index Test', function () {
+
+    let test_case_input = [
+        '2+1'
+    ]
+    let test_case_output = [
+        [0,1,2]
+    ];
+
+    for(let i=0;i<test_case_input.length;i++) {
+        it('index : '+i, function () {
+            let test = new target.Calc_object(test_case_input[i]);
+            test.parser()
+            console.log(test.get_parsed_index())
+            assert.deepStrictEqual(test.get_parsed_index(), test_case_output[i]);
         });
     }
 

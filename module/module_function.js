@@ -55,7 +55,9 @@ let Calc_object = function(raw_data) {
     this.raw_data = raw_data;
     this.parsed_data = [];
     this.parsed_type = [];
-    this.postfix_array = [];
+    this.postfix_array_data = [];
+    this.postfix_array_type = [];
+    this.postfix_array_index = [];
     this.parsed_index = [];
 }
 
@@ -85,14 +87,23 @@ function calculating () {
  * 분해된 데이터를 후위 연산식으로 변경하는 함수
  */
 function trans_postfix () {
-    let transArray = this.postfix_array;
+    let postfix_array_data = this.postfix_array_data;
+    let postfix_array_type = this.postfix_array_type;
+    let postfix_array_index = this.postfix_array_index;
+
     let parsed_data = this.parsed_data;
     let parsed_type = this.parsed_type;
-    let stack = [];
+    let parsed_index = this.parsed_index;
+
+    let data_stack = [];
+    let type_stack = [];
+    let index_stack = [];
 
     for(let i=0;i<parsed_data.length;i++) {
         if(parsed_type==="Number") {
-
+            postfix_array_data.push(parsed_data[i])
+            postfix_array_type.push(parsed_type[i]);
+            postfix_array_index.push(parsed_index[i]);
         }
         else if(parsed_type==="Operation") {
 
@@ -101,10 +112,17 @@ function trans_postfix () {
 
         }
         else if(parsed_type==="small_left_bracket") {
-
+            data_stack.push(parsed_data[i])
+            type_stack.push(parsed_type[i]);
+            index_stack.push(parsed_index[i]);
         }
         else if(parsed_type==="small_right_bracket") {
-
+            let state = data_stack.pop();
+            while(state!=="(") {
+                data_stack.push(parsed_data[i])
+                type_stack.push(parsed_type[i]);
+                index_stack.push(parsed_index[i]);
+            }
         }
         else {
             return;
@@ -545,6 +563,7 @@ Calc_object.prototype.parser = function () {
                     return {error:true,error_index:current_index};
                 }
                 else {
+                    parsed_index.push(current_index);
                     current_index = function_result.index;
                 }
                 continue;
@@ -593,7 +612,13 @@ Calc_object.prototype.get_parsed_type = function () {
     return this.parsed_type;
 }
 
-
+/**
+ * 인덱스 배열을 불러오고 싶을때 쓰는 함수
+ * @returns {[]}
+ */
+Calc_object.prototype.get_parsed_index = function () {
+    return this.parsed_index;
+}
 /**
  * 더하기 함수 : 숫자 아닌것, 최소 최대 예외처리 되어잇음
  * @param input_a : 피연산자1
