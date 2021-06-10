@@ -1,7 +1,7 @@
 let target = require('../module/module_function')
 const assert = require('assert');
 
-describe('Post_fix', function () {
+describe.only('Post_fix', function () {
     let test_case_input = [
         '2+1'
     ]
@@ -13,13 +13,14 @@ describe('Post_fix', function () {
         it('Post_fix Number : '+i, function () {
             let test = new target.Calc_object(test_case_input[i]);
             test.parser()
-            assert.deepStrictEqual(test.postfix_trans(), test_case_output[i]);
+            test.postfix_trans()
+            assert.deepStrictEqual(test.get_post_fix(), test_case_output[i]);
         });
     }
 
 });
 
-describe.only('Index Test', function () {
+describe('Index Test', function () {
 
     let test_case_input = [
         '2+1'
@@ -188,7 +189,7 @@ describe('Two op Functions Test', function () {
     ];
 
     let test_case_output_round = [
-        Infinity,NaN,NaN,NaN,Infinity,NaN,NaN,NaN
+        NaN,NaN,NaN,NaN,Infinity,NaN,NaN,NaN
     ]
 
 
@@ -212,12 +213,12 @@ describe('Two op Functions Test', function () {
             assert.strictEqual(test.div(test_case_input1[i], test_case_input2[i]), test_case_output_div[i]);
         });
     }
-    // //test
-    // for(let i=0;i<test_case_input1.length;i++) {
-    //     it('round ' + i, function () {
-    //         assert.strictEqual(test.round(test_case_input1[i], test_case_input2[i]), test_case_output_round[i]);
-    //     });
-    // }
+    //test
+    for(let i=0;i<test_case_input1.length;i++) {
+        it('round ' + i, function () {
+            assert.strictEqual(test.round(test_case_input1[i], test_case_input2[i]), test_case_output_round[i]);
+        });
+    }
 
 });
 

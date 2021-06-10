@@ -59,6 +59,22 @@ let Calc_object = function(raw_data) {
     this.postfix_array_type = [];
     this.postfix_array_index = [];
     this.parsed_index = [];
+    this.operation_rank = new Map([
+        ["+", 0],
+        ["*", 1],
+        ["-", 0],
+        ["/", 1],
+        ["sin", 1],
+        ["cos", 1],
+        ["tan", 1],
+        ["atan", 1],
+        ["acos", 1],
+        ["asin", 1],
+        ["round", 1],
+        ["root", 1],
+        ["if", 1],
+        ["abs", 1],
+    ])
 }
 
 /**
@@ -72,7 +88,7 @@ Calc_object.prototype.total_calculation = function () {
  * postfix 변환된거 출력하는 함수
  */
 Calc_object.prototype.postfix_trans = function () {
-    trans_postfix ();
+    trans_postfix (this.operation_rank,this.postfix_array_data,this.postfix_array_type,this.postfix_array_index,this.parsed_data,this.parsed_type,this.parsed_index);
 }
 
 /**
@@ -86,37 +102,44 @@ function calculating () {
 /**
  * 분해된 데이터를 후위 연산식으로 변경하는 함수
  */
-function trans_postfix () {
-    let postfix_array_data = this.postfix_array_data;
-    let postfix_array_type = this.postfix_array_type;
-    let postfix_array_index = this.postfix_array_index;
+function trans_postfix (g_operation_rank,g_postfix_array_data,g_postfix_array_type,g_postfix_array_index,g_parsed_data,g_parsed_type,g_parsed_index) {
+    let operation_rank = g_operation_rank;
 
-    let parsed_data = this.parsed_data;
-    let parsed_type = this.parsed_type;
-    let parsed_index = this.parsed_index;
+    let postfix_array_data = g_postfix_array_data;
+    let postfix_array_type = g_postfix_array_type;
+    let postfix_array_index = g_postfix_array_index;
+
+    let parsed_data = g_parsed_data;
+    let parsed_type = g_parsed_type;
+    let parsed_index = g_parsed_index;
 
     let data_stack = [];
     let type_stack = [];
     let index_stack = [];
 
     for(let i=0;i<parsed_data.length;i++) {
-        if(parsed_type==="Number") {
+        if(parsed_type[i]==="Number") {
             postfix_array_data.push(parsed_data[i])
             postfix_array_type.push(parsed_type[i]);
             postfix_array_index.push(parsed_index[i]);
         }
-        else if(parsed_type==="Operation") {
+        else if(parsed_type[i]==="Operation" || parsed_type[i]==="function") {
+            while(data_stack.length !==0 && operation_rank.get(data_stack[data_stack.length-1])>=operation_rank.get(parsed_data[i]) ) {
+                postfix_array_data.push(data_stack.pop())
+                postfix_array_type.push(type_stack.pop());
+                postfix_array_index.push(index_stack.pop());
+            }
 
+            postfix_array_data.push(parsed_data[i])
+            postfix_array_type.push(parsed_type[i]);
+            postfix_array_index.push(parsed_index[i]);
         }
-        else if(parsed_type==="function") {
-
-        }
-        else if(parsed_type==="small_left_bracket") {
+        else if(parsed_type[i]==="small_left_bracket") {
             data_stack.push(parsed_data[i])
             type_stack.push(parsed_type[i]);
             index_stack.push(parsed_index[i]);
         }
-        else if(parsed_type==="small_right_bracket") {
+        else if(parsed_type[i]==="small_right_bracket") {
             let state = data_stack.pop();
             while(state!=="(") {
                 data_stack.push(parsed_data[i])
@@ -128,7 +151,6 @@ function trans_postfix () {
             return;
         }
     }
-
 }
 
 /**
@@ -619,6 +641,15 @@ Calc_object.prototype.get_parsed_type = function () {
 Calc_object.prototype.get_parsed_index = function () {
     return this.parsed_index;
 }
+
+/**
+ * 후위연산식 배열을 불러오고 싶을때 쓰는 함수
+ * @returns {[]}
+ */
+Calc_object.prototype.get_post_fix = function () {
+    return this.postfix_array_data;
+}
+
 /**
  * 더하기 함수 : 숫자 아닌것, 최소 최대 예외처리 되어잇음
  * @param input_a : 피연산자1
@@ -857,9 +888,9 @@ Calc_object.prototype.round = function (input_a,input_b) {
 
     if(isNumber(input_a) && isNumber(input_b)) {
         input_a = isMinMax(input_a)
-        if (isInteger(input_b)) {
+        if (isInteger(input_b) && 1<=Number(input_b) && 100>= Number(input_b)) {
             input_b = isMinMax(input_b)
-            return input_a.toFixed(input_b);
+            return Number(input_a.toFixed(input_b));
         }
         else{
             return NaN;
