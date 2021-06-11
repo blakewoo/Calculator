@@ -141,6 +141,8 @@ function trans_postfix (g_operation_rank,g_postfix_array_data,g_postfix_array_ty
         }
         else if(parsed_type[i]==="small_right_bracket") {
             let state = data_stack.pop();
+            type_stack.pop();
+            index_stack.pop();
             while(state!=="(") {
                 data_stack.push(parsed_data[i])
                 type_stack.push(parsed_type[i]);
