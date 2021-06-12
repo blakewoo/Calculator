@@ -88,7 +88,11 @@ Calc_object.prototype.total_calculation = function () {
  * postfix 변환된거 출력하는 함수
  */
 Calc_object.prototype.postfix_trans = function () {
-    trans_postfix (this.operation_rank,this.postfix_array_data,this.postfix_array_type,this.postfix_array_index,this.parsed_data,this.parsed_type,this.parsed_index);
+    let result = trans_postfix (this.operation_rank,this.postfix_array_data,this.postfix_array_type,this.postfix_array_index,this.parsed_data,this.parsed_type,this.parsed_index)
+    //예외 처리
+    if(result.error){
+
+    }
 }
 
 /**
@@ -150,9 +154,11 @@ function trans_postfix (g_operation_rank,g_postfix_array_data,g_postfix_array_ty
             }
         }
         else {
-            return;
+            return {error:true,index:i};
         }
     }
+
+    return {error:false};
 }
 
 /**
