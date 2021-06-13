@@ -3,10 +3,10 @@ const assert = require('assert');
 
 describe.only('Post_fix', function () {
     let test_case_input = [
-        '2+1','15*(4+2)'
+        '2+1','15*(4+2)','1+3*if[2>3,2,1]'
     ]
     let test_case_output = [
-        [2,'+',1],[15,4,2,'+','+']
+        [2,1,'+'],[15,4,2,'+','*'],[]
     ];
 
     for(let i=0;i<test_case_input.length;i++) {
@@ -14,8 +14,6 @@ describe.only('Post_fix', function () {
             let test = new target.Calc_object(test_case_input[i]);
             test.parser()
             test.postfix_trans()
-            console.log("test.get_post_fix()")
-            console.log(test.get_post_fix())
             assert.deepStrictEqual(test.get_post_fix(), test_case_output[i]);
         });
     }
@@ -35,7 +33,6 @@ describe('Index Test', function () {
         it('index : '+i, function () {
             let test = new target.Calc_object(test_case_input[i]);
             test.parser()
-            console.log(test.get_parsed_index())
             assert.deepStrictEqual(test.get_parsed_index(), test_case_output[i]);
         });
     }

@@ -129,14 +129,14 @@ function trans_postfix (g_operation_rank,g_postfix_array_data,g_postfix_array_ty
         }
         else if(parsed_type[i]==="Operation" || parsed_type[i]==="function") {
             while(data_stack.length !==0 && operation_rank.get(data_stack[data_stack.length-1])>=operation_rank.get(parsed_data[i]) ) {
-                postfix_array_data.push(data_stack.pop())
+                postfix_array_data.push(data_stack.pop());
                 postfix_array_type.push(type_stack.pop());
                 postfix_array_index.push(index_stack.pop());
             }
 
-            postfix_array_data.push(parsed_data[i])
-            postfix_array_type.push(parsed_type[i]);
-            postfix_array_index.push(parsed_index[i]);
+            data_stack.push(parsed_data[i]);
+            type_stack.push(parsed_type[i]);
+            index_stack.push(parsed_index[i]);
         }
         else if(parsed_type[i]==="small_left_bracket") {
             data_stack.push(parsed_data[i])
@@ -144,18 +144,25 @@ function trans_postfix (g_operation_rank,g_postfix_array_data,g_postfix_array_ty
             index_stack.push(parsed_index[i]);
         }
         else if(parsed_type[i]==="small_right_bracket") {
-            let state = data_stack.pop();
-            type_stack.pop();
-            index_stack.pop();
-            while(state!=="(") {
-                data_stack.push(parsed_data[i])
-                type_stack.push(parsed_type[i]);
-                index_stack.push(parsed_index[i]);
+            let state = data_stack[data_stack.length-1]
+            while(state !== undefined && state!=="(") {
+                postfix_array_data.push(data_stack.pop());
+                postfix_array_type.push(type_stack.pop());
+                postfix_array_index.push(index_stack.pop());
+                state = data_stack[data_stack.length-1]
             }
+            data_stack.pop()
+            type_stack.pop()
+            index_stack.pop()
         }
         else {
             return {error:true,index:i};
         }
+    }
+    while(data_stack.length !==0) {
+        postfix_array_data.push(data_stack.pop());
+        postfix_array_type.push(type_stack.pop());
+        postfix_array_index.push(index_stack.pop());
     }
 
     return {error:false};
