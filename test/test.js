@@ -6,7 +6,7 @@ describe.only('Post_fix', function () {
         '2+1','15*(4+2)','1+3*if[2>3,2,1]'
     ]
     let test_case_output = [
-        [2,1,'+'],[15,4,2,'+','*'],[]
+        [2,1,'+'],[15,4,2,'+','*'],[1,3,'*',2,'if',3,2,1,'>','+']
     ];
 
     for(let i=0;i<test_case_input.length;i++) {
