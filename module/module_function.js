@@ -88,7 +88,8 @@ let Calc_object = function(raw_data) {
  * 전체 연산 호출 함수
  */
 Calc_object.prototype.total_calculation = function () {
-
+    let result = calculating(this.postfix_array_data,this.postfix_array_type,this.postfix_array_index);
+    return result;
 }
 
 /**
@@ -106,8 +107,25 @@ Calc_object.prototype.postfix_trans = function () {
  * 후위 연산식으로 변경한 식을 계산하는 함수
  * 스택을 이용해서 연산함
  */
-function calculating () {
+function calculating (postfix_array_data,postfix_array_type,postfix_array_index) {
+    let postfix_data = postfix_array_data;
+    let postfix_type = postfix_array_type;
+    let postfix_index = postfix_array_index;
 
+    for(let i=0;i<postfix_data.length;i++) {
+        if(postfix_type === "Number") {
+
+        }
+        else if(postfix_type === "Operation") {
+
+        }
+        else if(postfix_type === "Function") {
+
+        }
+        else {
+
+        }
+    }
 }
 
 /**
@@ -116,14 +134,17 @@ function calculating () {
 function trans_postfix (g_operation_rank,g_postfix_array_data,g_postfix_array_type,g_postfix_array_index,g_parsed_data,g_parsed_type,g_parsed_index) {
     let operation_rank = g_operation_rank;
 
+    // 후위 연산 배열
     let postfix_array_data = g_postfix_array_data;
     let postfix_array_type = g_postfix_array_type;
     let postfix_array_index = g_postfix_array_index;
 
+    // 연산자, 피연산자로 뜯어진 배열
     let parsed_data = g_parsed_data;
     let parsed_type = g_parsed_type;
     let parsed_index = g_parsed_index;
 
+    // 후위 연산 변환을 위한 스택
     let data_stack = [];
     let type_stack = [];
     let index_stack = [];
