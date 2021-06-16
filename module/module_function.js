@@ -111,17 +111,77 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
     let postfix_data = postfix_array_data;
     let postfix_type = postfix_array_type;
     let postfix_index = postfix_array_index;
+    let calc_stack = [];
 
     for(let i=0;i<postfix_data.length;i++) {
-        if(postfix_type === "Number") {
-
+        if(postfix_type[i] === "Number") {
+            calc_stack.push(postfix_data[i]);
         }
-        else if(postfix_type === "Operation") {
+        else if(postfix_type[i] === "Operation") {
+            if(postfix_data[i] === "+") {
 
-        }
-        else if(postfix_type === "Function") {
+            }
+            else if (postfix_data[i] === "-") {
 
+            }
+            else if (postfix_data[i] === "*") {
+
+            }
+            else if (postfix_data[i] === "/") {
+
+            }
+            else if (postfix_data[i] === "<") {
+
+            }
+            else if (postfix_data[i] === "<=") {
+
+            }
+            else if (postfix_data[i] === ">") {
+
+            }
+            else if (postfix_data[i] === ">=") {
+
+            }
+            else if (postfix_data[i] === "=") {
+
+            }
+            else if (postfix_data[i] === "!=") {
+
+            }
         }
+        else if(postfix_type[i] === "Function") {
+            if(postfix_data[i] === "if") {
+
+            }
+            else if (postfix_data[i] === "abs") {
+
+            }
+            else if (postfix_data[i] === "asin") {
+
+            }
+            else if (postfix_data[i] === "acos") {
+
+            }
+            else if (postfix_data[i] === "atan") {
+
+            }
+            else if (postfix_data[i] === "sin") {
+
+            }
+            else if (postfix_data[i] === "cos") {
+
+            }
+            else if (postfix_data[i] === "tan") {
+
+            }
+            else if (postfix_data[i] === "root") {
+
+            }
+            else if (postfix_data[i] === "round") {
+
+            }
+        }
+        // 에러 처리
         else {
 
         }
