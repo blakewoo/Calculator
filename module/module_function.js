@@ -112,6 +112,10 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
     let postfix_type = postfix_array_type;
     let postfix_index = postfix_array_index;
     let calc_stack = [];
+    let tempInput1;
+    let tempInput2;
+    let tempInput3;
+    let tempResult;
 
     for(let i=0;i<postfix_data.length;i++) {
         if(postfix_type[i] === "Number") {
@@ -119,16 +123,60 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
         }
         else if(postfix_type[i] === "Operation") {
             if(postfix_data[i] === "+") {
+                tempInput1 = calc_stack.pop()
+                tempInput2 = calc_stack.pop()
+                tempResult = Calc_object.prototype.plus(tempInput2,tempInput1);
+                if(isNaN(tempResult)) {
 
+                }
+                else if(isFinite(tempResult)) {
+
+                }
+                else {
+
+                }
             }
             else if (postfix_data[i] === "-") {
+                tempInput1 = calc_stack.pop()
+                tempInput2 = calc_stack.pop()
+                tempResult = Calc_object.prototype.minus(tempInput2,tempInput1);
+                if(isNaN(tempResult)) {
 
+                }
+                else if(isFinite(tempResult)) {
+
+                }
+                else {
+
+                }
             }
             else if (postfix_data[i] === "*") {
+                tempInput1 = calc_stack.pop()
+                tempInput2 = calc_stack.pop()
+                tempResult = Calc_object.prototype.mul(tempInput2,tempInput1);
+                if(isNaN(tempResult)) {
 
+                }
+                else if(isFinite(tempResult)) {
+
+                }
+                else {
+
+                }
             }
             else if (postfix_data[i] === "/") {
+                tempInput1 = calc_stack.pop()
+                tempInput2 = calc_stack.pop()
+                tempResult = Calc_object.prototype.div(tempInput2,tempInput1);
+                if(isNaN(tempResult)) {
 
+                }
+                else if(isFinite(tempResult)) {
+
+                }
+                else {
+
+                }
             }
             else if (postfix_data[i] === "<") {
 
