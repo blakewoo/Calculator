@@ -8,6 +8,7 @@ window.addEventListener('DOMContentLoaded', function()
 function btnEventBinder() {
     let operationButtons =  document.getElementsByClassName("calc_button")
     let functionButton = document.getElementsByClassName("function_input_button");
+    let calculationButton = document.getElementById("calculation");
     for(let i=0;i<operationButtons.length;i++) {
         operationButtons[i].removeEventListener("click",opBtnEvent)
         operationButtons[i].addEventListener("click",opBtnEvent)
@@ -17,6 +18,13 @@ function btnEventBinder() {
         functionButton[i].removeEventListener("click",funcBtnEvent)
         functionButton[i].addEventListener("click",funcBtnEvent)
     }
+
+    calculationButton.removeEventListener("click",calcButtonEvent)
+    calculationButton.addEventListener("click",calcButtonEvent)
+}
+
+function calcButtonEvent(event) {
+    requestCalculation();
 }
 
 function opBtnEvent(event) {

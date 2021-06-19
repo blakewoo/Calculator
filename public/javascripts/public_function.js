@@ -16,3 +16,7 @@ function ajax_function(method_type,url,send_data,callback) {
     xhr.open(method_type,url);
     xhr.send(data);
 }
+
+function requestCalculation() {
+
+}
