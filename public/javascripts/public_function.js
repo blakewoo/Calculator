@@ -6,7 +6,7 @@ function ajax_function(method_type,url,send_data,callback) {
 
     xhr.onreadystatechange = function () {
         if(xhr.readyState === xhr.DONE) {
-
+            callback();
         }
         else {
 

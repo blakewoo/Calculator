@@ -122,79 +122,44 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
             calc_stack.push(postfix_data[i]);
         }
         else if(postfix_type[i] === "Operation") {
+            tempInput1 = calc_stack.pop()
+            tempInput2 = calc_stack.pop()
             if(postfix_data[i] === "+") {
-                tempInput1 = calc_stack.pop()
-                tempInput2 = calc_stack.pop()
                 tempResult = Calc_object.prototype.plus(tempInput2,tempInput1);
-                if(isNaN(tempResult)) {
-
-                }
-                else if(isFinite(tempResult)) {
-
-                }
-                else {
-
-                }
             }
             else if (postfix_data[i] === "-") {
-                tempInput1 = calc_stack.pop()
-                tempInput2 = calc_stack.pop()
                 tempResult = Calc_object.prototype.minus(tempInput2,tempInput1);
-                if(isNaN(tempResult)) {
-
-                }
-                else if(isFinite(tempResult)) {
-
-                }
-                else {
-
-                }
             }
             else if (postfix_data[i] === "*") {
-                tempInput1 = calc_stack.pop()
-                tempInput2 = calc_stack.pop()
                 tempResult = Calc_object.prototype.mul(tempInput2,tempInput1);
-                if(isNaN(tempResult)) {
-
-                }
-                else if(isFinite(tempResult)) {
-
-                }
-                else {
-
-                }
             }
             else if (postfix_data[i] === "/") {
-                tempInput1 = calc_stack.pop()
-                tempInput2 = calc_stack.pop()
                 tempResult = Calc_object.prototype.div(tempInput2,tempInput1);
-                if(isNaN(tempResult)) {
-
-                }
-                else if(isFinite(tempResult)) {
-
-                }
-                else {
-
-                }
             }
             else if (postfix_data[i] === "<") {
-
+                tempResult = Calc_object.prototype.plus(tempInput2,tempInput1);
             }
             else if (postfix_data[i] === "<=") {
-
+                tempResult = Calc_object.prototype.plus(tempInput2,tempInput1);
             }
             else if (postfix_data[i] === ">") {
-
+                tempResult = Calc_object.prototype.plus(tempInput2,tempInput1);
             }
             else if (postfix_data[i] === ">=") {
-
+                tempResult = Calc_object.prototype.plus(tempInput2,tempInput1);
             }
             else if (postfix_data[i] === "=") {
-
+                tempResult = Calc_object.prototype.plus(tempInput2,tempInput1);
             }
             else if (postfix_data[i] === "!=") {
+                tempResult = Calc_object.prototype.plus(tempInput2,tempInput1);
+            }
 
+            if(isNaN(tempResult)) {
+                return {isError:true,errorCode:"F-2",errorIndex:postfix_index[i]}
+            }
+            else if(isFinite(tempResult)) {
+                return {isError:true,errorCode:"N-1",errorIndex:postfix_index[i]}
             }
         }
         else if(postfix_type[i] === "Function") {
