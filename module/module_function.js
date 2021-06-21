@@ -137,61 +137,68 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
                 tempResult = Calc_object.prototype.div(tempInput2,tempInput1);
             }
             else if (postfix_data[i] === "<") {
-                tempResult = Calc_object.prototype.plus(tempInput2,tempInput1);
-            }
-            else if (postfix_data[i] === "<=") {
-                tempResult = Calc_object.prototype.plus(tempInput2,tempInput1);
+                tempResult = Calc_object.prototype.div(tempInput2,tempInput1);
             }
             else if (postfix_data[i] === ">") {
-                tempResult = Calc_object.prototype.plus(tempInput2,tempInput1);
+                tempResult = Calc_object.prototype.div(tempInput2,tempInput1);
+            }
+            else if (postfix_data[i] === "<=") {
+                tempResult = Calc_object.prototype.div(tempInput2,tempInput1);
             }
             else if (postfix_data[i] === ">=") {
-                tempResult = Calc_object.prototype.plus(tempInput2,tempInput1);
+                tempResult = Calc_object.prototype.div(tempInput2,tempInput1);
             }
             else if (postfix_data[i] === "=") {
-                tempResult = Calc_object.prototype.plus(tempInput2,tempInput1);
+                tempResult = Calc_object.prototype.div(tempInput2,tempInput1);
             }
             else if (postfix_data[i] === "!=") {
-                tempResult = Calc_object.prototype.plus(tempInput2,tempInput1);
+                tempResult = Calc_object.prototype.div(tempInput2,tempInput1);
             }
 
             if(isNaN(tempResult)) {
                 return {isError:true,errorCode:"F-2",errorIndex:postfix_index[i]}
             }
-            else if(isFinite(tempResult)) {
+            else if(!isFinite(tempResult)) {
                 return {isError:true,errorCode:"N-1",errorIndex:postfix_index[i]}
             }
+
+            calc_stack.push(tempResult);
+
         }
         else if(postfix_type[i] === "Function") {
-            if(postfix_data[i] === "if") {
+            tempInput1 = calc_stack.pop()
 
+            if(postfix_data[i] === "if") {
+                tempInput2 = calc_stack.pop()
+                tempInput3 = calc_stack.pop()
             }
             else if (postfix_data[i] === "abs") {
-
+                tempResult = Calc_object.prototype.abs(tempInput1);
             }
             else if (postfix_data[i] === "asin") {
-
+                tempResult = Calc_object.prototype.asin(tempInput1);
             }
             else if (postfix_data[i] === "acos") {
-
+                tempResult = Calc_object.prototype.acos(tempInput1);
             }
             else if (postfix_data[i] === "atan") {
-
+                tempResult = Calc_object.prototype.atan(tempInput1);
             }
             else if (postfix_data[i] === "sin") {
-
+                tempResult = Calc_object.prototype.sin(tempInput1);
             }
             else if (postfix_data[i] === "cos") {
-
+                tempResult = Calc_object.prototype.cos(tempInput1);
             }
             else if (postfix_data[i] === "tan") {
-
+                tempResult = Calc_object.prototype.tan(tempInput1);
             }
             else if (postfix_data[i] === "root") {
-
+                tempResult = Calc_object.prototype.root(tempInput1);
             }
             else if (postfix_data[i] === "round") {
-
+                tempInput2 = calc_stack.pop()
+                tempResult = Calc_object.prototype.round(tempInput2,tempInput1);
             }
         }
         // 에러 처리
