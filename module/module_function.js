@@ -900,78 +900,21 @@ Calc_object.prototype.div = function(input_a,input_b) {
  * @returns {*} : 반환값
  */
 Calc_object.prototype.if = function (input_a,input_b,input_c) {
-    // 정규식으로 적절한 값 예외처리, 적절하지 않으면 NaN 반환
-    let temp_arr = input_a.split(/[^0-9.]/)
-    let result_op = [];
-    let result_arr = [];
-    let temp_op = input_a.split(/[0-9.]/)
 
-    temp_arr.forEach(function (obj) {if(obj!=="") {result_arr.push(obj)}})
-    temp_op.forEach(function (obj) {if(obj!=="") {result_op.push(obj)}})
-
-    let op_code = result_op[0]
-    let result_arr_a = result_arr[0]
-    let result_arr_b = result_arr[1]
-
-    if(!isNumber(result_arr_a))
+    if(!isNumber(input_b))
     {
         return NaN;
     }
 
-    if(!isNumber(result_arr_b)) {
+    if(!isNumber(input_c)) {
         return NaN;
     }
 
-    if(op_code === "<=") {
-        if(result_arr_a<=result_arr_b) {
-            return input_b;
-        }
-        else {
-            return input_c;
-        }
-    }
-    else if(op_code === ">=") {
-        if(result_arr_a>=result_arr_b) {
-            return input_b;
-        }
-        else {
-            return input_c;
-        }
-    }
-    else if(op_code === "<") {
-        if(result_arr_a<result_arr_b) {
-            return input_b;
-        }
-        else {
-            return input_c;
-        }
-    }
-    else if(op_code === ">") {
-        if(result_arr_a>result_arr_b) {
-            return input_b;
-        }
-        else {
-            return input_c;
-        }
-    }
-    else if(op_code === "=") {
-        if(result_arr_a===result_arr_b) {
-            return input_b;
-        }
-        else {
-            return input_c;
-        }
-    }
-    else if(op_code === "!=") {
-        if(result_arr_a!==result_arr_b) {
-            return input_b;
-        }
-        else {
-            return input_c;
-        }
+    if(input_a) {
+        return input_b;
     }
     else {
-        return NaN;
+        return input_c;
     }
 }
 
@@ -1156,6 +1099,139 @@ Calc_object.prototype.acos = function (input_a) {
         return NaN;
     }
 }
+
+/**
+ * < 크다 : 최대최소, 숫자가 아닌것 예외처리
+ * @param input_a : 피연산자1
+ * @param input_b : 피연산자2
+ * @returns {boolean} : 반환값
+ */
+Calc_object.prototype.bigger = function (input_a,input_b) {
+    if(isNumber(input_a) && isNumber(input_b)) {
+        input_a = isMinMax(input_a)
+        input_b = isMinMax(input_b)
+        if(input_a<input_b){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+        return NaN;
+    }
+}
+
+/**
+ * <= 크거나 같다 : 최대최소, 숫자가 아닌것 예외처리
+ * @param input_a : 피연산자1
+ * @param input_b : 피연산자2
+ * @returns {boolean} : 반환값
+ */
+Calc_object.prototype.biggerEqual = function (input_a,input_b) {
+    if(isNumber(input_a) && isNumber(input_b)) {
+        input_a = isMinMax(input_a)
+        input_b = isMinMax(input_b)
+        if(input_a<=input_b){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+        return NaN;
+    }
+}
+
+/**
+ * > 작다 : 최대최소, 숫자가 아닌것 예외처리
+ * @param input_a : 피연산자1
+ * @param input_b : 피연산자2
+ * @returns {boolean} : 반환값
+ */
+Calc_object.prototype.smaller = function (input_a,input_b) {
+    if(isNumber(input_a) && isNumber(input_b)) {
+        input_a = isMinMax(input_a)
+        input_b = isMinMax(input_b)
+        if(input_a>input_b){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+        return NaN;
+    }
+}
+
+/**
+ * >= 작거나 같다 : 최대최소, 숫자가 아닌것 예외처리
+ * @param input_a : 피연산자1
+ * @param input_b : 피연산자2
+ * @returns {boolean} : 반환값
+ */
+Calc_object.prototype.smallerEqual = function (input_a,input_b) {
+    if(isNumber(input_a) && isNumber(input_b)) {
+        input_a = isMinMax(input_a)
+        input_b = isMinMax(input_b)
+        if(input_a>=input_b){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+        return NaN;
+    }
+}
+
+/**
+ * = 같다 : 최대최소, 숫자가 아닌것 예외처리
+ * @param input_a : 피연산자1
+ * @param input_b : 피연산자2
+ * @returns {boolean} : 반환값
+ */
+Calc_object.prototype.equal = function (input_a,input_b) {
+    if(isNumber(input_a) && isNumber(input_b)) {
+        input_a = isMinMax(input_a)
+        input_b = isMinMax(input_b)
+        if(input_a === input_b){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+        return NaN;
+    }
+}
+
+/**
+ * != 같지 않다 : 최대최소, 숫자가 아닌것 예외처리
+ * @param input_a : 피연산자1
+ * @param input_b : 피연산자2
+ * @returns {boolean} : 반환값
+ */
+Calc_object.prototype.nonEqual = function (input_a,input_b) {
+    if(isNumber(input_a) && isNumber(input_b)) {
+        input_a = isMinMax(input_a)
+        input_b = isMinMax(input_b)
+        if(input_a !== input_b){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+        return NaN;
+    }
+}
+
 
 /**
  * 최대 최소 처리
