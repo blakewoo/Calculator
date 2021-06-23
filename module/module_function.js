@@ -171,6 +171,7 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
             if(postfix_data[i] === "if") {
                 tempInput2 = calc_stack.pop()
                 tempInput3 = calc_stack.pop()
+                tempResult = Calc_object.prototype.if(tempInput1,tempInput2,tempInput3);
             }
             else if (postfix_data[i] === "abs") {
                 tempResult = Calc_object.prototype.abs(tempInput1);
@@ -200,12 +201,16 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
                 tempInput2 = calc_stack.pop()
                 tempResult = Calc_object.prototype.round(tempInput2,tempInput1);
             }
+
+            calc_stack.push(tempResult);
         }
         // 에러 처리
         else {
 
         }
     }
+
+    return calc_stack.pop();
 }
 
 /**
