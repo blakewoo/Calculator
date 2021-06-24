@@ -688,6 +688,7 @@ Calc_object.prototype.parser = function () {
             case "/" :
             case "*" :
             case "-" :
+
             case ">" :
             case "<" :
             case "!" :
@@ -745,6 +746,28 @@ Calc_object.prototype.parser = function () {
 
 
 }
+
+
+/**
+ * 음수 검출 함수
+ * @param raw_data : 데이터배열
+ * @param current_index : 현재인덱스
+ * @returns {boolean}
+ */
+function tracing_minus(raw_data,current_index) {
+    if(current_index === 0)
+        return false;
+
+    switch(raw_data[current_index-1]) {
+        case "+":
+        case "-":
+        case "*":
+        case "/":
+
+    }
+    return false
+}
+
 
 /**
  * 파싱된 데이터를 불러오고 싶을때 쓰는 함수
