@@ -688,7 +688,13 @@ Calc_object.prototype.parser = function () {
             case "/" :
             case "*" :
             case "-" :
-
+                function_result = tracing_minus(raw_data,current_index)
+                if(function_result) {
+                    current_index = function_result;
+                }
+                else {
+                    return {error:true,error_index:current_index};
+                }
             case ">" :
             case "<" :
             case "!" :
@@ -752,20 +758,54 @@ Calc_object.prototype.parser = function () {
  * 음수 검출 함수
  * @param raw_data : 데이터배열
  * @param current_index : 현재인덱스
+ * @param parsed_data : 입력데이터
+ * @param parsed_type : 입력타입
+ * @param parsed_index : 입력인덱스
  * @returns {boolean}
  */
-function tracing_minus(raw_data,current_index) {
-    if(current_index === 0)
-        return false;
+function tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_index) {
+    if(current_index === 0) {
+        switch(raw_data[current_index+1]) {
+            case "1":
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+            case "7":
+            case "8":
+            case "9":
+            case "0":
+            case "a" :
+            case "s" :
+            case "c" :
+            case "t" :
+            case "r" :
+            case "i" :
+            case "(" :
+                parsed_data.push("-1");
+                parsed_type.push("Number");
+                parsed_index.push(current_index);
+                parsed_data.push("*");
+                parsed_type.push("Operation");
+                parsed_index.push(current_index);
+                return true
+                break;
+            default:
+                return false;
 
-    switch(raw_data[current_index-1]) {
-        case "+":
-        case "-":
-        case "*":
-        case "/":
-
+        }
     }
-    return false
+    else{
+        switch(raw_data[current_index-1]) {
+            case "+":
+            case "-":
+            case "*":
+            case "/":
+
+        }
+        return false
+    }
 }
 
 
