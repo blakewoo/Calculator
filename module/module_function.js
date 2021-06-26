@@ -688,12 +688,9 @@ Calc_object.prototype.parser = function () {
             case "/" :
             case "*" :
             case "-" :
-                function_result = tracing_minus(raw_data,current_index)
+                function_result = tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_index)
                 if(function_result) {
-                    current_index = function_result;
-                }
-                else {
-                    return {error:true,error_index:current_index};
+                    continue;
                 }
             case ">" :
             case "<" :
@@ -783,14 +780,13 @@ function tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_ind
             case "r" :
             case "i" :
             case "(" :
-                parsed_data.push("-1");
+                parsed_data.push(-1);
                 parsed_type.push("Number");
                 parsed_index.push(current_index);
                 parsed_data.push("*");
                 parsed_type.push("Operation");
                 parsed_index.push(current_index);
                 return true
-                break;
             default:
                 return false;
 
@@ -802,9 +798,18 @@ function tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_ind
             case "-":
             case "*":
             case "/":
-
+            case "[":
+            case "(":
+                parsed_data.push(-1);
+                parsed_type.push("Number");
+                parsed_index.push(current_index);
+                parsed_data.push("*");
+                parsed_type.push("Operation");
+                parsed_index.push(current_index);
+                return true
+            default:
+                return false;
         }
-        return false
     }
 }
 
@@ -996,6 +1001,7 @@ Calc_object.prototype.abs = function (input_a) {
     if(isNumber(input_a)) {
         input_a = isMinMax(input_a)
         if(isFinite(input_a)) {
+
             if(input_a<0) {
                 return -input_a;
             }
