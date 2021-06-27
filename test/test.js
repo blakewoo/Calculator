@@ -5,11 +5,18 @@ const assert = require('assert');
 
 describe.only('Calculator', function () {
 
+    // let test_case_input = [
+    //     '2+1','2-1','3*3','3/1','1-3*2','abs[3]','abs[-3]','sin[30]','abs[1-2]'
+    // ]
+    // let test_case_output = [
+    //     3,1,9,3,-5,3,3,0.5,1
+    // ];
+
     let test_case_input = [
-        '2+1','2-1','3*3','3/1','1-3*2','abs[3]','abs[-3]','sin[30]','abs[1-2]'
+        'abs[-3]','sin[30]','abs[1-2]'
     ]
     let test_case_output = [
-        3,1,9,3,-5,3,3,0.5,1
+        3,0.5,1
     ];
 
     for(let i=0;i<test_case_input.length;i++) {

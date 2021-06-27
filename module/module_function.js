@@ -165,7 +165,7 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
             calc_stack.push(tempResult);
 
         }
-        else if(postfix_type[i] === "Function") {
+        else if(postfix_type[i] === "function") {
             tempInput1 = calc_stack.pop()
 
             if(postfix_data[i] === "if") {
