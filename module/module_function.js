@@ -268,6 +268,23 @@ function trans_postfix (g_operation_rank,g_postfix_array_data,g_postfix_array_ty
             type_stack.pop()
             index_stack.pop()
         }
+        else if(parsed_type[i]==="big_left_bracket") {
+            data_stack.push(parsed_data[i])
+            type_stack.push(parsed_type[i]);
+            index_stack.push(parsed_index[i]);
+        }
+        else if(parsed_type[i]==="big_right_bracket") {
+            let state = data_stack[data_stack.length-1]
+            while(state !== undefined && state!=="[") {
+                postfix_array_data.push(data_stack.pop());
+                postfix_array_type.push(type_stack.pop());
+                postfix_array_index.push(index_stack.pop());
+                state = data_stack[data_stack.length-1]
+            }
+            data_stack.pop()
+            type_stack.pop()
+            index_stack.pop()
+        }
         else {
             return {error:true,index:i};
         }
@@ -738,7 +755,15 @@ Calc_object.prototype.parser = function () {
                 parsed_index.push(current_index)
                 continue;
             case "[" :
+                parsed_data.push("[");
+                parsed_type.push("big_left_bracket");
+                parsed_index.push(current_index)
+                continue;
             case "]" :
+                parsed_data.push("]");
+                parsed_type.push("big_right_bracket");
+                parsed_index.push(current_index)
+                continue;
             case "." :
             case "," :
                 continue;
