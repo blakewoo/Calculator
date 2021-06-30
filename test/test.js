@@ -2,7 +2,7 @@ let target = require('../module/module_function')
 const assert = require('assert');
 
 
-
+// 개인 엑세스키 발급후 테스트
 describe.only('Calculator', function () {
 
     let test_case_input = [
