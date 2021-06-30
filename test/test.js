@@ -5,18 +5,11 @@ const assert = require('assert');
 
 describe.only('Calculator', function () {
 
-    // let test_case_input = [
-    //     '2+1','2-1','3*3','3/1','1-3*2','abs[3]','abs[-3]','sin[30]','abs[1-2]'
-    // ]
-    // let test_case_output = [
-    //     3,1,9,3,-5,3,3,0.5,1
-    // ];
-
     let test_case_input = [
-        'abs[-3]','sin[30]','abs[1-2]','abs[2-1]'
+        '2+1','2-1','3*3','3/1','1-3*2','abs[3]','abs[-3]','sin[30]','abs[1-2]','if[1<2,1+2+3+4+2,2-3*2]','sin[1+2+27]'
     ]
     let test_case_output = [
-        3,0.5,1,1
+        3,1,9,3,-5,3,3,0.5,1,12,0.5
     ];
 
     for(let i=0;i<test_case_input.length;i++) {
@@ -24,8 +17,9 @@ describe.only('Calculator', function () {
             let test = new target.Calc_object(test_case_input[i]);
             test.parser()
             test.postfix_trans()
+            console.log(test.get_parsed_data())
             console.log(test.get_post_fix())
-            let result = test.total_calculation()
+            let result = test.total_calculation();
             assert.strictEqual(result, test_case_output[i]);
         });
     }

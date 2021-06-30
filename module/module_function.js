@@ -89,7 +89,7 @@ let Calc_object = function(raw_data) {
  */
 Calc_object.prototype.total_calculation = function () {
     let result = calculating(this.postfix_array_data,this.postfix_array_type,this.postfix_array_index);
-    return result;
+    return Number(result);
 }
 
 /**
@@ -420,7 +420,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
                 if(tracing_bracket(arr,start+3,3)) {
                     parsed_data.push("abs");
                     parsed_type.push("function");
-                    return {error:false,index:start+3};
+                    return {error:false,index:start+2};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -430,7 +430,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
                 if(tracing_bracket(arr,start+4,3)){
                     parsed_data.push("asin");
                     parsed_type.push("function");
-                    return {error:false,index:start+4};
+                    return {error:false,index:start+3};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -440,7 +440,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
                 if(tracing_bracket(arr,start+4,3)){
                     parsed_data.push("acos");
                     parsed_type.push("function");
-                    return {error:false,index:start+4};
+                    return {error:false,index:start+3};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -450,7 +450,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
                 if(tracing_bracket(arr,start+4,3)){
                     parsed_data.push("atan");
                     parsed_type.push("function");
-                    return {error:false,index:start+4};
+                    return {error:false,index:start+3};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -466,7 +466,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
                 if(tracing_bracket(arr,start+3,3)){
                     parsed_data.push("sin");
                     parsed_type.push("function");
-                    return {error:false,index:start+3};
+                    return {error:false,index:start+2};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -482,7 +482,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
                 if(tracing_bracket(arr,start+3,3)){
                     parsed_data.push("cos");
                     parsed_type.push("function");
-                    return {error:false,index:start+3};
+                    return {error:false,index:start+2};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -498,7 +498,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
                 if(tracing_bracket(arr,start+3,3)){
                     parsed_data.push("tan");
                     parsed_type.push("function");
-                    return {error:false,index:start+3};
+                    return {error:false,index:start+2};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -516,7 +516,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
                     if(tracing_comma(arr,start+5,1)) {
                         parsed_data.push("round");
                         parsed_type.push("function");
-                        return {error:false,index:start+5};
+                        return {error:false,index:start+4};
                     }
                     else {
                         return {error:true,error_code:"F-3",error_index:start};
@@ -531,7 +531,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
                 if(tracing_bracket(arr,start+4,3)){
                     parsed_data.push("root");
                     parsed_type.push("function");
-                    return {error:false,index:start+4};
+                    return {error:false,index:start+3};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -548,7 +548,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
                     if(tracing_comma(arr,start+2,2)) {
                         parsed_data.push("if");
                         parsed_type.push("function");
-                        return {error:false,index:start+2};
+                        return {error:false,index:start+1};
                     }
                     else {
                         return {error:true,error_code:"F-3",error_index:start};
@@ -755,10 +755,15 @@ Calc_object.prototype.parser = function () {
                 parsed_index.push(current_index)
                 continue;
             case "[" :
-                parsed_data.push("[");
-                parsed_type.push("big_left_bracket");
-                parsed_index.push(current_index)
-                continue;
+                if(tracing_bracket(raw_data,current_index,3)) {
+                    parsed_data.push("[");
+                    parsed_type.push("big_left_bracket");
+                    parsed_index.push(current_index)
+                    continue;
+                }
+                else {
+                    return {error:true,error_index:current_index};
+                }
             case "]" :
                 parsed_data.push("]");
                 parsed_type.push("big_right_bracket");
@@ -1099,7 +1104,7 @@ Calc_object.prototype.root = function (input_a) {
 Calc_object.prototype.sin = function (input_a) {
     if(isNumber(input_a)) {
         input_a = isMinMax(input_a);
-        return Math.sin(degreeToRadian(input_a));
+        return Number(Math.sin(degreeToRadian(input_a))).toFixed(15);
     }
     else {
         return NaN;
