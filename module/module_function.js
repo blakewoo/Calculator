@@ -28,6 +28,7 @@
  *  small_right_bracket
  *  big_left_bracket
  *  big_right_bracket
+ *  comma
  */
 
 /**
@@ -64,23 +65,23 @@ let Calc_object = function(raw_data) {
         ["*", 1],
         ["-", 0],
         ["/", 1],
-        ["sin", 1],
-        ["cos", 1],
-        ["tan", 1],
-        ["atan", 1],
-        ["acos", 1],
-        ["asin", 1],
-        ["round", 1],
-        ["root", 1],
-        ["if", 1],
-        ["abs", 1],
-        [">", 1],
-        ["<", 1],
-        ["<=", 1],
-        [">=", 1],
-        ["=", 1],
-        ["!=", 1],
-
+        ["sin", 2],
+        ["cos", 2],
+        ["tan", 2],
+        ["atan", 2],
+        ["acos", 2],
+        ["asin", 2],
+        ["round", 2],
+        ["root", 2],
+        ["if", 2],
+        ["abs", 2],
+        [">", 0],
+        ["<", 0],
+        ["<=", 0],
+        [">=", 0],
+        ["=", 0],
+        ["!=", 0],
+        [",", 0]
     ])
 }
 
@@ -137,22 +138,22 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
                 tempResult = Calc_object.prototype.div(tempInput2,tempInput1);
             }
             else if (postfix_data[i] === "<") {
-                tempResult = Calc_object.prototype.div(tempInput2,tempInput1);
+                tempResult = Calc_object.prototype.bigger(tempInput2,tempInput1);
             }
             else if (postfix_data[i] === ">") {
-                tempResult = Calc_object.prototype.div(tempInput2,tempInput1);
+                tempResult = Calc_object.prototype.smaller(tempInput2,tempInput1);
             }
             else if (postfix_data[i] === "<=") {
-                tempResult = Calc_object.prototype.div(tempInput2,tempInput1);
+                tempResult = Calc_object.prototype.biggerEqual(tempInput2,tempInput1);
             }
             else if (postfix_data[i] === ">=") {
-                tempResult = Calc_object.prototype.div(tempInput2,tempInput1);
+                tempResult = Calc_object.prototype.smallerEqual(tempInput2,tempInput1);
             }
             else if (postfix_data[i] === "=") {
-                tempResult = Calc_object.prototype.div(tempInput2,tempInput1);
+                tempResult = Calc_object.prototype.equal(tempInput2,tempInput1);
             }
             else if (postfix_data[i] === "!=") {
-                tempResult = Calc_object.prototype.div(tempInput2,tempInput1);
+                tempResult = Calc_object.prototype.nonEqual(tempInput2,tempInput1);
             }
 
             if(isNaN(tempResult)) {
@@ -171,7 +172,7 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
             if(postfix_data[i] === "if") {
                 tempInput2 = calc_stack.pop()
                 tempInput3 = calc_stack.pop()
-                tempResult = Calc_object.prototype.if(tempInput1,tempInput2,tempInput3);
+                tempResult = Calc_object.prototype.if(tempInput3,tempInput2,tempInput1);
             }
             else if (postfix_data[i] === "abs") {
                 tempResult = Calc_object.prototype.abs(tempInput1);
@@ -239,6 +240,13 @@ function trans_postfix (g_operation_rank,g_postfix_array_data,g_postfix_array_ty
             postfix_array_data.push(parsed_data[i])
             postfix_array_type.push(parsed_type[i]);
             postfix_array_index.push(parsed_index[i]);
+        }
+        else if(parsed_type[i]==="comma") {
+            while(data_stack.length !==0 && operation_rank.get(data_stack[data_stack.length-1])>=operation_rank.get(parsed_data[i]) ) {
+                postfix_array_data.push(data_stack.pop());
+                postfix_array_type.push(type_stack.pop());
+                postfix_array_index.push(index_stack.pop());
+            }
         }
         else if(parsed_type[i]==="Operation" || parsed_type[i]==="function") {
             while(data_stack.length !==0 && operation_rank.get(data_stack[data_stack.length-1])>=operation_rank.get(parsed_data[i]) ) {
@@ -770,7 +778,11 @@ Calc_object.prototype.parser = function () {
                 parsed_index.push(current_index)
                 continue;
             case "." :
+                continue;
             case "," :
+                parsed_data.push(",");
+                parsed_type.push("comma");
+                parsed_index.push(current_index)
                 continue;
             default:
                 return {error:true,error_index:current_index};
@@ -1120,7 +1132,7 @@ Calc_object.prototype.sin = function (input_a) {
 Calc_object.prototype.cos = function (input_a) {
     if(isNumber(input_a)) {
         input_a=isMinMax(input_a)
-        return Math.cos(degreeToRadian(input_a));
+        return Number(Math.cos(degreeToRadian(input_a))).toFixed(15);
     }
     else {
         return NaN;
