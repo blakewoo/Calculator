@@ -7,6 +7,7 @@ window.addEventListener('DOMContentLoaded', function()
 
 function btnEventBinder() {
     let operationButtons =  document.getElementsByClassName("calc_button")
+    let clearButtons =  document.getElementsByClassName("clear_calc_button")[0]
     let functionButton = document.getElementsByClassName("function_input_button");
     let calculationButton = document.getElementById("calculation");
     for(let i=0;i<operationButtons.length;i++) {
@@ -21,6 +22,14 @@ function btnEventBinder() {
 
     calculationButton.removeEventListener("click",calcButtonEvent)
     calculationButton.addEventListener("click",calcButtonEvent)
+
+    clearButtons.removeEventListener("click",clearExpressionEvent)
+    clearButtons.addEventListener("click",clearExpressionEvent)
+
+}
+
+function clearExpressionEvent(event){
+    document.getElementById("math_expression").value = null;
 }
 
 function calcButtonEvent(event) {

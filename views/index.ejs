@@ -7,50 +7,61 @@
   </head>
   <body>
     <div id="div_calculator_main">
-<!--      <div class="button_div">-->
-        <input class="text_box" type="text" id="math_expression">
-        <input class="text_box" type="text" readonly id="calculation_result">
-<!--      </div>-->
-<!--      <div class="button_div">-->
-        <input class="calc_button input_button" type="button" value="1">
-        <input class="calc_button input_button" type="button" value="2">
-        <input class="calc_button input_button" type="button" value="3">
-<!--      </div>-->
-<!--      <div class="button_div">-->
-        <input class="calc_button input_button" type="button" value="4">
-        <input class="calc_button input_button" type="button" value="5">
-        <input class="calc_button input_button" type="button" value="6">
-<!--      </div>-->
-<!--      <div class="button_div">-->
-        <input class="calc_button input_button" type="button" value="7">
-        <input class="calc_button input_button" type="button" value="8">
-        <input class="calc_button input_button" type="button" value="9">
-<!--      </div>-->
-<!--      <div class="button_div">-->
-        <input class="calc_button input_button" type="button" value="0">
-        <input class="calc_button input_button" type="button" value="+">
-        <input class="calc_button input_button" type="button" value="-">
-<!--      </div>-->
-<!--      <div class="button_div">-->
-        <input class="calc_button input_button" type="button" value="*">
-        <input class="calc_button input_button" type="button" value="/">
-        <input class="text_calc_button" id="calculation" type="button" value="계산">
-<!--      </div>-->
-<!--      <div class="button_div">-->
-        <input class="text_calc_button function_input_button" type="button" value="sin">
-        <input class="text_calc_button function_input_button" type="button" value="cos">
-        <input class="text_calc_button function_input_button" type="button" value="tan">
-<!--      </div>-->
-<!--      <div class="button_div">-->
-        <input class="text_calc_button function_input_button" type="button" value="asin">
-        <input class="text_calc_button function_input_button" type="button" value="acos">
-        <input class="text_calc_button function_input_button" type="button" value="atan">
-<!--      </div>-->
-<!--      <div class="button_div">-->
-        <input class="text_calc_button function_input_button" type="button" value="round">
-        <input class="text_calc_button function_input_button" type="button" value="root">
-        <input class="text_calc_button function_input_button" type="button" value="if">
-<!--      </div>-->
+
+        <input class="text_box" placeholder="Expression" type="text" id="math_expression">
+        <input class="result_text_box" placeholder="Result" type="text" readonly id="calculation_result">
+
+        <div class="function_div">
+            <input class="text_calc_button function_input_button" type="button" value="sin">
+            <input class="text_calc_button function_input_button" type="button" value="cos">
+            <input class="text_calc_button function_input_button" type="button" value="tan">
+
+            <input class="text_calc_button function_input_button" type="button" value="asin">
+            <input class="text_calc_button function_input_button" type="button" value="acos">
+            <input class="text_calc_button function_input_button" type="button" value="atan">
+
+            <input class="text_calc_button function_input_button" type="button" value="round">
+            <input class="text_calc_button function_input_button" type="button" value="root">
+            <input class="text_calc_button function_input_button" type="button" value="if">
+        </div>
+        <div class="number_div">
+            <div>
+                <input class="calc_button input_button" type="button" value="1">
+                <input class="calc_button input_button" type="button" value="2">
+                <input class="calc_button input_button" type="button" value="3">
+            </div>
+
+            <div>
+                <input class="calc_button input_button" type="button" value="4">
+                <input class="calc_button input_button" type="button" value="5">
+                <input class="calc_button input_button" type="button" value="6">
+            </div>
+
+            <div>
+                <input class="calc_button input_button" type="button" value="7">
+                <input class="calc_button input_button" type="button" value="8">
+                <input class="calc_button input_button" type="button" value="9">
+            </div>
+
+            <div>
+                <input class="clear_calc_button input_button" type="button" value="Clear">
+                <input class="calc_button input_button far_button" type="button" value="0">
+                <input class="text_calc_button" id="calculation" type="button" value="계산">
+            </div>
+
+        </div>
+        <div class="operation_div">
+            <input class="calc_button input_button" type="button" value="+">
+            <input class="calc_button input_button" type="button" value="-">
+
+            <input class="calc_button input_button" type="button" value="*">
+            <input class="calc_button input_button" type="button" value="/">
+
+            <input class="calc_button input_button" type="button" value="(">
+            <input class="calc_button input_button" type="button" value=")">
+        </div>
+
+
     </div>
   </body>
 </html>

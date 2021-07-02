@@ -1,3 +1,10 @@
+body{
+  width: 100%;
+  height: 100%;
+  background:url("/images/background.jpg");
+  background-repeat: no-repeat;
+  background-size: 1920px 1080px;
+}
 
 #div_calculator_main{
   display: block;
@@ -6,8 +13,19 @@
   top: calc(50% - 250px);
   width: 500px;
   height: 500px;
-  background: linear-gradient(45deg , grey, black, white );
-  /*background: url("/images/calc_back2.jpg");*/
+
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.operation_div{
+  width: 180px;
+  margin: 20px 20px;
+  display: inline-block;
 }
 
 .text_calc_button{
@@ -25,6 +43,27 @@
   cursor: pointer;
 }
 
+.clear_calc_button{
+  width: 70px;
+  height: 30px;
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 5.0px );
+  -webkit-backdrop-filter: blur( 5.0px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  margin: 8px 2px;
+}
+
+.clear_calc_button:hover{
+  background: rgba( 255, 255, 255, 0.5 );
+  cursor: pointer;
+}
+
+.text_calc_button{
+  margin: 8px 2px;
+}
+
 .calc_button{
   width: 70px;
   height: 30px;
@@ -34,6 +73,7 @@
   -webkit-backdrop-filter: blur( 5.0px );
   border-radius: 10px;
   border: 1px solid rgba( 255, 255, 255, 0.18 );
+  margin: 8px 2px;
 }
 .calc_button:hover{
   background: rgba( 255, 255, 255, 0.5 );
@@ -42,7 +82,7 @@
 
 .text_box{
   display: block;
-  width: 250px;
+  width: 450px;
   height: 30px;
   background: rgba( 255, 255, 255, 0.25 );
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
@@ -51,14 +91,43 @@
   border-radius: 10px;
   border: 1px solid rgba( 255, 255, 255, 0.18 );
   outline: none;
+  margin: 20px 20px;
 }
+
+.result_text_box{
+  display: block;
+  width: 450px;
+  height: 30px;
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 5.0px );
+  -webkit-backdrop-filter: blur( 5.0px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  outline: none;
+  margin: 20px 20px;
+}
+
 .text_box:hover{
   background: rgba( 255, 255, 255, 0.5 );
   cursor: pointer;
+}
+
+.result_text_box:hover{
+  cursor: default;
 }
 
 .button_div{
   width: 100%;
   display: flex;
   justify-content: space-around;
+}
+
+.number_div{
+  margin: 20px 20px;
+  display: inline-block;
+}
+
+.function_div{
+  margin : 20px 20px
 }
