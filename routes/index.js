@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/calculation/module',function (req,res,next) {
-  res.send(g_module.calculate(req.body.data));
+  res.send(g_module.calculate(req.body.Data));
 });
 
 router.get('/calculation',function (req,res,next) {

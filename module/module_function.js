@@ -38,13 +38,11 @@
  */
 exports.calculate = function (data) {
 
-    // let input = data;
-    // let middle_data = parser(input);
-    let result = data.toString();
-    //
-    // result = final_calculate(middle_data);
-
-    return result;
+    let input = data;
+    let calcObject = new Calc_object(input)
+    calcObject.parser()
+    calcObject.postfix_trans()
+    return calcObject.total_calculation().toString();
 }
 
 /**

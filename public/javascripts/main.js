@@ -1,9 +1,14 @@
 window.addEventListener('DOMContentLoaded', function()
 {
+    inputEventBinder()
     btnEventBinder()
-
 });
 
+function inputEventBinder() {
+    let textBoxButton = document.getElementById("math_expression")
+    textBoxButton.removeEventListener("keyup",expressionInputFilter)
+    textBoxButton.addEventListener("keyup",expressionInputFilter)
+}
 
 function btnEventBinder() {
     let operationButtons =  document.getElementsByClassName("calc_button")
@@ -25,7 +30,14 @@ function btnEventBinder() {
 
     clearButtons.removeEventListener("click",clearExpressionEvent)
     clearButtons.addEventListener("click",clearExpressionEvent)
+}
 
+function expressionInputFilter(event) {
+    let regexString = /[^0-9abcdfinorstu\[\](),\.\+\/\*\-]/gi;
+    let target = document.getElementById("math_expression");
+    if(target.value.length >0) {
+        target.value = target.value.replace(regexString,"")
+    }
 }
 
 function clearExpressionEvent(event){
@@ -33,7 +45,9 @@ function clearExpressionEvent(event){
 }
 
 function calcButtonEvent(event) {
-    requestCalculation();
+    requestCalculation(document.getElementById("math_expression").value,function(result) {
+        document.getElementById("calculation_result").value = result;
+    });
 }
 
 function opBtnEvent(event) {
@@ -76,13 +90,4 @@ function funcBtnEvent(event) {
     }
 
     document.getElementById("math_expression").value += inputData;
-}
-
-/**
- * 함수 생성시 포커스 함수
- * @param number
- */
-function setCaret(number) {
-    var el = document.getElementById("math_expression")
-
 }
