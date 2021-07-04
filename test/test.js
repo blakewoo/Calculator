@@ -17,8 +17,6 @@ describe.only('Calculator', function () {
             let test = new target.Calc_object(test_case_input[i]);
             test.parser()
             test.postfix_trans()
-            console.log(test.get_parsed_data())
-            console.log(test.get_post_fix())
             let result = test.total_calculation();
             assert.strictEqual(result, test_case_output[i]);
         });

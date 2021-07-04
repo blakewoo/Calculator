@@ -1,5 +1,6 @@
 var express = require('express');
 const g_module = require('../module/module_function')
+const db_module = require('../module/')
 var router = express.Router();
 
 /* GET home page. */

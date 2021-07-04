@@ -48,6 +48,9 @@ function calcButtonEvent(event) {
     requestCalculation(document.getElementById("math_expression").value,function(result) {
         document.getElementById("calculation_result").value = result;
     });
+    if(result) {
+
+    }
 }
 
 function opBtnEvent(event) {
