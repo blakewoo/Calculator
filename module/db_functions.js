@@ -1,11 +1,12 @@
-const DB = require('/model/model')
+const DB = require('../model/model')
 
 
 exports.insertData = function (req,callback) {
-    let name = req.body.name;
-    let expression = req.body.expression;
-    let result = req.body.result;
+    let name = req.body.Data.name;
+    let expression = req.body.Data.expression;
+    let result = req.body.Data.result;
     DB.create({name:name,expression:expression,result:result},function (err,result){
+        console.log(result);
         if(err) return callback(false)
         return callback(true);
     });

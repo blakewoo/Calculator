@@ -47,10 +47,13 @@ function clearExpressionEvent(event){
 function calcButtonEvent(event) {
     requestCalculation(document.getElementById("math_expression").value,function(result) {
         document.getElementById("calculation_result").value = result;
-    });
-    if(result) {
+        requestInsertResult({name:document.getElementById("name_input").value,expression:document.getElementById("math_expression").value,result:result},function(input_result) {
+            if(!input_result) {
+                alert("DB에 접근간 문제가 발생했습니다.");
+            }
+        })
 
-    }
+    });
 }
 
 function opBtnEvent(event) {

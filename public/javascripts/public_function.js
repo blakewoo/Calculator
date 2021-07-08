@@ -61,6 +61,7 @@ function requestCalculation(data,callback) {
 
 function requestInsertResult(data,callback) {
     ajax_function('POST','/calculation',data,function (result){
+        console.log(result)
         return callback(result)
     })
 }
