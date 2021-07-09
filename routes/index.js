@@ -9,8 +9,14 @@ var router = express.Router();
  *
  */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index');
 });
+
+router.get('/logView', function(req, res, next) {
+  res.render('logView');
+});
+
+
 
 router.post('/calculation/module',function (req,res,next) {
   res.send(g_module.calculate(req.body.Data));

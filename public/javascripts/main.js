@@ -15,6 +15,8 @@ function btnEventBinder() {
     let clearButtons =  document.getElementsByClassName("clear_calc_button")[0]
     let functionButton = document.getElementsByClassName("function_input_button");
     let calculationButton = document.getElementById("calculation");
+    let viewButton = document.getElementById("calc_log")
+
     for(let i=0;i<operationButtons.length;i++) {
         operationButtons[i].removeEventListener("click",opBtnEvent)
         operationButtons[i].addEventListener("click",opBtnEvent)
@@ -30,7 +32,14 @@ function btnEventBinder() {
 
     clearButtons.removeEventListener("click",clearExpressionEvent)
     clearButtons.addEventListener("click",clearExpressionEvent)
+
+    viewButton.removeEventListener("click",viewLogEvent);
+    viewButton.addEventListener("click",viewLogEvent);
 }
+function viewLogEvent(event) {
+    location.href = location.href + "logView"
+}
+
 
 function expressionInputFilter(event) {
     let regexString = /[^0-9abcdfinorstu\[\](),\.\+\/\*\-]/gi;
