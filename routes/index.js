@@ -24,7 +24,9 @@ router.post('/calculation/module',function (req,res,next) {
 
 // 연산 결과들 불러오기
 router.get('/calculation',function (req,res,next) {
-
+  db_module.readData(req,function (result){
+    res.send(result);
+  });
 });
 
 // 연산 결과 DB에 넣기

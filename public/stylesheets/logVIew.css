@@ -1,0 +1,35 @@
+.div_log_title{
+    text-align: center;
+    width: 480px;
+    height: 20px;
+}
+
+.label_log_title{
+    font-family: "210 콤퓨타세탁 B";
+    color: aliceblue;
+    font-size: 16px;
+}
+
+.log_view_table{
+    width: 480px;
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 5.0px );
+    -webkit-backdrop-filter: blur( 5.0px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    margin: 8px 8px;
+}
+
+
+.log_view_td {
+    width: 100px;
+    height: 30px;
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 5.0px );
+    -webkit-backdrop-filter: blur( 5.0px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    margin: 8px 8px;
+}

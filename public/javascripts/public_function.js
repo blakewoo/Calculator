@@ -65,3 +65,9 @@ function requestInsertResult(data,callback) {
         return callback(result)
     })
 }
+
+function requestGetCalculationLog(callback) {
+    ajax_function('GET','/calculation',null,function (result){
+        return callback(result)
+    })
+}

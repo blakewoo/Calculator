@@ -15,7 +15,7 @@ exports.insertData = function (req,callback) {
 exports.readData = function (req,callback) {
     DB.find({},function (err,find_result){
         if(err) return callback([])
-        return callback(find_result);
+        callback(find_result);
     })
 }
 
