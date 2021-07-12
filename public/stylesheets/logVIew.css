@@ -32,6 +32,7 @@
     border-radius: 10px;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
     margin: 8px 8px;
+    text-align: center;
 }
 
 .log_text_box{
@@ -48,6 +49,6 @@
     margin: 3px 4px;
 }
 
-.log_text_box{
-
+.log_text_box.editable{
+    background: rgb(255, 255, 255);
 }

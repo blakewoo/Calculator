@@ -41,7 +41,20 @@ function dynamicButtonEventBinder() {
 function buttonEvent(event) {
     let tr = event.currentTarget.parentNode.parentNode;
     let textboxes = tr.querySelectorAll(".log_text_box")
-    for (let i = 0; i < textboxes.length; i++) {
-        textboxes[i].readOnly = false;
+    if(event.currentTarget.value === "수정") {
+        textboxes[0].readOnly = false;
+        textboxes[0].classList.add("editable");
+        event.currentTarget.value = "저장"
     }
+    else {
+        let data = {}
+        textboxes[0].readOnly = true;
+        textboxes[0].classList.remove("editable");
+        data.name = textboxes[0].value;
+        data.id = tr.id;
+        requsetUpdateCalculationLog(data,function (result) {
+            event.currentTarget.value = "수정"
+        })
+    }
+
 }

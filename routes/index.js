@@ -37,8 +37,10 @@ router.post('/calculation',function (req,res,next) {
 });
 
 // 연산 결과 변경하기
-router.put('/calculation',function (req,res,next) {
-
+router.patch('/calculation',function (req,res,next) {
+  db_module.updateData(req,function (result) {
+    res.send(result);
+  })
 });
 
 // 연산 결과 삭제하기

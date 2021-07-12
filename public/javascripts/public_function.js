@@ -71,3 +71,9 @@ function requestGetCalculationLog(callback) {
         return callback(result)
     })
 }
+
+function requsetUpdateCalculationLog(data,callback) {
+    ajax_function('PATCH','/calculation',data,function (result){
+        return callback(result)
+    })
+}

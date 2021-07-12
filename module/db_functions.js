@@ -20,11 +20,10 @@ exports.readData = function (req,callback) {
 }
 
 exports.updateData = function (req,callback) {
-    let id = req.body.id;
-    let name = req.body.name;
-    let expression = req.body.expression;
-    let result = req.body.result;
-    DB.updateOne({_id:id},{name:name,expression:expression,result:result},function (err,find_result){
+    let id = req.body.Data.id;
+    let name = req.body.Data.name;
+    console.log(req.body)
+    DB.updateOne({_id:id},{$set:{name:name}},function (err,find_result){
         if(err) return callback(false)
         return callback(true);
     })
