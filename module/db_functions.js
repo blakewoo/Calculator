@@ -12,11 +12,16 @@ exports.insertData = function (req,callback) {
     });
 }
 
-exports.readData = function (req,callback) {
-    DB.find({},function (err,find_result){
-        if(err) return callback([])
-        callback(find_result);
-    })
+exports.readData = async function (req,callback) {
+    try {
+        let index = req.cookies.index;
+        let totalDocumentCount = await DB.count();
+        let partDocumnet = await DB.find({}).skip(index*10).limit(10);
+        return callback({count:totalDocumentCount,document:partDocumnet})
+    }
+    catch(e) {
+        return callback({count:0,document:[]})
+    }
 }
 
 exports.updateData = function (req,callback) {

@@ -1,13 +1,19 @@
 window.addEventListener('DOMContentLoaded', function()
 {
-    initLogList ()
-
+    requestGetCalculationLog(0,function (result) {
+        generatePage (result.count)
+        initLogList (result.document)
+    })
 });
 
-function initLogList () {
+function generatePage (count) {
+    let pagingTarget = document.getElementById("span_paging");
+    let str = "";
+}
+
+function initLogList (result) {
     let mainTable = document.getElementsByClassName("log_view_table")[0];
-    requestGetCalculationLog(function (result) {
-        let parsed_result = JSON.parse(result);
+        let parsed_result = result;
         let temp = document.createDocumentFragment();
         for(let i=0;i<parsed_result.length;i++) {
             let tr = document.createElement("tr");
@@ -25,7 +31,6 @@ function initLogList () {
 
         mainTable.querySelector("tbody").append(temp);
         dynamicButtonEventBinder()
-    })
 }
 
 
