@@ -1,14 +1,28 @@
 window.addEventListener('DOMContentLoaded', function()
 {
     requestGetCalculationLog(0,function (result) {
-        generatePage (result.count)
+        generatePage (result.count,result.document.length)
         initLogList (result.document)
     })
 });
 
-function generatePage (count) {
+function generatePage (totalCount,currentCount) {
     let pagingTarget = document.getElementById("span_paging");
+    let maxLength = Math.ceil(totalCount/currentCount)
+    let pageCount;
+    if(maxLength > 10) {
+        pageCount = maxLength;
+    }
+    else {
+        pageCount = 10;
+    }
     let str = "";
+    for(let i=0;i<maxLength;i++) {
+
+    }
+
+
+
 }
 
 function initLogList (result) {

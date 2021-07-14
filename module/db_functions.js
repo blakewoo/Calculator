@@ -16,7 +16,7 @@ exports.readData = async function (req,callback) {
     try {
         let index = req.cookies.index;
         let totalDocumentCount = await DB.count();
-        let partDocumnet = await DB.find({}).skip(index*10).limit(10);
+        let partDocumnet = await DB.find({}).skip(index*8).limit(8);
         return callback({count:totalDocumentCount,document:partDocumnet})
     }
     catch(e) {
