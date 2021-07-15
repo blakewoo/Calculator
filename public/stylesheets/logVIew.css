@@ -52,3 +52,28 @@
 .log_text_box.editable{
     background: rgb(255, 255, 255);
 }
+
+
+.div_paging{
+    text-align: center;
+}
+
+#span_paging{
+    display: inline-block;
+    margin: auto;
+}
+
+.pagingLabelColor{
+    color : white;
+    margin-right: 10px;
+}
+
+.pagingSelectedLabelColor{
+    color : gray;
+    margin-right: 10px;
+}
+
+.pagingLabelColor:hover{
+    color : gray;
+    cursor: pointer;
+}

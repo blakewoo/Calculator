@@ -1,32 +1,53 @@
 window.addEventListener('DOMContentLoaded', function()
 {
     requestGetCalculationLog(0,function (result) {
-        generatePage (result.count,result.document.length)
+        generatePage ("span_paging",result.count,1,8)
         initLogList (result.document)
     })
 });
 
-function generatePage (totalCount,currentCount) {
-    let pagingTarget = document.getElementById("span_paging");
-    let maxLength = Math.ceil(totalCount/currentCount)
-    let pageCount;
+function generatePage (divID,totalCount,currentPage,divideNumber) {
+    let pagingTarget = document.getElementById(divID);
+    pagingTarget.innerHTML = "";
+    let maxLength = Math.ceil(totalCount/divideNumber);
+    // 전체 페이지가 10 초과일때
     if(maxLength > 10) {
-        pageCount = maxLength;
+        if(currentPage > 10) {
+
+        }
+        else {
+
+        }
     }
     else {
-        pageCount = 10;
+        let tempDocument = document.createDocumentFragment();
+        for(let i=1;i<=maxLength;i++) {
+            let tempLabel = document.createElement("label");
+            tempLabel.index = i;
+            tempLabel.innerText = i;
+            if(currentPage === i) {
+                tempLabel.classList.add("pagingSelectedLabelColor");
+            }
+            else {
+                tempLabel.classList.add("pagingLabelColor");
+            }
+            tempLabel.addEventListener("click",function (event) {
+                requestGetCalculationLog(i-1,function (result) {
+                    console.log(result);
+                    generatePage ("span_paging",result.count,i,8)
+                    initLogList (result.document)
+                })
+            })
+            tempDocument.append(tempLabel)
+        }
+        pagingTarget.append(tempDocument);
     }
-    let str = "";
-    for(let i=0;i<maxLength;i++) {
-
-    }
-
-
 
 }
 
 function initLogList (result) {
     let mainTable = document.getElementsByClassName("log_view_table")[0];
+    mainTable.querySelector("tbody").innerHTML = ""
         let parsed_result = result;
         let temp = document.createDocumentFragment();
         for(let i=0;i<parsed_result.length;i++) {

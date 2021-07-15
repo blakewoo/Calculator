@@ -69,6 +69,7 @@ function requestInsertResult(data,callback) {
 function requestGetCalculationLog(index,callback) {
     setCookie("index",index);
     ajax_function('GET','/calculation',null,function (result){
+        console.log(result);
         return callback(JSON.parse(result))
     })
 }
