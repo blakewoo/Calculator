@@ -6,7 +6,6 @@ exports.insertData = function (req,callback) {
     let expression = req.body.Data.expression;
     let result = req.body.Data.result;
     DB.create({name:name,expression:expression,result:result},function (err,result){
-        console.log(result);
         if(err) return callback(false)
         return callback(true);
     });
@@ -27,7 +26,6 @@ exports.readData = async function (req,callback) {
 exports.updateData = function (req,callback) {
     let id = req.body.Data.id;
     let name = req.body.Data.name;
-    console.log(req.body)
     DB.updateOne({_id:id},{$set:{name:name}},function (err,find_result){
         if(err) return callback(false)
         return callback(true);
