@@ -14,7 +14,7 @@ function generatePage (divID,totalCount,currentPage,divideNumber) {
     // 전체 페이지가 10 초과일때
     if(maxLength > 10) {
         if(currentPage > 10) {
-            let pre_page = Math.floor(currentPage/10)*10;
+            let pre_page = Math.floor((currentPage-1)/10)*10;
             let post_page = pre_page+10;
             let tempLabel = document.createElement("label");
             tempLabel.index = pre_page;
