@@ -6,10 +6,10 @@ const assert = require('assert');
 describe.only('Calculator', function () {
 
     let test_case_input = [
-        '2+1','2-1','3*3','3/1','1-3*2','abs[3]','abs[-3]','sin[30]','abs[1-2]','if[1<2,1+2+3+4+2,2-3*2]','sin[1+2+27]','abs[-1*sin[90]]','(1-(2-3))','if[1>3,abs[2+3],sin[cos[90]]]'
+        '2+1','2-1','3*3','3/1','1-3*2','abs[3]','abs[-3]','sin[30]','abs[1-2]','if[1<2,1+2+3+4+2,2-3*2]','sin[1+2+27]','abs[-1*sin[90]]','(1-(2-3))','if[1>3,abs[2+3],sin[cos[90]]]','1+2+3*sin[2]+cos[3]'
     ]
     let test_case_output = [
-        3,1,9,3,-5,3,3,0.5,1,12,0.5,1,2,0
+        3,1,9,3,-5,3,3,0.5,1,12,0.5,1,2,0,2
     ];
 
     for(let i=0;i<test_case_input.length;i++) {

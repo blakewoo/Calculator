@@ -8,6 +8,14 @@ function inputEventBinder() {
     let textBoxButton = document.getElementById("math_expression")
     textBoxButton.removeEventListener("keyup",expressionInputFilter)
     textBoxButton.addEventListener("keyup",expressionInputFilter)
+    textBoxButton.removeEventListener("keyup",EnterEvent)
+    textBoxButton.addEventListener("keyup",EnterEvent)
+}
+
+function EnterEvent(event) {
+    if(event.key === 'Enter'){
+        document.getElementById('calculation').click();
+    }
 }
 
 function btnEventBinder() {

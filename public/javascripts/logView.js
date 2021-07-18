@@ -28,6 +28,7 @@ function generatePage (divID,totalCount,currentPage,divideNumber) {
                     initLogList (result.document)
                 })
             })
+
             tempDocument.append(tempLabel)
             let to_index = post_page;
             if(maxLength<post_page) {
