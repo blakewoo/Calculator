@@ -707,14 +707,14 @@ Calc_object.prototype.parser = function () {
                     return {error:true,error_index:current_index};
                 }
                 continue;
-            case "+" :
-            case "/" :
-            case "*" :
             case "-" :
                 function_result = tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_index)
                 if(function_result) {
                     continue;
                 }
+            case "+" :
+            case "/" :
+            case "*" :
             case ">" :
             case "<" :
             case "!" :
