@@ -896,8 +896,8 @@ Calc_object.prototype.plus = function (input_a,input_b) {
     if(isNumber(input_a) && isNumber(input_b)) {
         input_a = isMinMax(input_a)
         input_b = isMinMax(input_b)
-        if(isFinite(input_a+input_b)) {
-            return Number(input_a+input_b);
+        if(isFinite(Number(input_a)+Number(input_b))) {
+            return Number(input_a)+Number(input_b);
         }
         else if(input_a+input_b>0) {
             return Infinity;
@@ -921,8 +921,8 @@ Calc_object.prototype.minus=function(input_a,input_b) {
     if(isNumber(input_a) && isNumber(input_b)) {
         input_a = isMinMax(input_a)
         input_b = isMinMax(input_b)
-        if(isFinite(input_a-input_b)) {
-            return Number(input_a-input_b);
+        if(isFinite(Number(input_a)-Number(input_b))) {
+            return Number(input_a)-Number(input_b);
         }
         else if(input_a-input_b>0) {
             return Infinity;
@@ -953,8 +953,8 @@ Calc_object.prototype.mul = function(input_a,input_b) {
             return NaN;
         }
         else {
-            if(isFinite(input_a*input_b)) {
-                return Number(input_a*input_b);
+            if(isFinite(Number(input_a)*Number(input_b))) {
+                return Number(input_a)*Number(input_b);
             }
             else if(input_a*input_b>0) {
 
@@ -986,8 +986,8 @@ Calc_object.prototype.div = function(input_a,input_b) {
             return NaN;
         }
         else {
-            if(isFinite(input_a/input_b)) {
-                return Number(input_a/input_b);
+            if(isFinite(Number(input_a)/Number(input_b))) {
+                return Number(input_a)/Number(input_b);
             }
             else if(input_a>0) {
                 return Infinity;

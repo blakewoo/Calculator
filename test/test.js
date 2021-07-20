@@ -13,10 +13,10 @@ describe.only('Calculator', function () {
     // ];
 
     let test_case_input = [
-       '1+2+3*sin[2]+cos[3]','3333333333333+++++222'
+       'sin[2]+cos[3]'
     ]
     let test_case_output = [
-        2,NaN
+        -1.033529031457075
     ];
 
     for(let i=0;i<test_case_input.length;i++) {
