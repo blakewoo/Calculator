@@ -42,7 +42,7 @@ exports.calculate = function (data) {
     let calcObject = new Calc_object(input)
     calcObject.parser()
     calcObject.postfix_trans()
-    return calcObject.total_calculation().toString();
+    return calcObject.total_calculation();
 }
 
 /**
@@ -88,7 +88,13 @@ let Calc_object = function(raw_data) {
  */
 Calc_object.prototype.total_calculation = function () {
     let result = calculating(this.postfix_array_data,this.postfix_array_type,this.postfix_array_index);
-    return Number(result);
+    console.log(result);
+    if(result.isError){
+        return result;
+    }
+    else {
+        return Number(result);
+    }
 }
 
 /**
