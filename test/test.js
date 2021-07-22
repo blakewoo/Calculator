@@ -2,8 +2,31 @@ let target = require('../module/module_function')
 const assert = require('assert');
 
 
-// 개인 엑세스키 발급후 테스트
-describe.only('Calculator', function () {
+describe.only('Error Code Test', function () {
+
+    let test_case_input = [
+        '1+++1'
+    ]
+    let test_case_output = [
+        'O-1'
+    ];
+
+    for(let i=0;i<test_case_input.length;i++) {
+        it('index : '+i, function () {
+            let test = new target.Calc_object(test_case_input[i]);
+            test.parser()
+            test.postfix_trans()
+            console.log(test.get_parsed_data())
+            console.log(test.get_post_fix())
+            let result = test.total_calculation();
+            assert.strictEqual(result.errorCode, test_case_output[i]);
+        });
+    }
+
+});
+
+
+describe('Calculator', function () {
 
     let test_case_input = [
         '2+1','2-1','3*3','3/1','1-3*2','abs[3]','abs[-3]','sin[30]','abs[1-2]','if[1<2,1+2+3+4+2,2-3*2]','sin[1+2+27]','abs[-1*sin[90]]','(1-(2-3))','if[1>3,abs[2+3],sin[cos[90]]]','1+2+3*sin[2]+cos[3]','3333333333333+++++222','sin[2]+cos[3]'
