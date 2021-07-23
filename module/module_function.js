@@ -5,6 +5,7 @@
  *  N-3 : 숫자가 아닙니다.
  *  연산자
  *  O-1 : 연속될 수 없는 연산자가 연속되어 나타났습니다.
+ *  O-2 : 연산자의 인자 형태가 적절하지 않습니다.
  *  함수
  *  F-1 : 인식 할 수 없는 함수입니다.
  *  F-2 : 함수의 인자 형태가 적절하지 않습니다.
@@ -161,7 +162,7 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
             }
 
             if(isNaN(tempResult)) {
-                return {isError:true,errorCode:"F-2",errorIndex:postfix_index[i]}
+                return {isError:true,errorCode:"O-2",errorIndex:postfix_index[i]+2}
             }
             else if(!isFinite(tempResult)) {
                 return {isError:true,errorCode:"N-1",errorIndex:postfix_index[i]}

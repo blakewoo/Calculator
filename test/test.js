@@ -8,7 +8,7 @@ describe.only('Error Code Test', function () {
         '1+++1'
     ]
     let test_case_output = [
-        'O-1'
+        'O-2'
     ];
 
     for(let i=0;i<test_case_input.length;i++) {
