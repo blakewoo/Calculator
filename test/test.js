@@ -5,10 +5,10 @@ const assert = require('assert');
 describe.only('Error Code Test', function () {
 
     let test_case_input = [
-        '1+++1'
+        '1+++1','asin[90]','if[2,3,2]'
     ]
     let test_case_output = [
-        'O-2'
+        'O-2','O-1',''
     ];
 
     for(let i=0;i<test_case_input.length;i++) {

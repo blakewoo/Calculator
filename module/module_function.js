@@ -208,6 +208,13 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
                 tempResult = Calc_object.prototype.round(tempInput2,tempInput1);
             }
 
+            if(isNaN(tempResult)) {
+                return {isError:true,errorCode:"O-1",errorIndex:postfix_index[i]+2}
+            }
+            else if(!isFinite(tempResult)) {
+                return {isError:true,errorCode:"N-1",errorIndex:postfix_index[i]}
+            }
+
             calc_stack.push(tempResult);
         }
         // 에러 처리
