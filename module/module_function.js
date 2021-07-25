@@ -564,7 +564,8 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
         //if
         case "i" :
             if(arr[start+1]==="f") {
-                if(tracing_bracket(arr,start+2,3)){
+                let ifTracing = tracing_if_bracket_op(arr,start+2)
+                if(ifTracing.result){
                     if(tracing_comma(arr,start+2,2)) {
                         parsed_data.push("if");
                         parsed_type.push("function");
@@ -573,6 +574,9 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
                     else {
                         return {error:true,error_code:"F-3",error_index:start};
                     }
+                }
+                else if(ifTracing.errorCode === "F-2"){
+                    return {error:true,error_code:"F-2",error_index:start};
                 }
                 else {
                     return {error:true,error_code:"F-4",error_index:start};
@@ -663,22 +667,26 @@ function tracing_comma (arr,start,comma_flag) {
 }
 
 /**
- * 내부 인자 체크하는 함수
- *
+ * if 내부 인자 체크하는 함수
  */
-function tracing_inner_text (arr,start,comma_flag) {
-    let comma_num = comma_flag;
-    if(arr[start]===",") {
-        return false;
-    }
-    for(let i=start;i<arr.length;i++) {
-        if(arr[i]===",") {
-            --comma_num;
+function tracing_if_bracket_op (arr,start,bracket_flag) {
+    let remain_number = 1;
+    let remain_unequal = true;
+    if(arr[start]==="[") {
+        for(let i=start+1;i<arr.length;i++) {
+            if(arr[i] === "[") remain_number++;
+            if(arr[i] === "]") remain_number--;
+            if(arr[i] === "<" && arr[i+1] === "=" && remain_unequal) i++; remain_unequal = false;
+            if(arr[i] === ">" && arr[i+1] === "<" && remain_unequal) i++; remain_unequal = false;
+            if(arr[i] === "!" && arr[i+1] === "<" && remain_unequal) i++; remain_unequal = false;
+            if(arr[i] === "<" && remain_unequal) remain_unequal = false;
+            if(arr[i] === "<" && remain_unequal) remain_unequal = false;
+            if(arr[i] === "=" && remain_unequal) remain_unequal = false;
+            if(remain_number === 0 && remain_unequal) return {result:false, errorCode:"F-2"};
+            if(remain_number === 0 && !remain_unequal) return {result:true};
         }
-        else if(arr[i]==="," && comma_num===-1) {
-            return false;
-        }
     }
+    return {result:false, errorCode:"F-4"};
 }
 
 /**
