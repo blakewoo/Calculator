@@ -41,7 +41,12 @@ exports.calculate = function (data) {
 
     let input = data;
     let calcObject = new Calc_object(input)
-    calcObject.parser()
+    let parseResult = calcObject.parser()
+    console.log("parseResult")
+    console.log(parseResult)
+    if(parseResult.error) {
+        return {isError:parseResult.error,errorCode:parseResult.errorCode,error_index:parseResult.error_index}
+    }
     calcObject.postfix_trans()
     return calcObject.total_calculation();
 }
@@ -565,7 +570,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
         case "i" :
             if(arr[start+1]==="f") {
                 let ifTracing = tracing_if_bracket_op(arr,start+2)
-                if(ifTracing.result){
+                if(ifTracing.result) {
                     if(tracing_comma(arr,start+2,2)) {
                         parsed_data.push("if");
                         parsed_type.push("function");
@@ -575,7 +580,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
                         return {error:true,error_code:"F-3",error_index:start};
                     }
                 }
-                else if(ifTracing.errorCode === "F-2"){
+                else if(ifTracing.errorCode === "F-2") {
                     return {error:true,error_code:"F-2",error_index:start};
                 }
                 else {
@@ -674,16 +679,38 @@ function tracing_if_bracket_op (arr,start,bracket_flag) {
     let remain_unequal = true;
     if(arr[start]==="[") {
         for(let i=start+1;i<arr.length;i++) {
-            if(arr[i] === "[") remain_number++;
-            if(arr[i] === "]") remain_number--;
-            if(arr[i] === "<" && arr[i+1] === "=" && remain_unequal) i++; remain_unequal = false;
-            if(arr[i] === ">" && arr[i+1] === "<" && remain_unequal) i++; remain_unequal = false;
-            if(arr[i] === "!" && arr[i+1] === "<" && remain_unequal) i++; remain_unequal = false;
-            if(arr[i] === "<" && remain_unequal) remain_unequal = false;
-            if(arr[i] === "<" && remain_unequal) remain_unequal = false;
-            if(arr[i] === "=" && remain_unequal) remain_unequal = false;
-            if(remain_number === 0 && remain_unequal) return {result:false, errorCode:"F-2"};
-            if(remain_number === 0 && !remain_unequal) return {result:true};
+            if(arr[i] === "[")
+                remain_number++;
+
+            if(arr[i] === "]")
+                remain_number--;
+
+            if(arr[i] === "<" && arr[i+1] === "=" && remain_unequal) {
+                i++; remain_unequal = false;
+            }
+
+            if(arr[i] === ">" && arr[i+1] === "<" && remain_unequal) {
+                i++; remain_unequal = false;
+            }
+
+            if(arr[i] === "!" && arr[i+1] === "<" && remain_unequal) {
+                i++; remain_unequal = false;
+            }
+
+            if(arr[i] === "<" && remain_unequal)
+                remain_unequal = false;
+
+            if(arr[i] === "<" && remain_unequal)
+                remain_unequal = false;
+
+            if(arr[i] === "=" && remain_unequal)
+                remain_unequal = false;
+
+            if(arr[i] === "," && remain_unequal)
+                return {result:false, errorCode:"F-2"};
+
+            if(remain_number === 0 && !remain_unequal)
+                return {result:true};
         }
     }
     return {result:false, errorCode:"F-4"};
@@ -759,7 +786,7 @@ Calc_object.prototype.parser = function () {
                 // 함수
                 function_result = tracing_fucntion(raw_data,current_index,parsed_data,parsed_type,parsed_index)
                 if(function_result.error) {
-                    return {error:true,error_index:current_index};
+                    return {error:true,errorCode:function_result.error_code,error_index:current_index};
                 }
                 else {
                     parsed_index.push(current_index);

@@ -4,22 +4,24 @@ const assert = require('assert');
 
 describe.only('Error Code Test', function () {
 
+    // let test_case_input = [
+    //     '1+++1','asin[90]','if[2,3,2]'
+    // ]
+    // let test_case_output = [
+    //     'O-2','O-1','F-2'
+    // ];
+
     let test_case_input = [
-        '1+++1','asin[90]','if[2,3,2]'
+        'if[2,3,2]'
     ]
     let test_case_output = [
-        'O-2','O-1','F-2'
+        'F-2'
     ];
 
     for(let i=0;i<test_case_input.length;i++) {
         it('index : '+i, function () {
-            let test = new target.Calc_object(test_case_input[i]);
-            test.parser()
-            test.postfix_trans()
-            console.log(test.get_parsed_data())
-            console.log(test.get_post_fix())
-            let result = test.total_calculation();
-            assert.strictEqual(result.errorCode, test_case_output[i]);
+            let test = target.calculate(test_case_input[i]);
+            assert.strictEqual(test.errorCode, test_case_output[i]);
         });
     }
 
