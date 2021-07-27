@@ -47,7 +47,10 @@ exports.calculate = function (data) {
     if(parseResult.error) {
         return {isError:parseResult.error,errorCode:parseResult.errorCode,error_index:parseResult.error_index}
     }
-    calcObject.postfix_trans()
+    let postfixResult = calcObject.postfix_trans()
+    if(postfixResult.error) {
+        return {isError:postfixResult.error,errorCode:postfixResult.errorCode,error_index:postfixResult.error_index}
+    }
     return calcObject.total_calculation();
 }
 
@@ -337,7 +340,7 @@ function tracing_number (arr,start,parsed_data,parsed_type,parsed_index) {
         }
         else if(i===start && arr[i]==="." && check_dot===1) {
             // 에러임
-            return false
+            return {error:true,errorCode:'N-2',errorIndex:i}
         }
         else if(arr[i]==="." && check_dot===1) {
             temp_number += arr[i];
@@ -345,32 +348,32 @@ function tracing_number (arr,start,parsed_data,parsed_type,parsed_index) {
             // 이 값은 소수 단위로 넘어감
         }
         else if(arr[i]==="." && check_dot===0) {
-            return false
+            return {error:true,errorCode:'N-2',errorIndex:i}
             //에러 처리
         }
         else {
             if( number_flag ===false) {
-                return false
+                return {error:true,errorCode:'N-3',errorIndex:i}
                 // 에러처리
             }
             else {
                 parsed_data.push(Number(temp_number))
                 parsed_type.push("Number")
                 parsed_index.push(start)
-                return i;
+                return {error:false,result:i}
                 // 완료 값 반환
             }
         }
     }
     if( number_flag ===false) {
-        return false
+        return {error:true,errorCode:'N-3',errorIndex:i}
         // 에러처리
     }
     else {
         parsed_data.push(Number(temp_number))
         parsed_type.push("Number")
         parsed_index.push(start)
-        return arr.length;
+        return {error:false,result:arr.length}
         // 완료 값 반환
     }
 
@@ -749,11 +752,11 @@ Calc_object.prototype.parser = function () {
             case "0" :
                 // 숫자
                 function_result = tracing_number(raw_data,current_index,parsed_data,parsed_type,parsed_index)
-                if(function_result) {
-                    current_index = function_result-1;
+                if(function_result.error) {
+                    return {error:true,error_index:current_index};
                 }
                 else {
-                    return {error:true,error_index:current_index};
+                    current_index = function_result.result-1;
                 }
                 continue;
             case "-" :
