@@ -44,11 +44,11 @@ exports.calculate = function (data) {
     let parseResult = calcObject.parser()
     console.log("parseResult")
     console.log(parseResult)
-    if(parseResult.error) {
+    if(parseResult && parseResult.error) {
         return {isError:parseResult.error,errorCode:parseResult.errorCode,error_index:parseResult.error_index}
     }
     let postfixResult = calcObject.postfix_trans()
-    if(postfixResult.error) {
+    if(postfixResult && postfixResult.error) {
         return {isError:postfixResult.error,errorCode:postfixResult.errorCode,error_index:postfixResult.error_index}
     }
     return calcObject.total_calculation();
@@ -314,7 +314,7 @@ function trans_postfix (g_operation_rank,g_postfix_array_data,g_postfix_array_ty
             index_stack.pop()
         }
         else {
-            return {error:true,index:i};
+            return {error:true,errorCode:'F-1',index:i};
         }
     }
     while(data_stack.length !==0) {
@@ -323,7 +323,7 @@ function trans_postfix (g_operation_rank,g_postfix_array_data,g_postfix_array_ty
         postfix_array_index.push(index_stack.pop());
     }
 
-    return {error:false};
+    return {error:true,errorCode:'F-1',index:parsed_data.length};
 }
 
 /**
@@ -753,7 +753,7 @@ Calc_object.prototype.parser = function () {
                 // 숫자
                 function_result = tracing_number(raw_data,current_index,parsed_data,parsed_type,parsed_index)
                 if(function_result.error) {
-                    return {error:true,error_index:current_index};
+                    return {error:true,errorCode:'N-3',error_index:current_index};
                 }
                 else {
                     current_index = function_result.result-1;
@@ -777,7 +777,7 @@ Calc_object.prototype.parser = function () {
                     current_index = function_result;
                 }
                 else {
-                    return {error:true,error_index:current_index};
+                    return {error:true,errorCode:'O-2',error_index:current_index};
                 }
                 continue;
             case "a" :
@@ -804,7 +804,7 @@ Calc_object.prototype.parser = function () {
                     continue;
                 }
                 else {
-                    return {error:true,error_index:current_index};
+                    return {error:true,errorCode:'F-4',error_index:current_index};
                 }
             case ")" :
                 // 닫는 소괄호 검출 함수 있어야함.
@@ -820,7 +820,7 @@ Calc_object.prototype.parser = function () {
                     continue;
                 }
                 else {
-                    return {error:true,error_index:current_index};
+                    return {error:true,errorCode:'F-4',error_index:current_index};
                 }
             case "]" :
                 parsed_data.push("]");
@@ -835,7 +835,7 @@ Calc_object.prototype.parser = function () {
                 parsed_index.push(current_index)
                 continue;
             default:
-                return {error:true,error_index:current_index};
+                return {error:true,errorCode:'F-1',error_index:current_index};
         }
     }
 
