@@ -42,8 +42,7 @@ exports.calculate = function (data) {
     let input = data;
     let calcObject = new Calc_object(input)
     let parseResult = calcObject.parser()
-    console.log("parseResult")
-    console.log(parseResult)
+
     if(parseResult && parseResult.error) {
         return {isError:parseResult.error,errorCode:parseResult.errorCode,error_index:parseResult.error_index}
     }
@@ -112,8 +111,8 @@ Calc_object.prototype.total_calculation = function () {
 Calc_object.prototype.postfix_trans = function () {
     let result = trans_postfix (this.operation_rank,this.postfix_array_data,this.postfix_array_type,this.postfix_array_index,this.parsed_data,this.parsed_type,this.parsed_index)
     //예외 처리
-    if(result.error){
-
+    if(result && result.error){
+        return {error:true,errorCode:result.errorCode,error_index:result.index}
     }
 }
 
@@ -314,6 +313,7 @@ function trans_postfix (g_operation_rank,g_postfix_array_data,g_postfix_array_ty
             index_stack.pop()
         }
         else {
+            console.log(parsed_type[i])
             return {error:true,errorCode:'F-1',index:i};
         }
     }
@@ -322,8 +322,6 @@ function trans_postfix (g_operation_rank,g_postfix_array_data,g_postfix_array_ty
         postfix_array_type.push(type_stack.pop());
         postfix_array_index.push(index_stack.pop());
     }
-
-    return {error:true,errorCode:'F-1',index:parsed_data.length};
 }
 
 /**
