@@ -12,10 +12,10 @@ describe.only('Error Code Test', function () {
     // ];
 
     let test_case_input = [
-        'if[2,3,2]','if[3>1,2,1>3]', '1+++1','asin[90]'
+        'if[2,3,2]','if[3>1,2,1>3]', '1+++1','asin[90]','sin','1111122--22','1111122---22'
     ]
     let test_case_output = [
-        'F-2','F-2','O-2','O-1'
+        'F-2','F-2','O-2','O-1','F-4',,
     ];
 
     for(let i=0;i<test_case_input.length;i++) {
