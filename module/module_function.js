@@ -12,6 +12,7 @@
  *  F-3 : 함수의 인자 개수가 적절하지 않습니다.
  *  F-4 : 괄호의 개수가 맞지 않습니다.
  *  F-5 : 괄호의 형태가 맞지 않습니다.
+ *  F-6 : 괄호안에 인자가 없습니다.
  *  함수 에러 코드 :
  *  sin, cos, tan, asin, acos, atan, root, round, if
  *  그밖에
@@ -439,47 +440,52 @@ function tracing_operation (arr,start,parsed_data,parsed_type,parsed_index) {
  */
 function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
     let return_index = 0;
+    let bracket_result = null;
     switch (arr[start]) {
         // abs, asin, acos, atan
         case "a" :
             if(arr[start+1]==="b"&& arr[start+2]==="s") {
-                if(tracing_bracket(arr,start+3,3)) {
+                bracket_result = tracing_bracket(arr,start+3,3);
+                if(!bracket_result.error) {
                     parsed_data.push("abs");
                     parsed_type.push("function");
                     return {error:false,index:start+2};
                 }
-                else {
-                    return {error:true,error_code:"F-4",error_index:start};
+                else{
+                    return {error:true,error_code:bracket_result.errorCode,error_index:bracket_result.errorIndex};
                 }
             }
             else if(arr[start+1]==="s"&& arr[start+2]==="i"&& arr[start+3]==="n"){
-                if(tracing_bracket(arr,start+4,3)){
+                bracket_result = tracing_bracket(arr,start+4,3)
+                if(!bracket_result.error){
                     parsed_data.push("asin");
                     parsed_type.push("function");
                     return {error:false,index:start+3};
                 }
                 else {
-                    return {error:true,error_code:"F-4",error_index:start};
+                    return {error:true,error_code:bracket_result.errorCode,error_index:bracket_result.errorIndex};
                 }
             }
             else if(arr[start+1]==="c"&& arr[start+2]==="o"&& arr[start+3]==="s"){
-                if(tracing_bracket(arr,start+4,3)){
+                bracket_result =tracing_bracket(arr,start+4,3)
+                if(!bracket_result.error){
                     parsed_data.push("acos");
                     parsed_type.push("function");
                     return {error:false,index:start+3};
                 }
                 else {
-                    return {error:true,error_code:"F-4",error_index:start};
+                    return {error:true,error_code:bracket_result.errorCode,error_index:bracket_result.errorIndex};
                 }
             }
             else if(arr[start+1]==="t"&& arr[start+2]==="a"&& arr[start+3]==="n"){
-                if(tracing_bracket(arr,start+4,3)){
+                bracket_result = tracing_bracket(arr,start+4,3)
+                if(!bracket_result.error){
                     parsed_data.push("atan");
                     parsed_type.push("function");
                     return {error:false,index:start+3};
                 }
                 else {
-                    return {error:true,error_code:"F-4",error_index:start};
+                    return {error:true,error_code:bracket_result.errorCode,error_index:bracket_result.errorIndex};
                 }
             }
             else{
@@ -489,13 +495,14 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
         // sin
         case "s" :
             if(arr[start+1]==="i"&& arr[start+2]==="n") {
-                if(tracing_bracket(arr,start+3,3)){
+                bracket_result = tracing_bracket(arr,start+3,3)
+                if(!bracket_result.error){
                     parsed_data.push("sin");
                     parsed_type.push("function");
                     return {error:false,index:start+2};
                 }
                 else {
-                    return {error:true,error_code:"F-4",error_index:start};
+                    return {error:true,error_code:bracket_result.errorCode,error_index:bracket_result.errorIndex};
                 }
             }
             else {
@@ -505,13 +512,14 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
         // cos
         case "c" :
             if(arr[start+1]==="o"&& arr[start+2]==="s") {
-                if(tracing_bracket(arr,start+3,3)){
+                bracket_result = tracing_bracket(arr,start+3,3)
+                if(!bracket_result.error){
                     parsed_data.push("cos");
                     parsed_type.push("function");
                     return {error:false,index:start+2};
                 }
                 else {
-                    return {error:true,error_code:"F-4",error_index:start};
+                    return {error:true,error_code:bracket_result.errorCode,error_index:bracket_result.errorIndex};
                 }
             }
             else {
@@ -521,13 +529,14 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
         //tan
         case "t" :
             if(arr[start+1]==="a"&& arr[start+2]==="n") {
-                if(tracing_bracket(arr,start+3,3)){
+                bracket_result = tracing_bracket(arr,start+3,3)
+                if(!bracket_result.error){
                     parsed_data.push("tan");
                     parsed_type.push("function");
                     return {error:false,index:start+2};
                 }
                 else {
-                    return {error:true,error_code:"F-4",error_index:start};
+                    return {error:true,error_code:bracket_result.errorCode,error_index:bracket_result.errorIndex};
                 }
 
             }
@@ -538,7 +547,8 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
         //round, root
         case "r" :
             if(arr[start+1]==="o" && arr[start+2]==="u" && arr[start+3]==="n" && arr[start+4]==="d" ) {
-                if(tracing_bracket(arr,start+5,3)){
+                bracket_result =tracing_bracket(arr,start+5,3)
+                if(!bracket_result.error){
                     if(tracing_comma(arr,start+5,1)) {
                         parsed_data.push("round");
                         parsed_type.push("function");
@@ -549,18 +559,19 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
                     }
                 }
                 else {
-                    return {error:true,error_code:"F-4",error_index:start};
+                    return {error:true,error_code:bracket_result.errorCode,error_index:bracket_result.errorIndex};
                 }
 
             }
             else if (arr[start+1]==="o" && arr[start+2]==="o" && arr[start+3]==="t") {
-                if(tracing_bracket(arr,start+4,3)){
+                bracket_result =tracing_bracket(arr,start+4,3)
+                if(!bracket_result.error){
                     parsed_data.push("root");
                     parsed_type.push("function");
                     return {error:false,index:start+3};
                 }
                 else {
-                    return {error:true,error_code:"F-4",error_index:start};
+                    return {error:true,error_code:bracket_result.errorCode,error_index:bracket_result.errorIndex};
                 }
             }
             else {
@@ -581,11 +592,8 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
                         return {error:true,error_code:"F-3",error_index:start};
                     }
                 }
-                else if(ifTracing.errorCode === "F-2") {
-                    return {error:true,error_code:"F-2",error_index:start};
-                }
                 else {
-                    return {error:true,error_code:"F-4",error_index:start};
+                    return {error:true,error_code:ifTracing.errorCode,error_index:start};
                 }
             }
             else {
@@ -609,35 +617,51 @@ function tracing_bracket (arr,start,bracket_flag) {
     // 소괄호
     if(bracket_flag===1) {
         if(arr[start]==="(") {
-            for(let i=start+1;i<arr.length;i++) {
-                if(arr[i] === "(") remain_number++;
-                if(arr[i] === ")") remain_number--;
-                if(remain_number === 0) return true;
+            if(arr[start+1]!==")") {
+                for(let i=start+1;i<arr.length;i++) {
+                    if(arr[i] === "(") remain_number++;
+                    if(arr[i] === ")") remain_number--;
+                    if(remain_number === 0) return true;
+                }
+            }
+            else{
+                return {error:true,errorCode:'F-6',errorIndex:start};
             }
         }
-        return false;
+        return {error:true,errorCode:'F-4',errorIndex:start};
     }
     // 중괄호
     else if(bracket_flag===2) {
         if(arr[start]==="{") {
-            for(let i=start+1;i<arr.length;i++) {
-                if(arr[i] === "{") remain_number++;
-                if(arr[i] === "}") remain_number--;
-                if(remain_number === 0) return true;
+            if(arr[start+1]!=="}") {
+                for(let i=start+1;i<arr.length;i++) {
+                    if(arr[i] === "{") remain_number++;
+                    if(arr[i] === "}") remain_number--;
+                    if(remain_number === 0) return true;
+                }
             }
+            else {
+                return {error:true,errorCode:'F-6',errorIndex:start};
+            }
+
         }
-        return false;
+        return {error:true,errorCode:'F-4',errorIndex:start};
     }
     // 대괄호
     else {
         if(arr[start]==="[") {
-            for(let i=start+1;i<arr.length;i++) {
-                if(arr[i] === "[") remain_number++;
-                if(arr[i] === "]") remain_number--;
-                if(remain_number === 0) return true;
+            if(arr[start+1]!=="]") {
+                for(let i=start+1;i<arr.length;i++) {
+                    if(arr[i] === "[") remain_number++;
+                    if(arr[i] === "]") remain_number--;
+                    if(remain_number === 0) return true;
+                }
+            }
+            else{
+                return {error:true,errorCode:'F-6',errorIndex:start};
             }
         }
-        return false;
+        return {error:true,errorCode:'F-4',errorIndex:start};
     }
 }
 
@@ -679,40 +703,46 @@ function tracing_if_bracket_op (arr,start,bracket_flag) {
     let remain_number = 1;
     let remain_unequal = true;
     if(arr[start]==="[") {
-        for(let i=start+1;i<arr.length;i++) {
-            if(arr[i] === "[")
-                remain_number++;
+        if(arr[start+1]!=="]") {
+            for(let i=start+1;i<arr.length;i++) {
+                if(arr[i] === "[")
+                    remain_number++;
 
-            if(arr[i] === "]")
-                remain_number--;
+                if(arr[i] === "]")
+                    remain_number--;
 
-            if(arr[i] === "<" && arr[i+1] === "=" && remain_unequal) {
-                i++; remain_unequal = false;
+                if(arr[i] === "<" && arr[i+1] === "=" && remain_unequal) {
+                    i++; remain_unequal = false;
+                }
+
+                if(arr[i] === ">" && arr[i+1] === "<" && remain_unequal) {
+                    i++; remain_unequal = false;
+                }
+
+                if(arr[i] === "!" && arr[i+1] === "<" && remain_unequal) {
+                    i++; remain_unequal = false;
+                }
+
+                if(arr[i] === "<" && remain_unequal)
+                    remain_unequal = false;
+
+                if(arr[i] === "<" && remain_unequal)
+                    remain_unequal = false;
+
+                if(arr[i] === "=" && remain_unequal)
+                    remain_unequal = false;
+
+                if(arr[i] === "," && remain_unequal)
+                    return {result:false, errorCode:"F-2"};
+
+                if(remain_number === 0 && !remain_unequal)
+                    return {result:true};
             }
-
-            if(arr[i] === ">" && arr[i+1] === "<" && remain_unequal) {
-                i++; remain_unequal = false;
-            }
-
-            if(arr[i] === "!" && arr[i+1] === "<" && remain_unequal) {
-                i++; remain_unequal = false;
-            }
-
-            if(arr[i] === "<" && remain_unequal)
-                remain_unequal = false;
-
-            if(arr[i] === "<" && remain_unequal)
-                remain_unequal = false;
-
-            if(arr[i] === "=" && remain_unequal)
-                remain_unequal = false;
-
-            if(arr[i] === "," && remain_unequal)
-                return {result:false, errorCode:"F-2"};
-
-            if(remain_number === 0 && !remain_unequal)
-                return {result:true};
         }
+        else{
+            return {result:false, errorCode:"F-6"};
+        }
+
     }
     return {result:false, errorCode:"F-4"};
 }
@@ -728,6 +758,7 @@ Calc_object.prototype.parser = function () {
     let parsed_type = this.parsed_type;
     let parsed_index = this.parsed_index;
     let function_result = null;
+    let bracket_result = null;
     // 피 연산자와 연산자를 분리한다
     // 소수와 음수 구분을 잘 할 것
     // ex) --1, 1+2+-1
@@ -795,14 +826,15 @@ Calc_object.prototype.parser = function () {
                 }
                 continue;
             case "(" :
-                if(tracing_bracket(raw_data,current_index,1)) {
+                bracket_result = tracing_bracket(raw_data,current_index,1)
+                if(!bracket_result.error) {
                     parsed_data.push("(");
                     parsed_type.push("small_left_bracket");
                     parsed_index.push(current_index)
                     continue;
                 }
                 else {
-                    return {error:true,errorCode:'F-4',error_index:current_index};
+                    return {error:true,errorCode:bracket_result.errorCode,error_index:current_index};
                 }
             case ")" :
                 // 닫는 소괄호 검출 함수 있어야함.
@@ -811,14 +843,15 @@ Calc_object.prototype.parser = function () {
                 parsed_index.push(current_index)
                 continue;
             case "[" :
-                if(tracing_bracket(raw_data,current_index,3)) {
+                bracket_result = tracing_bracket(raw_data,current_index,3)
+                if(!bracket_result.error) {
                     parsed_data.push("[");
                     parsed_type.push("big_left_bracket");
                     parsed_index.push(current_index)
                     continue;
                 }
                 else {
-                    return {error:true,errorCode:'F-4',error_index:current_index};
+                    return {error:true,errorCode:bracket_result.errorCode,error_index:current_index};
                 }
             case "]" :
                 parsed_data.push("]");
