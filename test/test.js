@@ -1,8 +1,145 @@
 let target = require('../module/module_function')
 const assert = require('assert');
 
+describe.only('Final Calculator Test', function () {
 
-describe.only('Error Code Test', function () {
+    let test_case_input = [
+        '2+1','2-1','3*3','3/1','1-3*2',
+        'ABS[3]','ABS[-3]','SIN[30]','ABS[1-2]','IF[1<2,1+2+3+4+2,2-3*2]',
+        'SIN[1+2+27]','ABS[-1*SIN[90]]','(1-(2-3))','IF[1>3,ABS[2+3],SIN[COS[90]]]', '2+++1'
+    ]
+
+    let test_case_input2 = [
+        '4.4.','45kkk','-(-1)-1)','5555555555555555555555555555555555555','(3)(3)',
+        '3.','--1','1)','(','(1)(1)',
+        '(-7)/--7','--7','7.','-(((-1))','(..)',
+        '<ㅇㅅㅇ>','ㄴㅇㅁㅇㄱ(상상치도못한정체)', '0.0.1','0.1^^1','4+4^5',
+        '4+(-)','(-0.^1)+////3','-5+-5','.3','(+1-(-3))',
+        '(+1)', '13+233(2)','1+false','13+242(2)','((1))-1',
+        '4.4.+2','(3)(3)+'
+    ]
+
+    let test_case_input3 = [
+        'IF[3!>=<4,1,2]','ROUND[11,-5555555]','ROUND[11,-25]','TAN[90]','COS[90]',
+        'COS[9999999990]','IF[>false<,3,4]','RRRRRRRRRRROUND', 'YOU WIN!','WE WIN!',
+        '1+ABS[]','23.1+23.2.','((2))=12','(1)==','(2)false',
+        '(2)-(-)','112312300-+22','ABCDEFG','IF[3>4=2,2,1]', 'ASIN[2]-[2]',
+        'ACOS[(2)1]','(1)-(1)','AS[false,D]','AS[false]','IF[3!>4=2,1,2]',
+    ]
+
+    let test_case_input4 = [
+        '1+3+5/2/22/2/2/22/2/2/22/2/2/22/2', '1+1-1+0.00045004501+1+1.5-3', '11133-3-44/3/3/341','+3-2','+2+3',
+        '12+0.666666666666*4-1-1*123+4/-12', '0.100000', '0.1*0.1*0.0000001*0.1*0.1', '(+1)', '0.01*0.0001*0.001+123123/12/2*12/11+2/3/42+123456/2/123+33333+(13+33)+2/45/1/2+123123+444'
+    ]
+
+    //////////////////////////////// output
+
+    let test_case_output = [
+        false,false,false,false,false,
+        false,false,false,false,false,
+        false,false,false,false,true
+    ]
+
+    let test_case_output2 = [
+        true,true,true,true,true,
+        true,false,true,true,true,
+        false,false,true,true,true,
+        true,true,true, true,true,
+        true,true,false,true,false,
+        false,true, true,true,false,
+        true,true
+    ]
+
+    let test_case_output3 = [
+        true,true,true,true,false,
+        false,true,true,true,true,
+        true,true,true,true,true,
+        true,false,true,true,true,
+        true,false,true,true,true
+    ]
+
+    let test_case_output4 = [
+        false,false,false,false,false,
+        false,false,false,false,false
+    ]
+
+    //////////////////////////////// answers
+
+    let test_case_answer = [
+        '3','1','9','3','-5',
+        '3','3','0.5','1','12',
+        '0.5','1','-2','0',null
+    ]
+
+    let test_case_answer2 = [
+        null,null,null,null,null,
+        null,'1',null,null,null,
+        '-1','7', null,null,null,
+        null,null,null,null,null,
+        null,null,'-10',null,'4',
+        '1',null,null,null,'0',
+        null,null
+    ]
+
+    let test_case_answer3 = [
+        null,null,null,null,'0',
+        '0',null,null,null,null,
+        null,null,null,null,null,
+        null,'112312278',null,null,null,
+        null,'0',null,null,null,
+    ]
+
+    let test_case_answer4 = [
+        '4.00000008338','0.50045004501', '11,129.9856631', '1','5',
+        '-109.666666667','0.1','0.00000000001','1','163,044.391754'
+    ]
+
+    ////////////////////////////////
+
+
+    for(let i=0;i<test_case_input.length;i++) {
+
+        it('testCase : '+i, function () {
+
+            let test = target.calculate(test_case_input[i]);
+            let error = test.isError === undefined ? false : test.isError
+            assert.strictEqual(error, test_case_output[i]);
+        });
+    }
+
+    // for(let i=0;i<test_case_input2.length;i++) {
+    //     it('testCase2 : '+i, function () {
+    //         let test = target.calculate(test_case_input2[i]);
+    //         console.log(test)
+    //         assert.strictEqual(test.isError, test_case_output2[i]);
+    //     });
+    // }
+    //
+    // for(let i=0;i<test_case_input3.length;i++) {
+    //
+    //     it('testCase3 : '+i, function () {
+    //
+    //         let test = target.calculate(test_case_input3[i]);
+    //         console.log(test)
+    //         assert.strictEqual(test.isError, test_case_output3[i]);
+    //     });
+    // }
+    //
+    // for(let i=0;i<test_case_input4.length;i++) {
+    //
+    //     it('testCase4 : '+i, function () {
+    //
+    //         let test = target.calculate(test_case_input4[i]);
+    //         console.log(test)
+    //         assert.strictEqual(test.isError, test_case_output4[i]);
+    //     });
+    // }
+
+});
+
+
+
+describe('Error Code Test', function () {
 
     // let test_case_input = [
     //     '1+++1','asin[90]','if[2,3,2]'
