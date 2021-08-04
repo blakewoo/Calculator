@@ -3,10 +3,13 @@ const assert = require('assert');
 
 describe.only('Final Calculator Test', function () {
 
+    // let test_case_input = [
+    //     '2+1','2-1','3*3','3/1','1-3*2',
+    //     'abs[3]','abs[-3]','sin[30]','abs[1-2]','if[1<2,1+2+3+4+2,2-3*2]',
+    //     'sin[1+2+27]','abs[-1*sin[90]]','(1-(2-3))','if[1>3,abs[2+3],sin[cos[90]]]', '2+++1'
+    // ]
     let test_case_input = [
-        '2+1','2-1','3*3','3/1','1-3*2',
-        'ABS[3]','ABS[-3]','SIN[30]','ABS[1-2]','IF[1<2,1+2+3+4+2,2-3*2]',
-        'SIN[1+2+27]','ABS[-1*SIN[90]]','(1-(2-3))','IF[1>3,ABS[2+3],SIN[COS[90]]]', '2+++1'
+        'if[1>3,abs[2+3],sin[cos[90]]]'
     ]
 
     let test_case_input2 = [
@@ -34,10 +37,13 @@ describe.only('Final Calculator Test', function () {
 
     //////////////////////////////// output
 
+    // let test_case_output = [
+    //     false,false,false,false,false,
+    //     false,false,false,false,false,
+    //     false,false,false,false,true
+    // ]
     let test_case_output = [
-        false,false,false,false,false,
-        false,false,false,false,false,
-        false,false,false,false,true
+        false
     ]
 
     let test_case_output2 = [
@@ -102,6 +108,10 @@ describe.only('Final Calculator Test', function () {
         it('testCase : '+i, function () {
 
             let test = target.calculate(test_case_input[i]);
+            let test2 = new target.Calc_object(test_case_input[i])
+            console.log("test2.get_parsed_data()")
+            console.log(test2.get_parsed_data())
+            console.log(test)
             let error = test.isError === undefined ? false : test.isError
             assert.strictEqual(error, test_case_output[i]);
         });

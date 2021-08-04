@@ -583,17 +583,17 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
             if(arr[start+1]==="f") {
                 let ifTracing = tracing_if_bracket_op(arr,start+2)
                 if(ifTracing.result) {
-                    if(tracing_comma(arr,start+2,2)) {
+                    if(tracing_comma(arr,start+3,2)) {
                         parsed_data.push("if");
                         parsed_type.push("function");
                         return {error:false,index:start+1};
                     }
                     else {
-                        return {error:true,error_code:"F-3",error_index:start};
+                        return {error:true,error_code:"F-3",error_index:ifTracing.error_index};
                     }
                 }
                 else {
-                    return {error:true,error_code:ifTracing.errorCode,error_index:start};
+                    return {error:true,error_code:ifTracing.errorCode,error_index:ifTracing.error_index};
                 }
             }
             else {
@@ -699,7 +699,7 @@ function tracing_comma (arr,start,comma_flag) {
 /**
  * if 내부 인자 체크하는 함수
  */
-function tracing_if_bracket_op (arr,start,bracket_flag) {
+function tracing_if_bracket_op (arr,start) {
     let remain_number = 1;
     let remain_unequal = true;
     if(arr[start]==="[") {
@@ -733,18 +733,18 @@ function tracing_if_bracket_op (arr,start,bracket_flag) {
                     remain_unequal = false;
 
                 if(arr[i] === "," && remain_unequal)
-                    return {result:false, errorCode:"F-2"};
+                    return {result:false, errorCode:"F-2", error_index:i};
 
                 if(remain_number === 0 && !remain_unequal)
                     return {result:true};
             }
         }
         else{
-            return {result:false, errorCode:"F-6"};
+            return {result:false, errorCode:"F-6", error_index:start+1};
         }
 
     }
-    return {result:false, errorCode:"F-4"};
+    return {result:false, errorCode:"F-4", error_index:start};
 }
 
 /**
@@ -767,7 +767,7 @@ Calc_object.prototype.parser = function () {
     for(let current_index=0;current_index<raw_data.length;current_index++) {
         // 앞 글자씩만 체크해서 체크하는 별도의 함수 제작할것
         // 현재 index를 받아서 제일 뒷 문자열까지 체크 한 뒤 연산자인지, 피연산자인지부터 피연산자면 그 값까지 반환하는 함수를 만들어야함.
-
+        console.log(current_index);
         switch (raw_data[current_index]) {
             case "1" :
             case "2" :
