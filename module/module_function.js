@@ -583,7 +583,7 @@ function tracing_fucntion (arr,start,parsed_data,parsed_type,parsed_index) {
             if(arr[start+1]==="f") {
                 let ifTracing = tracing_if_bracket_op(arr,start+2)
                 if(ifTracing.result) {
-                    if(tracing_comma(arr,start+3,2)) {
+                    if(tracing_comma(arr,start+2,2)) {
                         parsed_data.push("if");
                         parsed_type.push("function");
                         return {error:false,index:start+1};
@@ -723,7 +723,7 @@ function tracing_if_bracket_op (arr,start) {
                     i++; remain_unequal = false;
                 }
 
-                if(arr[i] === "<" && remain_unequal)
+                if(arr[i] === ">" && remain_unequal)
                     remain_unequal = false;
 
                 if(arr[i] === "<" && remain_unequal)
