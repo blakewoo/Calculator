@@ -101,7 +101,7 @@ describe.only('Final Calculator Test', function () {
 
         it('testCase : '+i, function () {
 
-            let test = target.calculate(test_case_input[i]);
+            let test = target.calculate(test_case_input2[i]);
             let test2 = new target.Calc_object(test_case_input2[i])
             console.log("test2.get_parsed_data()")
             console.log(test2.get_parsed_data())

@@ -97,7 +97,6 @@ let Calc_object = function(raw_data) {
  */
 Calc_object.prototype.total_calculation = function () {
     let result = calculating(this.postfix_array_data,this.postfix_array_type,this.postfix_array_index);
-    console.log(result);
     if(result.isError){
         return result;
     }
@@ -314,7 +313,6 @@ function trans_postfix (g_operation_rank,g_postfix_array_data,g_postfix_array_ty
             index_stack.pop()
         }
         else {
-            console.log(parsed_type[i])
             return {error:true,errorCode:'F-1',index:i};
         }
     }
@@ -365,7 +363,7 @@ function tracing_number (arr,start,parsed_data,parsed_type,parsed_index) {
         }
     }
     if( number_flag ===false) {
-        return {error:true,errorCode:'N-3',errorIndex:i}
+        return {error:true,errorCode:'N-3',errorIndex:arr.length}
         // 에러처리
     }
     else {
@@ -767,7 +765,6 @@ Calc_object.prototype.parser = function () {
     for(let current_index=0;current_index<raw_data.length;current_index++) {
         // 앞 글자씩만 체크해서 체크하는 별도의 함수 제작할것
         // 현재 index를 받아서 제일 뒷 문자열까지 체크 한 뒤 연산자인지, 피연산자인지부터 피연산자면 그 값까지 반환하는 함수를 만들어야함.
-        console.log(current_index);
         switch (raw_data[current_index]) {
             case "1" :
             case "2" :
