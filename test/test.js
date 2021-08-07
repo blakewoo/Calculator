@@ -9,6 +9,7 @@ describe.only('Final Calculator Test', function () {
         'sin[1+2+27]','abs[-1*sin[90]]','(1-(2-3))','if[1>3,abs[2+3],sin[cos[90]]]', '2+++1'
     ]
 
+
     let test_case_input2 = [
         '4.4.','45kkk','-(-1)-1)','5555555555555555555555555555555555555','(3)(3)',
         '3.','--1','1)','(','(1)(1)',
@@ -105,7 +106,6 @@ describe.only('Final Calculator Test', function () {
             let test2 = new target.Calc_object(test_case_input2[i])
             console.log("test2.get_parsed_data()")
             console.log(test2.get_parsed_data())
-            console.log(test)
             let error = test.isError === undefined ? false : test.isError
             assert.strictEqual(error, test_case_output2[i]);
         });
