@@ -663,6 +663,37 @@ function tracing_bracket (arr,start,bracket_flag) {
     }
 }
 
+
+/**
+ * 함수에 적절하게 괄호가 들어가 있는지 확인 하는 함수(닫는 괄호용)
+ * bracket_flag : 1-소괄호, 2-중괄호, 3-대괄호
+ */
+function revers_tracing_bracket (arr,start,bracket_flag) {
+    let remain_number = 1;
+    // 소괄호
+    if(bracket_flag===1) {
+        if(arr[start]===")") {
+            for(let i=start+1;i>=0;i--) {
+                if(arr[i] === "(") remain_number++;
+                if(arr[i] === ")") remain_number--;
+                if(remain_number === 0) return true;
+            }
+        }
+        return {error:true,errorCode:'F-4',errorIndex:start};
+    }
+    // 대괄호
+    else {
+        if(arr[start]==="]") {
+            for(let i=start+1;i>=0;i--) {
+                if(arr[i] === "[") remain_number++;
+                if(arr[i] === "]") remain_number--;
+                if(remain_number === 0) return true;
+            }
+        }
+        return {error:true,errorCode:'F-4',errorIndex:start};
+    }
+}
+
 /**
  * 2,3개 인자 함수에 적절히 쉼표가 들어가 있는지 확인 하는 함수
  * 괄호도 체크할 것
