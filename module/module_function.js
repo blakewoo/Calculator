@@ -669,11 +669,11 @@ function tracing_bracket (arr,start,bracket_flag) {
  * bracket_flag : 1-소괄호, 2-중괄호, 3-대괄호
  */
 function revers_tracing_bracket (arr,start,bracket_flag) {
-    let remain_number = 1;
+    let remain_number = 0;
     // 소괄호
     if(bracket_flag===1) {
         if(arr[start]===")") {
-            for(let i=start+1;i>=0;i--) {
+            for(let i=start;i>=0;i--) {
                 if(arr[i] === "(") remain_number++;
                 if(arr[i] === ")") remain_number--;
                 if(remain_number === 0) return true;
@@ -684,7 +684,7 @@ function revers_tracing_bracket (arr,start,bracket_flag) {
     // 대괄호
     else {
         if(arr[start]==="]") {
-            for(let i=start+1;i>=0;i--) {
+            for(let i=start;i>=0;i--) {
                 if(arr[i] === "[") remain_number++;
                 if(arr[i] === "]") remain_number--;
                 if(remain_number === 0) return true;
@@ -866,9 +866,15 @@ Calc_object.prototype.parser = function () {
                 }
             case ")" :
                 // 닫는 소괄호 검출 함수 있어야함.
-                parsed_data.push(")");
-                parsed_type.push("small_right_bracket");
-                parsed_index.push(current_index)
+                bracket_result = revers_tracing_bracket(raw_data,current_index,1)
+                if(!bracket_result.error) {
+                    parsed_data.push(")");
+                    parsed_type.push("small_right_bracket");
+                    parsed_index.push(current_index)
+                }
+                else{
+                    return {error:true,errorCode:bracket_result.errorCode,error_index:current_index};
+                }
                 continue;
             case "[" :
                 bracket_result = tracing_bracket(raw_data,current_index,3)
@@ -882,10 +888,16 @@ Calc_object.prototype.parser = function () {
                     return {error:true,errorCode:bracket_result.errorCode,error_index:current_index};
                 }
             case "]" :
-                parsed_data.push("]");
-                parsed_type.push("big_right_bracket");
-                parsed_index.push(current_index)
-                continue;
+                bracket_result = revers_tracing_bracket(raw_data,current_index,3)
+                if(!bracket_result.error) {
+                    parsed_data.push("]");
+                    parsed_type.push("big_right_bracket");
+                    parsed_index.push(current_index)
+                    continue;
+                }
+                else{
+                    return {error:true,errorCode:bracket_result.errorCode,error_index:current_index};
+                }
             case "." :
                 continue;
             case "," :

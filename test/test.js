@@ -42,7 +42,7 @@ describe.only('Final Calculator Test', function () {
     ]
 
     let test_case_output2 = [
-        true,true,true,true,true,
+        true,true,true,false,true,
         true,false,true,true,true,
         false,false,true,true,true,
         true,true,true, true,true,
@@ -101,10 +101,8 @@ describe.only('Final Calculator Test', function () {
     for(let i=0;i<test_case_input.length;i++) {
 
         it('testCase : '+i, function () {
-
             let test = target.calculate(test_case_input2[i]);
             let test2 = new target.Calc_object(test_case_input2[i])
-            console.log("test2.get_parsed_data()")
             console.log(test2.get_parsed_data())
             let error = test.isError === undefined ? false : test.isError
             assert.strictEqual(error, test_case_output2[i]);
