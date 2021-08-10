@@ -6,6 +6,7 @@
  *  연산자
  *  O-1 : 연속될 수 없는 연산자가 연속되어 나타났습니다.
  *  O-2 : 연산자의 인자 형태가 적절하지 않습니다.
+ *  O-3 : 연산자의 형태가 적절하지 않습니다.
  *  함수
  *  F-1 : 인식 할 수 없는 함수입니다.
  *  F-2 : 함수의 인자 형태가 적절하지 않습니다.
@@ -230,7 +231,13 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
         }
     }
 
-    return calc_stack.pop();
+    if(calc_stack.length === 1) {
+        return calc_stack.pop();
+    }
+    else {
+        return {isError:true,errorCode:"O-3"}
+    }
+
 }
 
 /**
