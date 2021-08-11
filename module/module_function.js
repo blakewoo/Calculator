@@ -957,6 +957,8 @@ function tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_ind
                 parsed_type.push("Operation");
                 parsed_index.push(current_index);
                 return true
+            case "-":
+                return true
             default:
                 return false;
 
@@ -976,6 +978,24 @@ function tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_ind
                 parsed_data.push("*");
                 parsed_type.push("Operation");
                 parsed_index.push(current_index);
+                return true
+            case "1":
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+            case "7":
+            case "8":
+            case "9":
+            case "0":
+            case "a" :
+            case "s" :
+            case "c" :
+            case "t" :
+            case "r" :
+            case "i" :
+            case "(" :
                 return true
             default:
                 return false;
