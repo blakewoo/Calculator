@@ -101,21 +101,22 @@ describe.only('Final Calculator Test', function () {
     for(let i=0;i<test_case_input.length;i++) {
 
         it('testCase : '+i, function () {
+            let test = target.calculate(test_case_input[i]);
+            let test2 = new target.Calc_object(test_case_input[i]);
+            test2.parser();
+            let error = test.isError === undefined ? false : test.isError
+            console.log('test2.get_parsed_data()',test2.get_parsed_data());
+            assert.strictEqual(error, test_case_output[i]);
+        });
+    }
+
+    for(let i=0;i<test_case_input2.length;i++) {
+        it('testCase2 : '+i, function () {
             let test = target.calculate(test_case_input2[i]);
-            let test2 = new target.Calc_object(test_case_input2[i])
-            console.log(test2.get_parsed_data())
             let error = test.isError === undefined ? false : test.isError
             assert.strictEqual(error, test_case_output2[i]);
         });
     }
-
-    // for(let i=0;i<test_case_input2.length;i++) {
-    //     it('testCase2 : '+i, function () {
-    //         let test = target.calculate(test_case_input2[i]);
-    //         console.log(test)
-    //         assert.strictEqual(test.isError, test_case_output2[i]);
-    //     });
-    // }
     //
     // for(let i=0;i<test_case_input3.length;i++) {
     //

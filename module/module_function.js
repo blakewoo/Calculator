@@ -235,6 +235,7 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
         return calc_stack.pop();
     }
     else {
+        console.log(postfix_data)
         return {isError:true,errorCode:"O-3"}
     }
 
