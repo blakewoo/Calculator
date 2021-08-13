@@ -966,7 +966,7 @@ function tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_ind
         }
     }
     else{
-        switch(raw_data[current_index-1]) {
+        switch(raw_data[current_index+1]) {
             case "+":
             case "-":
             case "*":
@@ -996,8 +996,7 @@ function tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_ind
             case "t" :
             case "r" :
             case "i" :
-            case "(" :
-                return true
+                return false
             default:
                 return false;
         }
