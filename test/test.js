@@ -117,16 +117,16 @@ describe.only('Final Calculator Test', function () {
             assert.strictEqual(error, test_case_output2[i]);
         });
     }
-    //
-    // for(let i=0;i<test_case_input3.length;i++) {
-    //
-    //     it('testCase3 : '+i, function () {
-    //
-    //         let test = target.calculate(test_case_input3[i]);
-    //         console.log(test)
-    //         assert.strictEqual(test.isError, test_case_output3[i]);
-    //     });
-    // }
+
+    for(let i=0;i<test_case_input3.length;i++) {
+
+        it('testCase3 : '+i, function () {
+
+            let test = target.calculate(test_case_input3[i]);
+            console.log(test)
+            assert.strictEqual(test.isError, test_case_output3[i]);
+        });
+    }
     //
     // for(let i=0;i<test_case_input4.length;i++) {
     //
