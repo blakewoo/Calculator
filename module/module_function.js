@@ -981,8 +981,6 @@ function tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_ind
             case "-":
             case "*":
             case "/":
-            case "[":
-            case "(":
                 parsed_data.push(-1);
                 parsed_type.push("Number");
                 parsed_index.push(current_index);
@@ -1006,6 +1004,8 @@ function tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_ind
             case "t" :
             case "r" :
             case "i" :
+            case "(":
+            case "[":
                 return false
             default:
                 return false;
