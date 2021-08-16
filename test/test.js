@@ -43,7 +43,7 @@ describe.only('Final Calculator Test', function () {
 
     let test_case_output2 = [
         true,true,true,false,true,
-        true,false,true,true,true,
+        true,true,true,true,true,
         false,false,true,true,true,
         true,true,true, true,true,
         true,true,false,true,false,
@@ -114,7 +114,9 @@ describe.only('Final Calculator Test', function () {
             let test = target.calculate(test_case_input2[i]);
             let test2 = new target.Calc_object(test_case_input2[i]);
             test2.parser();
+            test2.postfix_trans()
             console.log(test2.get_parsed_data())
+            console.log(test2.get_post_fix())
             let error = test.isError === undefined ? false : test.isError
             assert.strictEqual(error, test_case_output2[i]);
         });

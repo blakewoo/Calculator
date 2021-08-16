@@ -394,6 +394,9 @@ function tracing_operation (arr,start,parsed_data,parsed_type,parsed_index) {
         parsed_type.push("Operation")
     }
     else if(arr[start] === "-") {
+        if(arr[start+1] === "-") {
+            return false;
+        }
         parsed_data.push("-")
         parsed_type.push("Operation")
     }
@@ -957,8 +960,6 @@ function tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_ind
                 parsed_data.push("*");
                 parsed_type.push("Operation");
                 parsed_index.push(current_index);
-                return true
-            case "-":
                 return true
             default:
                 return false;
