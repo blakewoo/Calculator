@@ -349,6 +349,7 @@ function tracing_number (arr,start,parsed_data,parsed_type,parsed_index) {
         }
         else if(arr[i]==="." && check_dot===1) {
             temp_number += arr[i];
+            check_dot = 0;
             number_flag = false;
             // 이 값은 소수 단위로 넘어감
         }
@@ -935,6 +936,7 @@ Calc_object.prototype.parser = function () {
  * @returns {boolean}
  */
 function tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_index) {
+
     if(current_index === 0) {
         switch(raw_data[current_index+1]) {
             case "1":
