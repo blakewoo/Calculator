@@ -911,7 +911,12 @@ Calc_object.prototype.parser = function () {
                     return {error:true,errorCode:bracket_result.errorCode,error_index:current_index};
                 }
             case "." :
-                continue;
+                if(tracing_dot(raw_data,current_index)) {
+                    continue;
+                }
+                else{
+                    return {error:true,errorCode:'O-3',error_index:current_index};
+                }
             case "," :
                 parsed_data.push(",");
                 parsed_type.push("comma");
@@ -923,6 +928,18 @@ Calc_object.prototype.parser = function () {
     }
 
 
+}
+
+/**
+ * 점 개수 및 위치를 체크하는 함수
+ * @param raw_data
+ * @param current_index
+ */
+function tracing_dot(raw_data,current_index) {
+    if(raw_data[0] === '.')
+        return true
+    else
+        return false;
 }
 
 
