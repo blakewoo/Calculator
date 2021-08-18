@@ -937,9 +937,9 @@ Calc_object.prototype.parser = function () {
  */
 function tracing_dot(raw_data,current_index) {
     if(raw_data[0] === '.')
-        return true
+        return false
     else
-        return false;
+        return true;
 }
 
 
@@ -973,6 +973,7 @@ function tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_ind
             case "r" :
             case "i" :
             case "(" :
+            case '-' :
                 parsed_data.push(-1);
                 parsed_type.push("Number");
                 parsed_index.push(current_index);
@@ -986,7 +987,7 @@ function tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_ind
         }
     }
     else{
-        if(raw_data[current_index-1] === "(" || raw_data[current_index-1] === "[" ){
+        if(raw_data[current_index-1] === "(" || raw_data[current_index-1] === "["){
             parsed_data.push(-1);
             parsed_type.push("Number");
             parsed_index.push(current_index);
