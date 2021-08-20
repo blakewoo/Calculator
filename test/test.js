@@ -46,8 +46,8 @@ describe.only('Final Calculator Test', function () {
         true,true,true,true,true,
         true,true,true,true,true,
         true,true,true, true,true,
-        true,true,false,true,false,
-        false,true, true,true,false,
+        true,true,false,true,true,
+        true,true, true,true,false,
         true,true
     ]
 
