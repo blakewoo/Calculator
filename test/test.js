@@ -21,11 +21,11 @@ describe.only('Final Calculator Test', function () {
     ]
 
     let test_case_input3 = [
-        'IF[3!>=<4,1,2]','ROUND[11,-5555555]','ROUND[11,-25]','TAN[90]','COS[90]',
-        'COS[9999999990]','IF[>false<,3,4]','RRRRRRRRRRROUND', 'YOU WIN!','WE WIN!',
-        '1+ABS[]','23.1+23.2.','((2))=12','(1)==','(2)false',
-        '(2)-(-)','112312300-+22','ABCDEFG','IF[3>4=2,2,1]', 'ASIN[2]-[2]',
-        'ACOS[(2)1]','(1)-(1)','AS[false,D]','AS[false]','IF[3!>4=2,1,2]',
+        'if[3!>=<4,1,2]','round[11,-5555555]','round[11,-25]','tan[90]','cos[90]',
+        'cos[9999999990]','if[>false<,3,4]','RRRRRRRRRRROUND', 'YOU WIN!','WE WIN!',
+        '1+abs[]','23.1+23.2.','((2))=12','(1)==','(2)false',
+        '(2)-(-)','112312300-+22','ABCDEFG','IF[3>4=2,2,1]', 'asin[2]-[2]',
+        'acos[(2)1]','(1)-(1)','AS[false,D]','AS[false]','if[3!>4=2,1,2]',
     ]
 
     let test_case_input4 = [
@@ -123,25 +123,25 @@ describe.only('Final Calculator Test', function () {
         });
     }
 
-    // for(let i=0;i<test_case_input3.length;i++) {
-    //
-    //     it('testCase3 : '+i, function () {
-    //
-    //         let test = target.calculate(test_case_input3[i]);
-    //         console.log(test)
-    //         assert.strictEqual(test.isError, test_case_output3[i]);
-    //     });
-    // }
-    //
-    // for(let i=0;i<test_case_input4.length;i++) {
-    //
-    //     it('testCase4 : '+i, function () {
-    //
-    //         let test = target.calculate(test_case_input4[i]);
-    //         console.log(test)
-    //         assert.strictEqual(test.isError, test_case_output4[i]);
-    //     });
-    // }
+    for(let i=0;i<test_case_input3.length;i++) {
+
+        it('testCase3 : '+i, function () {
+
+            let test = target.calculate(test_case_input3[i]);
+            console.log(test)
+            assert.strictEqual(test.isError, test_case_output3[i]);
+        });
+    }
+
+    for(let i=0;i<test_case_input4.length;i++) {
+
+        it('testCase4 : '+i, function () {
+
+            let test = target.calculate(test_case_input4[i]);
+            console.log(test)
+            assert.strictEqual(test.isError, test_case_output4[i]);
+        });
+    }
 
 });
 
