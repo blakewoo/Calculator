@@ -1,14 +1,29 @@
 # Calculator
-##Introduction
+## Introduction
 
  ### Summary
- This web application is calculator   
+ I made this web calculator as a hobby    
+ I finished it by committing everyday bit by bit   
+ Hope you find this helpful 
+
 
  ### Information
- > Platform : nodejs express   
- > View engine : ejs   
- > Used language : HTML, CSS, Javascript(ECMA6)
- 
+ > Platform : Nodejs express   
+ > View engine : EJS   
+ > Used language : HTML, CSS, Javascript(ECMA6)   
+ > Test tool : Mocha
+
+ ### Directory structure
+ > bin : Excutable file   
+ > module : Database CRUD functions & core functions of this calculator   
+ > public - images : Background images   
+ > public - javascripts : Frontend function files   
+ > public - stylesheets : CSS files   
+ > routes : Page routing & function routing
+ > test : Test cases   
+ > views : EJS files   
+
  ### Release note
  
- * 2021-08-24 : version 0.9 release
+ * 2021-08-25 : version 0.9 release
+
