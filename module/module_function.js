@@ -675,6 +675,26 @@ function tracing_bracket (arr,start,bracket_flag) {
     }
 }
 
+/**
+ * 닫는 괄호 이후 오는 값 검사
+ * @param arr
+ * @param start
+ * @param bracket_flag
+ */
+function tracing_end_bracket (arr,start,bracket_flag) {
+   switch (arr[start+1]) {
+       case '-' :
+       case '+' :
+       case '*' :
+       case '/' :
+       case ')' :
+       case ']' :
+           return true;
+       default:
+           return false;
+   }
+}
+
 
 /**
  * 함수에 적절하게 괄호가 들어가 있는지 확인 하는 함수(닫는 괄호용)
@@ -880,9 +900,15 @@ Calc_object.prototype.parser = function () {
                 // 닫는 소괄호 검출 함수 있어야함.
                 bracket_result = revers_tracing_bracket(raw_data,current_index,1)
                 if(!bracket_result.error) {
-                    parsed_data.push(")");
-                    parsed_type.push("small_right_bracket");
-                    parsed_index.push(current_index)
+                    bracket_result = tracing_end_bracket(raw_data,current_index);
+                    if(bracket_result) {
+                        parsed_data.push(")");
+                        parsed_type.push("small_right_bracket");
+                        parsed_index.push(current_index)
+                    }
+                    else{
+                        return {error:true,errorCode:"O-1",error_index:current_index};
+                    }
                 }
                 else{
                     return {error:true,errorCode:bracket_result.errorCode,error_index:current_index};
@@ -902,10 +928,16 @@ Calc_object.prototype.parser = function () {
             case "]" :
                 bracket_result = revers_tracing_bracket(raw_data,current_index,3)
                 if(!bracket_result.error) {
-                    parsed_data.push("]");
-                    parsed_type.push("big_right_bracket");
-                    parsed_index.push(current_index)
-                    continue;
+                    bracket_result = tracing_end_bracket(raw_data,current_index);
+                    if(bracket_result) {
+                        parsed_data.push("]");
+                        parsed_type.push("big_right_bracket");
+                        parsed_index.push(current_index)
+                        continue;
+                    }
+                    else{
+                        return {error:true,errorCode:"O-1",error_index:current_index};
+                    }
                 }
                 else{
                     return {error:true,errorCode:bracket_result.errorCode,error_index:current_index};
