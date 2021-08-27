@@ -682,17 +682,24 @@ function tracing_bracket (arr,start,bracket_flag) {
  * @param bracket_flag
  */
 function tracing_end_bracket (arr,start,bracket_flag) {
-   switch (arr[start+1]) {
-       case '-' :
-       case '+' :
-       case '*' :
-       case '/' :
-       case ')' :
-       case ']' :
-           return true;
-       default:
-           return false;
-   }
+    if(start+1 !== arr.length) {
+        switch (arr[start+1]) {
+            case '-' :
+            case '+' :
+            case '*' :
+            case '/' :
+            case ')' :
+            case ']' :
+            case ',' :
+                return true;
+            default:
+                return false;
+        }
+    }
+    else {
+        return true;
+    }
+
 }
 
 
@@ -850,8 +857,14 @@ Calc_object.prototype.parser = function () {
                 continue;
             case "-" :
                 function_result = tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_index)
-                if(function_result) {
+                if(function_result.nagative) {
                     continue;
+                }
+                else if(function_result.error) {
+
+                }
+                else {
+
                 }
             case "+" :
             case "/" :
@@ -1012,9 +1025,9 @@ function tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_ind
                 parsed_data.push("*");
                 parsed_type.push("Operation");
                 parsed_index.push(current_index);
-                return true
+                return {nagative:true};
             default:
-                return false;
+                return {nagative:false};
 
         }
     }
@@ -1026,42 +1039,37 @@ function tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_ind
             parsed_data.push("*");
             parsed_type.push("Operation");
             parsed_index.push(current_index);
-            return true
+            return {nagative:true};
         }
-
-        switch(raw_data[current_index+1]) {
-            case "+":
-            case "-":
-            case "*":
-            case "/":
-                parsed_data.push(-1);
-                parsed_type.push("Number");
-                parsed_index.push(current_index);
-                parsed_data.push("*");
-                parsed_type.push("Operation");
-                parsed_index.push(current_index);
-                return true
-            case "1":
-            case "2":
-            case "3":
-            case "4":
-            case "5":
-            case "6":
-            case "7":
-            case "8":
-            case "9":
-            case "0":
-            case "a" :
-            case "s" :
-            case "c" :
-            case "t" :
-            case "r" :
-            case "i" :
-            case "(":
-            case "[":
-                return false
-            default:
-                return false;
+        else {
+            switch(raw_data[current_index+1]) {
+                case "+":
+                case "-":
+                case "*":
+                case "/":
+                    return {error:true};
+                case "1":
+                case "2":
+                case "3":
+                case "4":
+                case "5":
+                case "6":
+                case "7":
+                case "8":
+                case "9":
+                case "0":
+                case "a" :
+                case "s" :
+                case "c" :
+                case "t" :
+                case "r" :
+                case "i" :
+                case "(":
+                case "[":
+                    return {nagative:false};
+                default:
+                    return {nagative:false};
+            }
         }
     }
 }
