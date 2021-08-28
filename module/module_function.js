@@ -1032,7 +1032,7 @@ function tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_ind
         }
     }
     else{
-        if(raw_data[current_index-1] === "(" || raw_data[current_index-1] === "["){
+        if(raw_data[current_index-1] === "(" || raw_data[current_index-1] === "[" || raw_data[current_index-1] === "*" || raw_data[current_index-1] === "/" || raw_data[current_index-1] === "+" || raw_data[current_index-1] === "-"){
             parsed_data.push(-1);
             parsed_type.push("Number");
             parsed_index.push(current_index);
