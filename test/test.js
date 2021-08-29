@@ -44,9 +44,9 @@ describe.only('Final Calculator Test', function () {
     let test_case_output2 = [
         true,true,true,false,true,
         true,false,true,true,true,
-        true,true,true,true,true,
+        true,false,true,true,true,
         true,true,true, true,true,
-        true,true,true,true,true,
+        true,true,false,true,true,
         true,true, true,true,false,
         true,true
     ]

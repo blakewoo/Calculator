@@ -1033,13 +1033,21 @@ function tracing_minus(raw_data,current_index,parsed_data,parsed_type,parsed_ind
     }
     else{
         if(raw_data[current_index-1] === "(" || raw_data[current_index-1] === "[" || raw_data[current_index-1] === "*" || raw_data[current_index-1] === "/" || raw_data[current_index-1] === "+" || raw_data[current_index-1] === "-"){
-            parsed_data.push(-1);
-            parsed_type.push("Number");
-            parsed_index.push(current_index);
-            parsed_data.push("*");
-            parsed_type.push("Operation");
-            parsed_index.push(current_index);
-            return {nagative:true};
+            switch(raw_data[current_index+1]) {
+                case "+":
+                case "-":
+                case "*":
+                case "/":
+                    return {error:true};
+                default:
+                    parsed_data.push(-1);
+                    parsed_type.push("Number");
+                    parsed_index.push(current_index);
+                    parsed_data.push("*");
+                    parsed_type.push("Operation");
+                    parsed_index.push(current_index);
+                    return {nagative:true};
+            }
         }
         else {
             switch(raw_data[current_index+1]) {
