@@ -102,8 +102,6 @@ describe.only('Final Calculator Test', function () {
 
         it('testCase : '+i, function () {
             let test = target.calculate(test_case_input[i]);
-            let test2 = new target.Calc_object(test_case_input[i]);
-            test2.parser();
             let error = test.isError === undefined ? false : test.isError
             assert.strictEqual(error, test_case_output[i]);
         });
@@ -112,9 +110,6 @@ describe.only('Final Calculator Test', function () {
     for(let i=0;i<test_case_input2.length;i++) {
         it('testCase2 : '+i, function () {
             let test = target.calculate(test_case_input2[i]);
-            let test2 = new target.Calc_object(test_case_input2[i]);
-            test2.parser();
-            test2.postfix_trans()
             let error = test.isError === undefined ? false : test.isError
             assert.strictEqual(error, test_case_output2[i]);
         });
@@ -123,25 +118,19 @@ describe.only('Final Calculator Test', function () {
     for(let i=0;i<test_case_input3.length;i++) {
 
         it('testCase3 : '+i, function () {
+            let temp = test_case_input3[i];
             let test = target.calculate(test_case_input3[i]);
-            let test3 = new target.Calc_object(test_case_input3[i]);
             let error = test.isError === undefined ? false : test.isError
-            console.log(test3.get_parsed_data())
-            console.log(test3.get_post_fix())
-            console.log(test3.total_calculation())
             assert.strictEqual(error, test_case_output3[i]);
         });
+
     }
 
     for(let i=0;i<test_case_input4.length;i++) {
 
         it('testCase4 : '+i, function () {
             let test = target.calculate(test_case_input4[i]);
-            let test4 = new target.Calc_object(test_case_input4[i]);
             let error = test.isError === undefined ? false : test.isError
-            console.log(test4.get_parsed_data())
-            console.log(test4.get_post_fix())
-            console.log(test4.total_calculation())
             assert.strictEqual(error, test_case_output4[i]);
         });
     }

@@ -235,7 +235,6 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
         return calc_stack.pop();
     }
     else {
-        console.log(postfix_data)
         return {isError:true,errorCode:"O-3"}
     }
 
@@ -409,31 +408,81 @@ function tracing_operation (arr,start,parsed_data,parsed_type,parsed_index) {
         parsed_data.push("/")
         parsed_type.push("Operation")
     }
-    else if(arr[start] === "<" && arr[start+1] === "=") {
-        parsed_data.push("<=")
-        parsed_type.push("Operation")
-        parsed_index.push(start)
-        return start+1;
-    }
-    else if(arr[start] === ">" && arr[start+1] === "=") {
-        parsed_data.push(">=")
-        parsed_type.push("Operation")
-        parsed_index.push(start)
-        return start+1;
-    }
     else if(arr[start] === "<") {
-        parsed_data.push("<")
-        parsed_type.push("Operation")
+        switch (arr[start+1]) {
+            case "=":
+                parsed_data.push("<=")
+                parsed_type.push("Operation")
+                parsed_index.push(start)
+                return start + 1;
+            case "0":
+            case "1":
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+            case "7":
+            case "8":
+            case "9":
+            case "a":
+            case "s":
+            case "c":
+            case "t":
+            case "i":
+            case "r":
+            case "(":
+            case "[":
+                parsed_data.push(">")
+                parsed_type.push("Operation")
+                return start;
+            default:
+                return false;
+        }
     }
     else if(arr[start] === ">") {
-        parsed_data.push(">")
-        parsed_type.push("Operation")
+        switch (arr[start+1]) {
+            case "=":
+                parsed_data.push(">=")
+                parsed_type.push("Operation")
+                parsed_index.push(start)
+                return start + 1;
+            case "0":
+            case "1":
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+            case "7":
+            case "8":
+            case "9":
+            case "a":
+            case "s":
+            case "c":
+            case "t":
+            case "i":
+            case "r":
+            case "(":
+            case "[":
+                parsed_data.push("<")
+                parsed_type.push("Operation")
+                return start;
+            default:
+                return false;
+        }
+
     }
-    else if(arr[start] === "!"&& arr[start+1] === "=") {
-        parsed_data.push("!=")
-        parsed_type.push("Operation")
-        parsed_index.push(start)
-        return start+1;
+    else if(arr[start] === "!"){
+        if(arr[start+1] === "=") {
+            parsed_data.push("!=")
+            parsed_type.push("Operation")
+            parsed_index.push(start)
+            return start + 1;
+        }
+        else{
+            return false;
+        }
     }
     else if(arr[start] === "=") {
         parsed_data.push("=")
