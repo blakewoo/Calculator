@@ -25,5 +25,5 @@
 
  ### Release note
  
- * 2021-08-25 : version 0.9 release
+ * 2021-08-30 : version 1.0 beta release
 
