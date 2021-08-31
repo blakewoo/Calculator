@@ -19,7 +19,7 @@
  > public - images : Background images   
  > public - javascripts : Frontend function files   
  > public - stylesheets : CSS files   
- > routes : Page routing & function routing
+ > routes : Page routing & function routing   
  > test : Test cases   
  > views : EJS files   
 
