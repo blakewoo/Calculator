@@ -19,7 +19,13 @@ router.get('/logView', function(req, res, next) {
 
 
 router.post('/calculation/module',function (req,res,next) {
-  res.send(g_module.calculate(req.body.Data));
+  let result = g_module.calculate(req.body.Data)
+  if(result.isError) {
+    res.send(result);
+  }
+  else {
+    res.send({value:result});
+  }
 });
 
 // 연산 결과들 불러오기
