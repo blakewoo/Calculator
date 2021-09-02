@@ -25,5 +25,8 @@
 
  ### Release note
  
- * 2021-08-30 : version 1.0 beta release
+ * 2021-08-30 : version 1.0 beta release   
+ * 2021-09-01 : version 1.0.1   
+  -- fix bug : DB connection function modified  
+  -- add value : Add error code
 
