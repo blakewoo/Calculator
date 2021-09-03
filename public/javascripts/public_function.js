@@ -66,7 +66,7 @@ function requestCalculation(data,callback) {
     ajax_function('POST','/calculation/module',data,function (result){
         let calcResult = JSON.parse(result);
         if(calcResult.isError){
-           return callback(errorCode.get(calcResult.errorCode).toString());
+           return callback(Number(calcResult.error_index+1)+"번째 글자 : "+errorCode.get(calcResult.errorCode).toString());
         }
         else {
             return callback(calcResult.value.toString())
