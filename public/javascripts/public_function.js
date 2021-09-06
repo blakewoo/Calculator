@@ -66,7 +66,7 @@ function requestCalculation(data,callback) {
     ajax_function('POST','/calculation/module',data,function (result){
         let calcResult = JSON.parse(result);
         if(calcResult.isError){
-            if(isNaN(calcResult.error_index)) {
+            if(!calcResult.error_index || isNaN(calcResult.error_index)) {
                 return callback(errorCode.get(calcResult.errorCode).toString());
             }
             else{

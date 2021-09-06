@@ -170,10 +170,10 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
             }
 
             if(isNaN(tempResult)) {
-                return {isError:true,errorCode:"O-2",errorIndex:postfix_index[i]+2}
+                return {isError:true,errorCode:"O-2",error_index:postfix_index[i]+2}
             }
             else if(!isFinite(tempResult)) {
-                return {isError:true,errorCode:"N-1",errorIndex:postfix_index[i]}
+                return {isError:true,errorCode:"N-1",error_index:postfix_index[i]}
             }
 
             calc_stack.push(tempResult);
@@ -217,10 +217,10 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
             }
 
             if(isNaN(tempResult)) {
-                return {isError:true,errorCode:"O-1",errorIndex:postfix_index[i]+2}
+                return {isError:true,errorCode:"O-1",error_index:postfix_index[i]+2}
             }
             else if(!isFinite(tempResult)) {
-                return {isError:true,errorCode:"N-1",errorIndex:postfix_index[i]}
+                return {isError:true,errorCode:"N-1",error_index:postfix_index[i]}
             }
 
             calc_stack.push(tempResult);
