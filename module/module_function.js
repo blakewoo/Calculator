@@ -192,9 +192,15 @@ function calculating (postfix_array_data,postfix_array_type,postfix_array_index)
             }
             else if (postfix_data[i] === "asin") {
                 tempResult = Calc_object.prototype.asin(tempInput1);
+                if(isNaN(tempResult)) {
+                    return {isError:true,errorCode:"F-2",error_index:postfix_index[i]}
+                }
             }
             else if (postfix_data[i] === "acos") {
                 tempResult = Calc_object.prototype.acos(tempInput1);
+                if(isNaN(tempResult)) {
+                    return {isError:true,errorCode:"F-2",error_index:postfix_index[i]}
+                }
             }
             else if (postfix_data[i] === "atan") {
                 tempResult = Calc_object.prototype.atan(tempInput1);

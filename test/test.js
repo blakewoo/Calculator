@@ -33,6 +33,8 @@ describe.only('Final Calculator Test', function () {
         '12+0.666666666666*4-1-1*123+4/-12', '0.100000', '0.1*0.1*0.0000001*0.1*0.1', '(+1)', '0.01*0.0001*0.001+123123/12/2*12/11+2/3/42+123456/2/123+33333+(13+33)+2/45/1/2+123123+444'
     ]
 
+    let test_case_input5 = ['(asin[2])','(acos[2])']
+
     //////////////////////////////// output
 
     let test_case_output = [
@@ -64,6 +66,10 @@ describe.only('Final Calculator Test', function () {
         false,false,false,true,false
     ]
 
+    let test_case_output5 = [
+        true,true
+    ]
+
     //////////////////////////////// answers
 
     let test_case_answer = [
@@ -93,6 +99,10 @@ describe.only('Final Calculator Test', function () {
     let test_case_answer4 = [
         '4.00000008338','0.50045004501', '11,129.9856631', '1','5',
         '-109.666666667','0.1','0.00000000001','1','163,044.391754'
+    ]
+
+    let test_case_answer5 = [
+
     ]
 
     ////////////////////////////////
@@ -132,6 +142,16 @@ describe.only('Final Calculator Test', function () {
             let test = target.calculate(test_case_input4[i]);
             let error = test.isError === undefined ? false : test.isError
             assert.strictEqual(error, test_case_output4[i]);
+        });
+    }
+
+    for(let i=0;i<test_case_input5.length;i++) {
+
+        it('testCase5 : '+i, function () {
+            let test = target.calculate(test_case_input5[i]);
+            console.log(test);
+            let error = test.isError === undefined ? false : test.isError
+            assert.strictEqual(error, test_case_output5[i]);
         });
     }
 
