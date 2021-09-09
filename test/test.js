@@ -149,7 +149,6 @@ describe.only('Final Calculator Test', function () {
 
         it('testCase5 : '+i, function () {
             let test = target.calculate(test_case_input5[i]);
-            console.log(test);
             let error = test.isError === undefined ? false : test.isError
             assert.strictEqual(error, test_case_output5[i]);
         });
