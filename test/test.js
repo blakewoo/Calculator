@@ -33,7 +33,7 @@ describe.only('Final Calculator Test', function () {
         '12+0.666666666666*4-1-1*123+4/-12', '0.100000', '0.1*0.1*0.0000001*0.1*0.1', '(+1)', '0.01*0.0001*0.001+123123/12/2*12/11+2/3/42+123456/2/123+33333+(13+33)+2/45/1/2+123123+444'
     ]
 
-    let test_case_input5 = ['(asin[2])','(acos[2])','(atan[2])','(tan[2])']
+    let test_case_input5 = ['(asin[2])','(acos[2])','(atan[2])','(tan[2])','addds']
 
     //////////////////////////////// output
 
@@ -67,7 +67,7 @@ describe.only('Final Calculator Test', function () {
     ]
 
     let test_case_output5 = [
-        true,true,false,false
+        true,true,false,false,true
     ]
 
     //////////////////////////////// answers
