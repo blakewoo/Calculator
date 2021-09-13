@@ -168,3 +168,13 @@ body{
   cursor:pointer;
   background: rgba( 255, 255, 255, 0.5 );
 }
+
+.version_font{
+  position:absolute;
+  top:calc(100% - 25px);
+  left:calc(100% - 75px);
+  font-size: 11pt;
+  font-weight: bold;
+  color:#ffffff;
+  font-style: italic;
+}
